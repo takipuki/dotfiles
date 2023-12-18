@@ -1,0 +1,81 @@
+{
+  "layer": "top",
+    "modules-left": ["custom/arch", "hyprland/workspaces", "custom/add-workspace"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/minimize-button", "custom/close-button", "tray", "pulseaudio"],
+    "custom/arch": {
+      "format": "  ",
+      "tooltip": false,
+      "on-click": "wofi -f --show 'drun,run'"
+    },
+    "hyprland/workspaces": {
+      "format": "{name}",
+      "format": "{icon}",
+      "tooltip": false,
+      "all-outputs": true,
+    },
+    "custom/add-workspace": {
+      "format": "<span color='#F38BA8'><big>〉</big></span>",
+      "on-click": "hyprctl dispatch workspace empty",
+      /*"tooltip-format": "<big>Empty workspace</big>",*/
+      "tooltip": false,
+    },
+    "clock": {
+      "format": "<span color='#b4befe'> </span>{:%I:%M %p %a %d}",
+      "format-alt": "<span color='#b4befe'> </span>{:%I:%M %p}",
+      "tooltip-format": "<tt>{calendar}</tt>",
+    },
+    "custom/close-button": {
+      "format": "<span color='#F38BA8'></span>",
+      "on-click": "hyprctl dispatch killactive a",
+      "tooltip": false,
+    },
+    "custom/minimize-button": {
+      "format": "<span color='#89DCEB'>__</span>",
+      "on-click": "hyprctl dispatch movetoworkspacesilent special",
+      "tooltip": false,
+    },
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "<span color='#b4befe'>{icon}</span> {percent}%",
+      "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "tray": {
+        "icon-size": 20,
+        "reverse-direction": true,
+        "spacing": 6
+    },
+    "pulseaudio": {
+      "format": "<span color='#b4befe'>{icon}</span> {volume}%",
+      "format-muted": "<span color='#F38BA8'></span> {volume}%",
+      "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+      "tooltip": false,
+      "format-icons": {
+        "headphone": "",
+        "default": ["", "", "󰕾", "󰕾", "󰕾", "", "", ""]
+      },
+      "scroll-step": 5,
+      "on-click-right": "pavucontrol",
+    },
+    "bluetooth": {
+      "format": "<span color='#b4befe'></span> {status}",
+      "format-disabled": "", // an empty format will hide the module
+      "format-connected": "<span color='#b4befe'></span> {num_connections}",
+      "tooltip-format": "{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}   {device_address}"
+    },
+    "network": {
+      "interface": "wlo1",
+      "format": "{ifname}",
+      "format-wifi": "<span color='#b4befe'> </span>{essid}",
+      "format-ethernet": "{ipaddr}/{cidr} ",
+      "format-disconnected": "<span color='#b4befe'>󰖪 </span>No Network",
+      "tooltip": false,
+    },
+    "battery": {
+      "format": "<span color='#b4befe'>{icon}</span> {capacity}%",
+      "format-icons": ["", "", "", "", "", "", "", "", "", ""],
+      "format-charging": "<span color='#b4befe'></span> {capacity}%",
+      "tooltip": false,
+    },
+}

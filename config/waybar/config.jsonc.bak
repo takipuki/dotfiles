@@ -1,0 +1,168 @@
+// vim:set ft=jsonc:
+{
+  "position": "top",
+  "layer": "top",
+  "margin": 0,
+  "modules-left": [
+    "custom/arch-pill",
+    //"cpu",
+    //"memory",
+    //"temperature",
+    //"custom/cafeine"
+    "hyprland/workspaces",
+    "custom/add-workspace",
+  ],
+  //"modules-center": ["wlr/taskbar"],
+  "modules-right": [
+    "custom/minimize-button",
+    "custom/close-button",
+    "custom/special-workspace",
+    "tray",
+    //"network",
+    "pulseaudio",
+    "clock"
+  ],
+  // Modules configuration
+  "wlr/taskbar": {
+      "active-first": true,
+      "on-click": "activate",
+  },
+  "hyprland/window": {
+    "format": "{initialTitle}",
+    "rewrite": {
+      //"~": "kitty",
+      //"Mozilla Firefox": " ",
+      //"(.*) — Mozilla Firefox": "    $1",
+      "": "neovide",
+    },
+    "separate-outputs": true
+  },
+  "custom/add-workspace": {
+    "format": "+",
+    "on-click": "hyprctl dispatch workspace empty",
+    /*"tooltip-format": "<big>Empty workspace</big>",*/
+    "tooltip": false,
+  },
+  "custom/arch-pill": {
+    "format": "",
+    "on-click": "wofi --show run,drun",
+    "tooltip": false
+  },
+  "custom/bring-back-button": {
+    "format": "<span>-</span>",
+    "on-click": "hyprctl dispatch movetoworkspacesilent +0",
+    "tooltip": false,
+  },
+  "custom/minimize-button": {
+    "format": "<span>_</span>",
+    "on-click": "hyprctl dispatch movetoworkspacesilent special",
+    "tooltip": false,
+  },
+  "custom/close-button": {
+    "format": "<span></span>",
+    "on-click": "hyprctl dispatch killactive a",
+    "tooltip": false,
+  },
+  "custom/special-workspace": {
+    "format": "<span></span>",
+    "on-click": "hyprctl dispatch togglespecialworkspace",
+    "tooltip": false,
+  },
+  "hyprland/workspaces": {
+      "format": "{id}",
+      "format-icons": {
+        "active": "",
+        "default": ""
+      }
+      // "on-scroll-up": "hyprctl dispatch workspace e+1",
+      // "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "clock": {
+    "format": "<span>{:%I:%M %p %a %d}</span>",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "format-alt": "<span foreground='#89dceb'> </span>  <span>{:%I:%M %p}</span>",
+  },
+  "cpu": {
+    "format": "<span foreground='#89b4fa'></span>  {usage}%"
+  },
+  "memory": {
+    "format": "<span foreground='#f5e0dc'></span> {}%",
+    "on-click": "kitty htop"
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "<span foreground='#eba0ac'></span> {temperatureC}°C"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "<span foreground='#f9e2af'>{icon}</span>  {percent}%",
+    "states": [0, 50],
+    "format-icons": ["", ""],
+    "tooltip": false,
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "<span foreground='#a6e3a1'>{icon}</span>  {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "network": {
+    "format": "Loading",
+    "format-wifi": "{essid} ({signalStrength}%)",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "format-disconnected": "Disconnected",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "tooltip-format-wifi": "{essid}({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    //"on-click": "~/.config/rofi/scripts/wifi"
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "format": "<span size='13000' foreground='#fab387'>{icon}</span>  {volume}%",
+    "format-muted": "<span size='13000' foreground='#fab387'>{icon} </span>",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      //"default": ["奔", "墳"],
+      "default": ["", ""],
+    },
+    "on-click-right": "pavucontrol"
+  },
+  // "custom/cafeine": {
+  //   "format": "{icon}",
+  //   "return-type": "json",
+  //   "format-icons": {
+  //     "active": "<span foreground='#b4befe'></span>",
+  //     "inactive": "<span foreground='#cdd6f4'>󰒲</span>"
+  //   },
+  //   "interval": 20,
+  //   "exec": "~/.scripts/newm-cafeine",
+  // },
+  "custom/playerctl": {
+    "format": "{icon}   <span>{}</span>",
+    "return-type": "json",
+    "max-length": 30,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} ~ {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl previous",
+    "on-click-right": "playerctl next",
+    "format-icons": {
+      "Playing": "<span foreground='#94e2d5'></span>",
+      "Paused": "<span foreground='#f38ba8'></span>"
+    }
+  },
+  "tray": {
+    "icon-size": 20,
+    "reverse-direction": true,
+    "spacing": 6
+  },
+}
