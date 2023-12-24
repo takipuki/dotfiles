@@ -17,6 +17,6 @@ alias mv="mv -i"
 
 alias sorc="source ~/.zshrc"
 
-alias yt-audio="python ~/.local/script/yt-audio.py"
+alias yt="lua ~/.local/script/yt.lua"
 
 alias asciidoctor-pdf="/home/taki/.local/share/gem/ruby/3.0.0/bin/asciidoctor-pdf"

@@ -7,22 +7,6 @@ alias neovide="neovide -- --listen /tmp/nvimsocket"
 #    fi
 #}
 
-function yt-video () {
-    #echo '"'$*'"'
-    local OPTIND option
-    getopts ":l:" option
-    case $option in
-        l)
-            yt-dlp -q -o - $OPTARG | mpv -
-            ;;
-        *)
-            for query in $@
-            do
-                yt-dlp -q -o - ytsearch:'"'$query'"' | mpv -
-            done
-            ;;
-    esac
-}
 
 function uv () {
     sudo undervolt --core -$1 --cache -$1 --gpu -$1

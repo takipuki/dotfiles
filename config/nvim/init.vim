@@ -11,7 +11,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
-Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'dhruvasagar/vim-table-mode'
@@ -82,8 +82,8 @@ set statusline+=%=%(%y\ %l,%c%V\ %=\ %P%)
 
 "set nrformats+=alpha
 set number
-set nohlsearch
 set relativenumber
+set nohlsearch
 set colorcolumn=81
 set nowrap
 set expandtab
@@ -111,8 +111,8 @@ augroup AutoSaveFolds
 augroup END
 
 " filetype -------------------------------------------------------------------
-autocmd FileType datascript,asciidoc,tex,markdown,json,html,javascript,css,svelte,vim,clojure setlocal softtabstop=2 shiftwidth=2
-autocmd FileType rst setlocal softtabstop=3 shiftwidth=3
+autocmd FileType datascript,asciidoc,tex,json,html,javascript,css,svelte,vim,clojure setlocal softtabstop=2 shiftwidth=2
+autocmd FileType markdown,rst setlocal softtabstop=3 shiftwidth=3
 
 " maps -----------------------------------------------------------------------
 let mapleader = ","
@@ -143,9 +143,10 @@ ab sorc source $MYVIMRC
 lua local lsp = require('lsp-zero').preset({});lsp.on_attach(function(client, bufnr) lsp.default_keymaps({buffer = bufnr}) end);lsp.setup()
 lua vim.diagnostic.config({  virtual_text=false, update_in_insert=false }); vim.o.updatetime=250;
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})
-nnoremap <silent> <leader>lspq <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>lspr <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>lspf <cmd>lua vim.lsp.buf.format()<CR>
+nnoremap <silent> <leader>lsq <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>lsr <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>lsf <cmd>lua vim.lsp.buf.format()<CR>
+lua require("mason").setup()
 
 " nvim-tree ------------------------------------------------------------------
 let loaded_netrw = 1
@@ -174,6 +175,8 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 local lspconfig = require 'lspconfig'
 local root_pattern = require'lspconfig'.util.root_pattern
 require'lspconfig'.jdtls.setup{}
+require'lspconfig'.lua_ls.setup{}
+require'lspconfig'.clangd.setup{}
 require'lspconfig'.typst_lsp.setup{root_dir = root_pattern(".")}
 
 
