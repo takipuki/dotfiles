@@ -1,0 +1,25 @@
+width            = 100%
+height           = 100%
+border-width     = 0
+outline-width    = 0
+padding-left     = 35%
+padding-top      = 35%
+result-spacing   = 25
+num-results      = 5
+
+background-color = #000A
+text-color       = #EFF1F5
+selection-color  = #B4BEFE
+#default-result-color=#B4BEFE
+
+font             = /usr/share/fonts/TTF/JetBrainsMonoNerdFont-ExtraLight.ttf
+hint-font        = false
+ascii-input      = true
+
+fuzzy-match      = true
+require-match    = false
+
+drun-launch      = true
+
+text-cursor      = true
+prompt-text      = "|> "

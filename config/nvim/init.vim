@@ -22,6 +22,7 @@ Plug 'preservim/vim-markdown'
 Plug 'Olical/conjure'
 Plug 'PaterJason/cmp-conjure'
 Plug 'kaarmu/typst.vim'
+Plug 'nvim-orgmode/orgmode'
 
 Plug 'yegappan/mru'
 Plug 'nvim-tree/nvim-tree.lua'
@@ -84,7 +85,7 @@ set statusline+=%=%(%y\ %l,%c%V\ %=\ %P%)
 set number
 set relativenumber
 set nohlsearch
-set colorcolumn=81
+"set colorcolumn=81
 set nowrap
 set expandtab
 set tabstop=4
@@ -98,7 +99,8 @@ set undodir=/home/taki/.local/share/nvim/undo//
 set shell=/usr/bin/zsh
 syntax enable
 
-set guifont=JetBrainsMono\ Nerd\ Font:h13
+set guifont=JetBrainsMono\ Nerd\ Font:h14
+"let g:neovide_cursor_animation_length = 0
 set termguicolors
 colorscheme catppuccin-latte
 
@@ -111,8 +113,10 @@ augroup AutoSaveFolds
 augroup END
 
 " filetype -------------------------------------------------------------------
-autocmd FileType datascript,asciidoc,tex,json,html,javascript,css,svelte,vim,clojure setlocal softtabstop=2 shiftwidth=2
+autocmd FileType org,latex,json,html,javascript,css,vim,clojure setlocal softtabstop=2 shiftwidth=2
 autocmd FileType markdown,rst setlocal softtabstop=3 shiftwidth=3
+autocmd FileType markdown,djot nnoremap <buffer> } /#<CR>
+autocmd FileType markdown,djot nnoremap <buffer> { ?#<CR>
 
 " maps -----------------------------------------------------------------------
 let mapleader = ","
@@ -123,6 +127,7 @@ nnoremap <leader>nt :NvimTreeToggle<CR>
 nnoremap <leader>mr :MRU<CR>
 nnoremap <M-h> gT
 nnoremap <M-l> gt
+nnoremap <leader>q :qall<CR>
 nnoremap zy "+y
 nnoremap zp "+p
 nnoremap zY "+Y
@@ -137,11 +142,12 @@ tnoremap <esc> <C-\><C-n>
 
 " abbr -----------------------------------------------------------------------
 ab sorc source $MYVIMRC
-"ab nt NvimTreeToggle
 
 " lsp ------------------------------------------------------------------------
 lua local lsp = require('lsp-zero').preset({});lsp.on_attach(function(client, bufnr) lsp.default_keymaps({buffer = bufnr}) end);lsp.setup()
 lua vim.diagnostic.config({  virtual_text=false, update_in_insert=false }); vim.o.updatetime=250;
+"lua vim.api.nvim_create_autocmd("LspAttach", { callback = function(args) local client = vim.lsp.get_client_by_id(args.data.client_id) client.server_capabilities.semanticTokensProvider = nil end, });
+
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})
 nnoremap <silent> <leader>lsq <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>lsr <cmd>lua vim.lsp.buf.rename()<CR>
@@ -152,7 +158,12 @@ lua require("mason").setup()
 let loaded_netrw = 1
 let loaded_netrwPlugin = 1
 lua << EOF
-require("nvim-tree").setup()
+require("nvim-tree").setup {
+    system_open = {
+        cmd  = "gio",
+        args = { "open" }
+    }
+}
 local function open_nvim_tree(data)
 -- buffer is a directory
   local directory = vim.fn.isdirectory(data.file) == 1
@@ -171,10 +182,34 @@ local function open_nvim_tree(data)
 end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
+
+-- orgmode -------------------------------------------------------------------
+-- Load custom treesitter grammar for org filetype
+require('orgmode').setup_ts_grammar()
+
+-- Treesitter configuration
+require('nvim-treesitter.configs').setup {
+  -- If TS highlights are not enabled at all, or disabled via `disable` prop,
+  -- highlighting will fallback to default Vim syntax highlighting
+  highlight = {
+    enable = true,
+    -- Required for spellcheck, some LaTex highlights and
+    -- code block highlights that do not have ts grammar
+    additional_vim_regex_highlighting = {'org'},
+  },
+  ensure_installed = {'org'}, -- Or run :TSUpdate org
+}
+
+require('orgmode').setup({
+  org_agenda_files = {'~/Desktop/org/*'},
+  org_default_notes_file = '~/Desktop/org/refile.org',
+  org_highlight_latex_and_related = nil,
+})
+
+
 -- lsp -----------------------------------------------------------------------
 local lspconfig = require 'lspconfig'
 local root_pattern = require'lspconfig'.util.root_pattern
-require'lspconfig'.jdtls.setup{}
 require'lspconfig'.lua_ls.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.typst_lsp.setup{root_dir = root_pattern(".")}
@@ -200,6 +235,8 @@ cmp.setup {
     --{ name = 'cmp_luasnip' },
     { name = 'nvim_lsp' },
     { name = 'buffer' },
+    { name = 'path' },
+    { name = 'orgmode' },
     --{ name = 'conjure' },
   },
   mapping = cmp.mapping.preset.insert({

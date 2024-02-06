@@ -16,7 +16,7 @@
 @define-color maroon    #EBA0AC;
 
 @define-color bg-hover #1A1A28;
-@define-color bg #EFF1F5;
+@define-color bg @bas;
 
 @define-color accent @lavender;
 @define-color crust @dark-fg;
@@ -35,7 +35,7 @@ window#waybar {
   background: transparent;
 }
 
-#custom-arch, #workspaces {
+#custom-arch, #workspaces, #tags {
   border-radius: 10px;
   background-color: @bg;
   color: @fg;
@@ -52,14 +52,14 @@ window#waybar {
   color: @accent;
 }
 
-#workspaces button {
+#workspaces button, #tags button {
   padding-left: 5px;
   padding-right: 5px;
   background: @bg;
   color: @fg;
 }
 
-#workspaces button.active {
+#workspaces button.active, #tags button.focused {
   color: @red;
 }
 

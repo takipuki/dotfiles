@@ -22,6 +22,7 @@ PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 export EDITOR=nvim
+setopt HIST_IGNORE_ALL_DUPS
 
 source $HOME/.zsh/alias.sh
 source $HOME/.zsh/function.sh
@@ -30,4 +31,4 @@ source ~/.zsh/themes/catppuccin_latte-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Created by `pipx` on 2023-12-09 12:18:40
-export PATH="$PATH:/home/taki/.local/bin"
+#export PATH="$PATH:/home/taki/.local/bin"
