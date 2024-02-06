@@ -1,0 +1,11 @@
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+#+OPTIONS: html-postamble:nil
+#+OPTIONS: html-style:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/taki/Desktop/org/clean.css"/>
+#+HTML_DOCTYPE: html5
+
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage[a4paper, margin=1in]{geometry}

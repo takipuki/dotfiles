@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-26 Fri 09:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<p>
+;;; w3m-autoloads.el &#x2014; automatically extracted autoloads (do not edit)   -<b>- lexical-binding: t -</b>-
+;; Generated by the `loaddefs-generate' function.
+</p>
+
+<p>
+;; This file is part of GNU Emacs.
+</p>
+
+<p>
+;;; Code:
+</p>
+
+<p>
+(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
+</p>
+
+
+<p>
+
+;;; Generated autoloads from bookmark-w3m.el
+</p>
+
+<p>
+(autoload 'bookmark-w3m-bookmark-jump "bookmark-w3m" "\
+Default bookmark handler for w3m buffers.
+</p>
+
+<p>
+(fn BOOKMARK)")
+(register-definition-prefixes "bookmark-w3m" '("bookmark-w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from mime-w3m.el
+</p>
+
+<p>
+(autoload 'mime-w3m-preview-text/html "mime-w3m" "\
+</p>
+
+
+<p>
+(fn ENTITY SITUATION)")
+(register-definition-prefixes "mime-w3m" '("mime-w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m.el
+</p>
+
+<p>
+(autoload 'w3m-retrieve "w3m" "\
+Retrieve web contents pointed to by URL.
+It will put the retrieved contents into the current buffer.
+</p>
+
+<p>
+If HANDLER is nil, this function will retrieve web contents, return
+the content type of the retrieved data, and then come to an end.  This
+behavior is what is called a synchronous operation.  You have to
+specify HANDLER in order to make this function show its real ability,
+which is called an asynchronous operation.
+</p>
+
+<p>
+If HANDLER is a function, this function will come to an end in no time.
+In this case, contents will be retrieved by the asynchronous process
+after a while.  And after finishing retrieving contents successfully,
+HANDLER will be called on the buffer where this function starts.  The
+content type of the retrieved data will be passed to HANDLER as a
+string argument.
+</p>
+
+<p>
+NO-UNCOMPRESS specifies whether this function should not uncompress contents.
+NO-CACHE specifies whether this function should not use cached contents.
+POST-DATA and REFERER will be sent to the web server with a request.
+</p>
+
+<p>
+(fn URL &amp;optional NO-UNCOMPRESS NO-CACHE POST-DATA REFERER HANDLER)")
+(autoload 'w3m-download "w3m" "\
+Download contents of URL to a file named FILENAME.
+NO-CACHE is ignored (always download).
+</p>
+
+<p>
+(fn &amp;optional URL FILENAME NO-CACHE HANDLER POST-DATA)" t)
+(autoload 'w3m-goto-url "w3m" "\
+Visit World Wide Web pages in the current buffer.
+</p>
+
+<p>
+This is the primitive function of `w3m'.
+</p>
+
+<p>
+If the second argument RELOAD is non-nil, reload a content of URL.
+Except that if it is \\='redisplay, re-display the page without reloading.
+The third argument CHARSET specifies a charset to be used for decoding
+a content.
+The fourth argument POST-DATA should be a string or a cons cell.
+If it is a string, it makes this function request a body as if
+the content-type is \"x-www-form-urlencoded\".  If it is a cons cell,
+the car of a cell is used as the content-type and the cdr of a cell is
+used as the body.
+If the fifth argument REFERER is specified, it is used for a Referer:
+field for this request.
+The remaining HANDLER, ELEMENT[1], BACKGROUND, and SAVE-POS[2] are for
+the internal operations of emacs-w3m.
+You can also use \"quicksearch\" url schemes such as \"gg:emacs\" which
+would search for the term \"emacs\" with the Google search engine.
+See the `w3m-search' function and the variable `w3m-uri-replace-alist'.
+</p>
+
+<p>
+Notes for the developers:
+[1] ELEMENT is a history element which has already been registered in
+the `w3m-history-flat' variable.  It is corresponding to URL to be
+retrieved at this time, not for the url of the current page.
+</p>
+
+<p>
+[2] SAVE-POS leads this function to save the current emacs-w3m window
+configuration; i.e. to run `w3m-history-store-position'.
+`w3m-history-store-position' should be called in a w3m-mode buffer, so
+this will be convenient if a command that calls this function may be
+invoked in other than a w3m-mode buffer.
+</p>
+
+<p>
+(fn URL &amp;optional RELOAD CHARSET POST-DATA REFERER HANDLER ELEMENT BACKGROUND SAVE-POS)" t)
+(autoload 'w3m-goto-url-new-session "w3m" "\
+Visit World Wide Web pages in a new buffer.
+Open a new tab if you use tabs, i.e., `w3m-display-mode' is set to
+`tabbed' or `w3m-use-tab' is set to a non-nil value.
+</p>
+
+<p>
+The buffer will get visible if BACKGROUND is nil or there is no other
+emacs-w3m buffer regardless of BACKGROUND, otherwise (BACKGROUND is
+non-nil) the buffer will be created but not appear to be visible.
+BACKGROUND defaults to the value of `w3m-new-session-in-background',
+but it could be inverted if called interactively with the prefix arg.
+</p>
+
+<p>
+(fn URL &amp;optional RELOAD CHARSET POST-DATA REFERER BACKGROUND)" t)
+(autoload 'w3m-gohome "w3m" "\
+Go to the Home page." t)
+(autoload 'w3m-create-empty-session "w3m" "\
+Create an empty page as a new session and visit it." t)
+(autoload 'w3m "w3m" "\
+Visit World Wide Web pages using the external w3m command.
+</p>
+
+<p>
+If no emacs-w3m session already exists: If POINT is at a url
+string, visit that. Otherwise, if `w3m-home-page' is defined,
+visit that. Otherwise, present a blank page. This behavior can be
+over-ridden by setting variable `w3m-quick-start' to nil, in
+which case you will always be prompted for a URL.
+</p>
+
+<p>
+If an emacs-w3m session already exists: Pop to one of its windows
+or frames. You can over-ride this behavior by setting
+`w3m-quick-start' to nil, in order to always be prompted for a
+URL.
+</p>
+
+<p>
+In you have set `w3m-quick-start' to nil, but wish to over-ride
+default behavior from the command line, either run this command
+with a prefix argument or enter the empty string for the prompt.
+In such cases, this command will visit a url at the point or,
+lacking that, the URL set in variable `w3m-home-page' or, lacking
+that, the \"about:\" page.
+</p>
+
+<p>
+Any of five display styles are possible. See `w3m-display-mode'
+for a description of those options.
+</p>
+
+<p>
+You can also run this command in the batch mode as follows:
+</p>
+
+<p>
+emacs -f w3m <a href="http://emacs-w3m.namazu.org/">http://emacs-w3m.namazu.org/</a> &amp;
+</p>
+
+<p>
+In that case, or if this command is called non-interactively, the
+variables `w3m-pop-up-windows' and `w3m-pop-up-frames' will be ignored
+(treated as nil) and it will run emacs-w3m at the current (or the
+initial) window.
+</p>
+
+<p>
+If the optional NEW-SESSION is non-nil, this function creates a new
+emacs-w3m buffer.  Besides that, it also makes a new emacs-w3m buffer
+if `w3m-make-new-session' is non-nil and a user specifies a url string.
+</p>
+
+<p>
+The optional INTERACTIVE-P is for the internal use; it is mainly used
+to check whether Emacs calls this function as an interactive command
+in the batch mode.
+</p>
+
+<p>
+(fn &amp;optional URL NEW-SESSION INTERACTIVE-P)" t)
+(autoload 'w3m-browse-url "w3m" "\
+Ask emacs-w3m to browse URL.
+When called interactively, URL defaults to the string existing around
+the cursor position and looking like a url.  If the prefix argument is
+given[1] or NEW-SESSION is non-nil, create a new emacs-w3m session.
+If REFRESH-IF-EXISTS is non-nil, refresh the page if it already exists
+but is older than the site.
+</p>
+
+<p>
+[1] More precisely the prefix argument inverts the boolean logic of
+`browse-url-new-window-flag' that defaults to nil.
+</p>
+
+<p>
+(fn URL &amp;optional NEW-SESSION REFRESH-IF-EXISTS)" t)
+(autoload 'w3m-find-file "w3m" "\
+Function used to open FILE whose name is expressed in ordinary format.
+The file name will be converted into the file: scheme.
+</p>
+
+<p>
+(fn FILE)" t)
+(autoload 'w3m-region "w3m" "\
+Render the region of the current buffer between START and END.
+URL specifies the address where the contents come from.  It can be
+omitted or nil when the address is not identified.  CHARSET is used
+for decoding the contents.  If it is nil, this function attempts to
+parse the meta tag to extract the charset.
+</p>
+
+<p>
+(fn START END &amp;optional URL CHARSET)" t)
+(autoload 'w3m-buffer "w3m" "\
+Render the current buffer.
+See `w3m-region' for the optional arguments.
+</p>
+
+<p>
+(fn &amp;optional URL CHARSET)" t)
+(register-definition-prefixes "w3m" '("emacs-w3m-version" "w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-antenna.el
+</p>
+
+<p>
+(autoload 'w3m-about-antenna "w3m-antenna" "\
+</p>
+
+
+<p>
+(fn URL &amp;optional NO-DECODE NO-CACHE POST-DATA REFERER HANDLER)")
+(autoload 'w3m-antenna "w3m-antenna" "\
+Report changes of WEB sites, which is specified in `w3m-antenna-sites'.
+</p>
+
+<p>
+(fn &amp;optional NO-CACHE)" t)
+(register-definition-prefixes "w3m-antenna" '("w3m-antenna-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-bookmark.el
+</p>
+
+<p>
+(autoload 'w3m-bookmark-add-this-url "w3m-bookmark" "\
+Add link under cursor to bookmark." t)
+(autoload 'w3m-bookmark-add-current-url "w3m-bookmark" "\
+Add a url of the current page to the bookmark.
+With prefix, ask for a new url instead of the present one.
+</p>
+
+<p>
+(fn &amp;optional ARG)" t)
+(autoload 'w3m-bookmark-add-all-urls "w3m-bookmark" "\
+Add urls of all pages being visited to the bookmark." t)
+(autoload 'w3m-bookmark-add-current-url-group "w3m-bookmark" "\
+Add link of the group of current urls to the bookmark." t)
+(autoload 'w3m-bookmark-view "w3m-bookmark" "\
+Display the bookmark list in the current buffer.
+</p>
+
+<p>
+(fn &amp;optional RELOAD)" t)
+(autoload 'w3m-bookmark-view-new-session "w3m-bookmark" "\
+Display the bookmark list in a new buffer.
+</p>
+
+<p>
+(fn &amp;optional RELOAD)" t)
+(autoload 'w3m-about-bookmark "w3m-bookmark" "\
+</p>
+
+
+<p>
+(fn &amp;rest ARGS)")
+(autoload 'w3m-setup-bookmark-menu "w3m-bookmark" "\
+Setup w3m bookmark items in menubar.")
+(register-definition-prefixes "w3m-bookmark" '("w3m-bookmark-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-bug.el
+</p>
+
+<p>
+(autoload 'report-emacs-w3m-bug "w3m-bug" "\
+Report a bug in emacs-w3m.
+Prompts for bug subject.  Leaves you in a mail buffer.
+</p>
+
+<p>
+(fn TOPIC &amp;optional BUFFER)" t)
+(register-definition-prefixes "w3m-bug" '("report-emacs-w3m-bug-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-cookie.el
+</p>
+
+<p>
+(autoload 'w3m-cookie-shutdown "w3m-cookie" "\
+Save cookies, and reset cookies' data.
+</p>
+
+<p>
+(fn &amp;optional INTERACTIVE-P)" t)
+(autoload 'w3m-cookie-set "w3m-cookie" "\
+Register cookies which correspond to URL.
+BEG and END should be an HTTP response header region on current buffer.
+</p>
+
+<p>
+(fn URL BEG END)")
+(autoload 'w3m-cookie-get "w3m-cookie" "\
+Get a cookie field string which corresponds to the URL.
+</p>
+
+<p>
+(fn URL)")
+(autoload 'w3m-cookie "w3m-cookie" "\
+Display cookies and enable you to manage them.
+</p>
+
+<p>
+(fn &amp;optional NO-CACHE)" t)
+(autoload 'w3m-about-cookie "w3m-cookie" "\
+Make the html contents to display and to enable you to manage cookies.
+To delete all cookies associated with amazon.com for example, do it in
+the following two steps:
+</p>
+
+<ol class="org-ol">
+<li>Mark them `unused' (type `C-c C-c' or press any OK button).</li>
+</ol>
+
+<p>
+Limit to [amazon.com          ] &lt;= [ ]regexp  [OK]
+( )Noop  ( )Use all  (*)Unuse all  ( )Delete unused all  [OK]
+</p>
+
+<ol class="org-ol">
+<li>Delete cookies that are marked `unused'.</li>
+</ol>
+
+<p>
+Limit to [amazon.com          ] &lt;= [ ]regexp  [OK]
+( )Noop  ( )Use all  ( )Unuse all  (*)Delete unused all  [OK]
+</p>
+
+<p>
+You can mark cookies on the one-by-one basis of course.  The `Limit-to'
+string is case insensitive and allows a regular expression.
+</p>
+
+<p>
+(fn URL &amp;optional NO-DECODE NO-CACHE POST-DATA &amp;rest ARGS)")
+(register-definition-prefixes "w3m-cookie" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-dtree.el
+</p>
+
+<p>
+(autoload 'w3m-about-dtree "w3m-dtree" "\
+</p>
+
+
+<p>
+(fn URL &amp;optional NODECODE ALLFILES &amp;rest ARGS)")
+(autoload 'w3m-dtree "w3m-dtree" "\
+Display directory tree on local file system.
+If called with prefix argument, display all directories and files.
+</p>
+
+<p>
+(fn ALLFILES PATH)" t)
+(register-definition-prefixes "w3m-dtree" '("w3m-dtree-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-ems.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-ems" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-favicon.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-favicon" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-fb.el
+</p>
+
+<p>
+(defvar w3m-fb-mode nil "\
+Non-nil if W3m-Fb mode is enabled.
+See the `w3m-fb-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `w3m-fb-mode'.")
+(custom-autoload 'w3m-fb-mode "w3m-fb" nil)
+(autoload 'w3m-fb-mode "w3m-fb" "\
+Toggle W3M Frame Buffer mode.
+</p>
+
+<p>
+This allows frame-local lists of buffers (tabs).
+</p>
+
+<p>
+This is a global minor mode.  If called interactively, toggle the
+`W3m-Fb mode' mode.  If the prefix argument is positive, enable
+the mode, and if it is zero or negative, disable the mode.
+</p>
+
+<p>
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+</p>
+
+<p>
+To check whether the minor mode is enabled in the current buffer,
+evaluate `(default-value \\='w3m-fb-mode)'.
+</p>
+
+<p>
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+</p>
+
+<p>
+(fn &amp;optional ARG)" t)
+(register-definition-prefixes "w3m-fb" '("w3m-fb-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-filter.el
+</p>
+
+<p>
+(autoload 'w3m-filter "w3m-filter" "\
+Apply filtering rule of URL against a content in this buffer.
+</p>
+
+<p>
+(fn URL)")
+(autoload 'w3m-toggle-filtering "w3m-filter" "\
+Toggle whether to modify html source by the filters before rendering.
+With prefix arg, prompt for a single filter to toggle (a function
+toggled last will first appear) with completion.
+</p>
+
+<p>
+(fn ARG)" t)
+(register-definition-prefixes "w3m-filter" '("w3m-filter-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-form.el
+</p>
+
+<p>
+(autoload 'w3m-fontify-forms "w3m-form" "\
+Process half-dumped data and fontify forms in this buffer.")
+(register-definition-prefixes "w3m-form" '("w3m-fo"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-hist.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-hist" '("w3m-history"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-image.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-image" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-lnum.el
+</p>
+
+<p>
+(autoload 'w3m-lnum-mode "w3m-lnum" "\
+Minor mode to extend point commands by using Conkeror style number selection.
+With prefix ARG 0 disable battery included point functions, otherwise
+enable them.  With no prefix ARG - toggle.
+</p>
+
+<p>
+(fn &amp;optional ARG)" t)
+(autoload 'w3m-lnum-goto "w3m-lnum" "\
+Turn on link, image and form numbers and ask for one to go to.
+0 corresponds to location url." t)
+(autoload 'w3m-lnum-follow "w3m-lnum" "\
+Turn on link numbers, ask for one and execute appropriate action on it.
+If link - visit it, when button - press, when input - activate it,
+If image - toggle it.
+With prefix ARG visit link in new session or don't move over
+field/button/image on activation/push/toggle.
+With `-' ARG, for link image - go to it and toggle it, if link,
+visit in background.  With -4 ARG, for link image - toggle it.
+With double prefix ARG, prompt for url to visit.
+With triple prefix ARG, prompt for url to visit in new session.
+</p>
+
+<p>
+(fn ARG)" t)
+(autoload 'w3m-lnum-universal "w3m-lnum" "\
+Turn on link numbers, ask for one and offer actions over it.
+It will be done depending on the selection type.  Actions may be
+selected either by hitting corresponding key, pressing &lt;return&gt; over
+the action line or left clicking." t)
+(autoload 'w3m-lnum-toggle-inline-image "w3m-lnum" "\
+If image at point, toggle it.
+Otherwise turn on link numbers and toggle selected image.
+With prefix ARG open url under image in new session.
+If no such url, move over image and toggle it.
+</p>
+
+<p>
+(fn &amp;optional ARG)" t)
+(autoload 'w3m-lnum-view-image "w3m-lnum" "\
+Display the image under point in the external viewer.
+If no image at poing, turn on image numbers and display selected.
+The viewer is defined in `w3m-content-type-alist' for every type of an
+image." t)
+(autoload 'w3m-lnum-save-image "w3m-lnum" "\
+Save the image under point to a file.
+If no image at point, turn on image numbers and save selected.
+The default name will be the original name of the image." t)
+(autoload 'w3m-lnum-external-view-this-url "w3m-lnum" "\
+Launch the external browser and display the link at point.
+If no link at point, turn on link numbers and open selected externally." t)
+(autoload 'w3m-lnum-edit-this-url "w3m-lnum" "\
+Edit the page linked from the anchor under the cursor.
+If no such, turn on link numbers and edit selected." t)
+(autoload 'w3m-lnum-print-this-url "w3m-lnum" "\
+Display the url under point in the echo area and put it into `kill-ring'.
+If no url under point, activate numbering and select one." t)
+(autoload 'w3m-lnum-download-this-url "w3m-lnum" "\
+Download the file or the page pointed to by the link under point.
+If no point, activate numbering and select andchor to download." t)
+(autoload 'w3m-lnum-bookmark-add-this-url "w3m-lnum" "\
+Add link under cursor to bookmarks.
+If no link under point, activate numbering and ask for one." t)
+(register-definition-prefixes "w3m-lnum" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-mail.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-mail" '("w3m-mail"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-namazu.el
+</p>
+
+<p>
+(autoload 'w3m-about-namazu "w3m-namazu" "\
+</p>
+
+
+<p>
+(fn URL &amp;optional NO-DECODE NO-CACHE &amp;rest ARGS)")
+(autoload 'w3m-namazu "w3m-namazu" "\
+Search indexed files with Namazu.
+</p>
+
+<p>
+(fn INDEX QUERY &amp;optional RELOAD)" t)
+(register-definition-prefixes "w3m-namazu" '("w3m-namazu-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-perldoc.el
+</p>
+
+<p>
+(autoload 'w3m-about-perldoc "w3m-perldoc" "\
+</p>
+
+
+<p>
+(fn URL &amp;optional NO-DECODE NO-CACHE &amp;rest ARGS)")
+(autoload 'w3m-perldoc "w3m-perldoc" "\
+View Perl documents.
+</p>
+
+<p>
+(fn DOCNAME)" t)
+(register-definition-prefixes "w3m-perldoc" '("w3m-perldoc-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-proc.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-proc" '("w3m-process-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-rss.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-rss" '("w3m-rss-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-save.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-save" '("w3m-save-buffer"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-search.el
+</p>
+
+<p>
+(autoload 'w3m-search "w3m-search" "\
+Search QUERY using SEARCH-ENGINE.
+</p>
+
+<p>
+Search results will appear in the current buffer.
+</p>
+
+<p>
+When called interactively with a prefix argument, you can choose one of
+the search engines defined in `w3m-search-engine-alist'.  Otherwise use
+`w3m-search-default-engine'.
+If Transient Mark mode, use the region as an initial string of query
+and deactivate the mark.
+</p>
+
+<p>
+(fn SEARCH-ENGINE QUERY)" t)
+(autoload 'w3m-search-new-session "w3m-search" "\
+Like `w3m-search', but do the search in a new buffer.
+</p>
+
+<p>
+(fn SEARCH-ENGINE QUERY)" t)
+(autoload 'w3m-search-uri-replace "w3m-search" "\
+Generate query string for ENGINE from URI matched by last search.
+</p>
+
+<p>
+(fn URI ENGINE)")
+(register-definition-prefixes "w3m-search" '("w3m-search-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-session.el
+</p>
+
+<p>
+(autoload 'w3m-session-save "w3m-session" "\
+Save the current session (all currently open emacs-w3m buffers).
+</p>
+
+<p>
+The user will be prompted for a name for the saved session.  The
+saved session information will include, for each currently open
+emacs-w3m buffer: the current url and page title, and the
+buffer's url history." t)
+(autoload 'w3m-session-crash-recovery-remove "w3m-session" "\
+Remove crash recovery session set.")
+(autoload 'w3m-session-select "w3m-session" "\
+Select session from session list.
+Position point at N-th session if N is given.  With the
+prefix-argument, toggles the position of the popup window between
+being below or beside the main window.
+</p>
+
+<p>
+(fn &amp;optional N TOGGLE NOMSG)" t)
+(autoload 'w3m-setup-session-menu "w3m-session" "\
+Setup w3m session items in menubar.")
+(autoload 'w3m-session-last-autosave-session "w3m-session")
+(autoload 'w3m-session-last-crashed-session "w3m-session")
+(register-definition-prefixes "w3m-session" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-symbol.el
+</p>
+
+<p>
+(autoload 'w3m-replace-symbol "w3m-symbol")
+(register-definition-prefixes "w3m-symbol" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-tabmenu.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-tabmenu" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-util.el
+</p>
+
+<p>
+(register-definition-prefixes "w3m-util" '("w3m-"))
+</p>
+
+<p>
+
+;;; Generated autoloads from w3m-weather.el
+</p>
+
+<p>
+(autoload 'w3m-weather "w3m-weather" "\
+Display weather report.
+</p>
+
+<p>
+(fn AREA)" t)
+(autoload 'w3m-about-weather "w3m-weather" "\
+</p>
+
+
+<p>
+(fn URL NO-DECODE NO-CACHE POST-DATA REFERER HANDLER)")
+(register-definition-prefixes "w3m-weather" '("w3m-weather-"))
+
+;;; End of scraped data
+</p>
+
+<p>
+(provide 'w3m-autoloads)
+</p>
+
+<p>
+(defconst emacs-w3m-git-revision "55baf2b"
+  "Git revision string of this package.")
+</p>
+
+<p>
+(provide 'w3m-load)
+</p>
+
+<p>
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; no-update-autoloads: t
+;; no-native-compile: t
+;; coding: utf-8-emacs-unix
+;; End:
+</p>
+
+<p>
+;;; w3m-autoloads.el ends here
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2024-01-26 Fri 09:04</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

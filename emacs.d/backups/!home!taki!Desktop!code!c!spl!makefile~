@@ -1,0 +1,7 @@
+CC = gcc
+CFLAGS = 
+LINKS = -lm
+EXE = exe
+
+all: main.c
+	$(CC) $(CFLAGS) $(LINKS) $^ -o $(EXE)

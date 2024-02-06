@@ -1,0 +1,121 @@
+% Created 2024-01-30 Tue 00:28
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.2 (Org mode 9.6.17)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+;; -\textbf{- lexical-binding: t; -}-
+;; Emacs comes with package.el for installing packages.
+;; Try M-x list-packages to see what's available.
+(require 'package)
+(setq package-archives '(("melpa" . "\url{https://melpa.org/packages/}")
+                         ("melpa-stable" . "\url{https://stable.melpa.org/packages/}")
+                         ("elpa" . "\url{https://elpa.gnu.org/packages/}")))
+(package-initialize)
+
+;; setup.el provides a macro for configuration patterns
+;; it makes package installation and config nice and tidy!
+;; \url{https://www.emacswiki.org/emacs/SetupEl}
+(if (package-installed-p 'setup)
+    nil
+  (if (memq 'setup package-archive-contents)
+      nil
+    (package-refresh-contents))
+  (package-install 'setup))
+(require 'setup)
+
+
+(setq evil-want-C-i-jump nil)
+(require 'evil)
+(evil-mode 1)
+(evil-set-undo-system 'undo-redo)
+
+(setq scroll-step 1)
+(menu-bar-mode -1)
+(setq truncate-lines 1)
+
+(setq catppuccin-flavor 'latte) ;; or 'frappe, 'macchiato, or 'mocha
+(load-theme 'catppuccin :no-confirm)
+
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
+
+(set-frame-font "JetBrainsMono Nerd Font-14.5" nil t)
+(use-package ligature
+  :load-path "path-to-ligature-repo"
+  :config
+  ;; Enable all JetBrains Mono ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("-|" "-\texttt{" "-{}-{}-" "-<{}<{}" "-<" "-{}-{}" "->" "->{}>{}" "-{}-{}>" "///" "/=" "/=="
+                                      "/>" "//" "/*" "*>" "***" "*/" "<-" "<{}<{}-" "<=>" "<=" "<|" "<||"
+                                      "<|||" "<|>" "<:" "<>" "<-<" "<{}<{}<" "<==" "<{}<{}=" "<=<" "<==>" "<-|"
+                                      "<{}<{}" "<\textasciitilde{}>" "<=|" "<\textasciitilde{}}" "<\textasciitilde{}" "<\(>" "<\)" "<+>" "<+" "</>" "</" "<*"
+                                      "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "\texttt{>{}>{}"
+                                      "==>" "=/}" "\texttt{!}" "\texttt{>" "==}" "\texttt{:}" "\texttt{=" "!=}" "!!" "!=" ">]" ">:"
+                                      ">>-" ">>=" ">=>" ">>>" ">-" ">=" "\&\&\&" "\&\&" "|||>" "||>" "|>" "|]"
+                                      "|\}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+                                      "\ldots{}" "\sout{+}" "\sout{>" "+}" "[||]" "[<" "[|" "\{|" "??" "?." "?=" "?:" "\#\#"
+                                      "\#\#\#" "\#\#\#\#" "\#[" "\#\{" "\#=" "\#!" "\#:" "\#\textsubscript{(" "\#\_" "\#?" "\#(" ";;" "\uline{|}"
+                                      "\_\_" "\texttt{\textasciitilde{}" "\textasciitilde{}\textasciitilde{}>" "\textasciitilde{}>" "}-" "\textasciitilde{}@" "\$>" "\^{}=" "]\#"))}
+  ;; Enables ligature checks globally in all buffers. You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t))
+
+(load-file "\textasciitilde{}/.emacs.d/myfuncs.el")
+(require 'w3m-load)
+(require 'tagedit)
+(tagedit-mode 1)
+
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((sh . t)
+                               (lua . t)
+                               (C . t)))
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; All other features are loaded one by one from
+;; the customizations directory. Read those files
+;; to find out what they do.
+(add-to-list 'load-path "\textasciitilde{}/.emacs.d/customizations")
+
+(defvar addons
+  '("ui.el"
+    "navigation.el"
+    "projects.el"
+    "git.el"
+    "filetree.el"
+    "editing.el"
+    "elisp-editing.el"
+    "setup-clojure.el"
+    "setup-js.el"
+    "shell-integration.el"))
+
+(dolist (x addons)
+  (load x))
+
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file 'noerror)
+\end{document}

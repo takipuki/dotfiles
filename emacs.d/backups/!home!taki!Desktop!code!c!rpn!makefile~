@@ -1,0 +1,6 @@
+
+CC = gcc
+CFLAGS = -Wall -Wextra
+
+all: main.c
+	$(CC) $(CFLAGS) $^ -o a.out

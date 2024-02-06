@@ -1,0 +1,7 @@
+#include <stdio.h>
+
+int main(void) {
+    float n;
+    scanf("%f", &n);
+    (n < 0) ? printf("Negative\n") : printf("Positive\n");
+}

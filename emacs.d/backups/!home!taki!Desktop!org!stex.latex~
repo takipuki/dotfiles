@@ -1,0 +1,183 @@
+\documentcalss[11pt]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tabularx}
+
+\parindent
+
+\begin{document}
+%%%%%%%%%% page 01 %%%%%%%%%%
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: 25.08.2023
+\end{flushright}
+
+\begin{center}
+\LARGE Bill of Exchange
+\end{center}
+
+\vspace{\baselineskip}
+FIRST COPY
+
+\vspace{\baselineskip}
+Under documentary credit No. 0000223230400370 Date: 20.08.2023 export
+s/c Contact No: QUAZI/TFHK/44TT-585 Date: 26.07.2023,
+QUAZI/TFHK/ \\
+44TT-587 Date: 02.08.2023 drawn on Pubali Bank Limited,
+Gulshan Model town branch, Dhaka BD. exchange for us $\underline{6216.21}
+
+\vspace{\baselineskip}
+At 90 days sight of this first of exchange second copy of the same
+tenor of date being unpaid pay to be order of Islami Bank Bangladesh
+Limited, Madhabdi Branch, Narsingdi.
+
+\vspace{\baselineskip}
+The sum of USD \underline{Six Thousand Two Hundred Sixteen and Twinty-one} Cents
+only. Value received against supply of 9332 YDS fabrics.
+
+\vfill
+To, \\
+Pubali Bank Limited, \\
+Gulshan Model Town Branch, Dhaka BD.
+
+\vfill
+\begin{center}
+\large
+FACTORY: Rasulpur, Araihazar, Narayangonj, Bangladesh, Phone: 01713201958
+\end{center}
+
+
+
+\pagebreak
+# ######## page 02 ##########
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: 25.08.2023
+\end{flushright}
+
+\begin{center}
+\LARGE Bill of Exchange
+\end{center}
+
+\vspace{\baselineskip}
+SECOND COPY
+
+\vspace{\baselineskip}
+Under documentary credit No. 0000223230400370 Date: 20.08.2023 export
+s/c Contact No: QUAZI/TFHK/44TT-585 Date: 26.07.2023,
+QUAZI/TFHK/ \\
+44TT-587 Date: 02.08.2023 drawn on Pubali Bank Limited,
+Gulshan Model town branch, Dhaka BD. exchange for us $\underline{6216.21}
+
+\vspace{\baselineskip}
+At 90 days sight of this first of exchange first copy of the same
+tenor of date being unpaid pay to be order of Islami Bank Bangladesh
+Limited, Madhabdi Branch, Narsingdi.
+
+\vspace{\baselineskip}
+The sum of USD \underline{Six Thousand Two Hundred Sixteen and Twinty-one} Cents
+only. Value received against supply of 9332 YDS fabrics.
+
+\vfill
+To, \\
+Pubali Bank Limited, \\
+Gulshan Model Town Branch, Dhaka BD.
+
+\vfill
+\begin{center}
+\large
+FACTORY: Rasulpur, Araihazar, Narayangonj, Bangladesh, Phone: 01713201958
+\end{center}
+
+
+
+\pagebreak
+# ######## page 03 ##########
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: 25.08.2023
+\end{flushright}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+
+\begin{tabularx}{\textwidth}{
+  | >{\raggedright}X | >{\raggedright\arraybackslash}X |}
+
+\hline
+
+EXPORTER SYNERGY SEXTILE RASULPUR, ARAIHAZAR, NARAYANGONJ, BANGLADESH. 
+    &
+DOCUMENTARY CREDIT NO. 0000223230400370 DATES: 20.08.2023 EXPORT L/C
+NO. QUAZI/TFHK/44TT-585 DATE: 26.07.2023 QUAZI/TFHK/44TT-587 DATE:
+02.08.2023 \\
+\hline
+
+FOR ACCOUNT \& RISK QUAZI ABEDIN TEX LTD. SHOVAPUR. RAJFULBARIA, SAVAR, DHAKA, BANGLADESH & L/C ISSUING BANK PUBALI BANK LIMITED, GULSHAN MODEL TOWN BRANCH, DHAKA BD.                                                                                     \\
+\hline
+
+NOTIFY BANK PUBALI BANK LIMITED, GULSHAN MODEL TOWN BRANCH, DHAKA BD.                    
+    &
+REMARKS 'FREIGHT PREPAID'                                                                                                                                      \\
+\hline
+
+T/R POCKETING FABRICS                                                                    
+    &
+NO OF ROLLS: 80 TOTAL QUANTITY - 9332YDS                                                                                                                       \\
+\hline
+
+TOTAL QUANTITY NINE THOUSAND THREE HUNDRED THIRTY-TWO ONLY.                              
+    &
+TOTAL – 9332 YDS \\
+\hline
+
+\end{tabularx}
+\end{center}
+
+\end{document}

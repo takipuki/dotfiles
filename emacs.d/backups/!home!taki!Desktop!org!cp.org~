@@ -1,0 +1,614 @@
+#+TITLE: Codeforces
+
+#+OPTIONS: toc:nil
+#+OPTIONS: num:0
+
+#+OPTIONS: html-postamble:nil
+#+OPTIONS: html-style:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="asciidoctor.css" />
+#+HTML_DOCTYPE: html5
+
+* 0800
+** 1328a.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    scanf("%d", &n);
+
+    int a, b, r;
+    for (; n > 0; n--) {
+        scanf("%d %d", &a, &b);
+
+        if (a < b)
+            printf("%d\n", b-a);
+        else if ((r = a % b) == 0)
+            printf("0\n");
+        else
+            printf("%d\n", b-r);
+    }
+}
+#+end_src
+
+** 144a.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    scanf("%d", &n);
+
+    int max_indx = 0;
+    int min_indx = n-1;
+    int max = 1;
+    int min = 100;
+    int temp = 0;
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &temp);
+
+        if (temp > max) {
+            max = temp;
+            max_indx = i;
+        }
+        if (temp <= min) {
+            min = temp;
+            min_indx = i;
+        }
+    }
+
+    int seconds = max_indx + (n-1 - min_indx);
+    if (max_indx > min_indx)
+        seconds--;
+
+    printf("%d\n", seconds);
+    return 0;
+}
+#+end_src
+
+** 148a.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int k, l, m, n, d;
+    scanf(" %d %d %d %d %d", &k, &l, &m, &n, &d);
+
+    int count = 0;
+    for (int i = 1; i <= d; i++) {
+        if ( i % k == 0 || i % l == 0 || i % m == 0 || i % n == 0 )
+            count++;
+    }
+
+    printf("%d\n", count);
+}
+#+end_src
+
+** 427a.c
+#+begin_src C
+#include <stdio.h>
+
+#define rep(i, n) for (int i = 0; i < (n); i++)
+
+int main(void) {
+    int n;
+    scanf("%d", &n);
+
+    int c = 0; // unnoticed crimes
+    int p = 0; // polices
+    int temp;
+    rep(i, n) {
+        scanf("%d", &temp);
+        if (temp > 0)       // recruit
+            p += temp;
+        else if (p > 0)     // crime and have police
+            p--;
+        else                // no police :'(
+            c++;
+    }
+    printf("%d\n", c);
+}
+#+end_src
+
+** 469a.c
+#+begin_src C
+#include <stdio.h>
+
+#define loop(i, n, s) for (int i; i < (n); i += (s))
+#define rep(i, n) for (int i; i < (n); i++)
+
+int main(void) {
+    int n;
+    scanf("%d", &n);
+
+    int count[n];
+    rep(i, n)
+        count[i] = 0;
+
+    int p;
+    scanf("%d", &p);
+    int lit_x[p];
+    rep(i, p) {
+        scanf("%d", lit_x+i);
+        count[lit_x[i]-1]++;
+    }
+
+    int q;
+    scanf("%d", &q);
+    int lit_y[q];
+    rep(i, q) {
+        scanf("%d", lit_y+i);
+        count[lit_y[i]-1]++;
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (count[i] == 0) {
+            printf("Oh, my keyboard!\n");
+            return 0;
+        }
+    }
+    printf("I become the guy.\n");
+}
+#+end_src
+
+** 520a.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    scanf("%d ", &n);
+
+    if (n < 26) {
+        printf("NO\n");
+        return 0;
+    }
+
+    int counter[26] = {0};
+    char ch;
+    for (; n > 0; n--) {
+        scanf("%c", &ch);
+
+        if (ch < 'a')
+            counter[ch-'A']++;
+        else
+            counter[ch-'a']++;
+    }
+
+    for (int i = 0; i < 26; i++) {
+        if (counter[i] == 0) {
+            printf("NO\n");
+            return 0;
+        }
+    }
+
+    printf("YES\n");
+    return 0;
+}
+#+end_src
+
+* 0900
+** 1475b.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int t, n;
+    scanf("%d", &t);
+
+    for (; t > 0; t--) {
+        scanf("%d", &n);
+        int yes = 0;
+
+        if (n % 2021 == 0) {
+            yes = 1;
+            goto print;
+        }
+
+        for (; n >= 2020; n -= 2021) {
+            if (n % 2020 == 0) {
+                yes = 1;
+                goto print;
+            }
+        }
+
+print:  if (yes) printf("YES\n");
+        else printf("NO\n");
+    }
+}
+#+end_src
+
+** 208a.c
+#+begin_src C
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int main(void) {
+    char *dub = malloc(202 * sizeof(char));
+    char *song = malloc(202 * sizeof(char));
+
+    scanf("%s", dub);
+
+    char ch;
+    int i = 0, j = 0;
+    bool insert_space = false; // spaces between words
+
+    for (; (ch = dub[i]) != '\0'; i++) {
+        // check for "WUB"
+        if (ch == 'W' && dub[i+1] == 'U' && dub[i+2] == 'B') {
+            i += 2; // skip "WUB"
+            insert_space = true;
+        } else {
+            if (insert_space) {
+                insert_space = false;
+                song[j++] = ' ';
+            }
+            song[j++] = ch;
+        }
+    }
+
+    song[j] = '\0';
+    if (song[0] == ' ')
+        printf("%s\n", song+1); // skipping the first space
+    else
+        printf("%s\n", song);
+}
+#+end_src
+
+** 580a.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    scanf(" %d", &n);
+
+    int best_len = 0, curr_len = 0;
+    int prev = 0, temp;
+    for (; n > 0; n--) {
+        scanf(" %d", &temp);
+
+        if (temp < prev) {
+            if (best_len < curr_len) {
+                best_len = curr_len;
+            }
+            curr_len = 0;
+        }
+
+        curr_len++;
+        prev = temp;
+    }
+
+    if (best_len < curr_len) {
+        best_len = curr_len;
+    }
+
+    printf("%d\n", best_len);
+}
+#+end_src
+
+* 1000
+** 230a.c
+#+begin_src C
+#include <stdio.h>
+#include <stdlib.h>
+
+#define rep(i, n) for (int i=0;i<(n);i++)
+
+int compare(const void *a, const void* b) {
+    return *(int*)a - *(int*)b;
+}
+
+int main(void) {
+    int s, n;
+    scanf("%d %d", &s, &n);
+
+    int (*arr)[2] = malloc(sizeof(int[n][2]));
+    rep(i, n)
+        scanf("%d %d", *(arr+i), *(arr+i)+1);
+
+    qsort(arr, n, sizeof(int)*2, compare);
+
+    rep(i, n) {
+        if (arr[i][0] >= s) {
+            printf("NO\n");
+            return 0;
+        }
+        s += arr[i][1];
+    }
+    printf("YES\n");
+
+    free(arr);
+}
+#+end_src
+
+** 339b.c
+#+begin_src C
+#include <stdio.h>
+
+#define rep(i, n) for (int i = 0; i < (n); i++)
+
+int main(void) {
+    int n, m;
+    scanf("%d %d", &n, &m);
+
+    long long curr = 1;
+    long long time = 0;
+    long long temp;
+    rep(i, m) {
+        scanf("%lld", &temp);
+        if (temp < curr)
+            time += n - curr + temp;
+        else
+            time += temp - curr;
+        curr = temp;
+    }
+
+    printf("%lld\n", time);
+}
+#+end_src
+
+** 58a.c
+#+begin_src C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    char *str = malloc(sizeof(char)*100);
+    scanf("%s", str);
+    char hello[] = "hello";
+
+    int str_indx = 0;
+    int found = 1; // default match status true
+    for (int i = 0; found && hello[i] != '\0'; i++) { // stop if not found or finished looping hello
+        for (; ; str_indx++) {
+            if (str[str_indx] == '\0') found = 0; // finished str before hello so not found
+
+            if (str[str_indx] == hello[i]) {
+                str_indx++;
+                break;
+            }
+        }
+    }
+
+    if (found)
+        printf("YES\n");
+    else
+        printf("NO\n");
+
+    return 0;
+}
+#+end_src
+
+* 1100
+** 158b.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    scanf(" %d", &n);
+
+    int counter[4] = {0};
+    int temp;
+    for (; n > 0; n--) {
+        scanf(" %d", &temp);
+        counter[temp-1]++;
+    }
+
+    int cars = 0;
+
+    cars += counter[3]; // groups of 4 need 1 car per group
+
+    cars += counter[2]; // groups of 3 have 1 seat empty
+    counter[0] -= counter[2]; // lonely guys go with groups of 3
+
+    cars += counter[1] / 2;
+    if (counter[1] % 2 != 0) { // a single group of 2 has 2 seats empty
+        cars++;
+        counter[0] -= 2; // 2 lone guys go with a group of 2
+    }
+
+    if (counter[0] > 0) { // lone guys left
+        cars += counter[0] / 4;
+        if (counter[0] % 4 != 0)
+            cars++;
+    }
+
+    printf("%d\n", cars);
+}
+#+end_src
+
+** 174a.c
+#+begin_src C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    int n, b;
+    scanf(" %d %d", &n, &b);
+
+    int *mugs = malloc(n * sizeof(int));
+    int temp, sum_mugs = 0;
+    for (int i = 0; i < n; i++) {
+        scanf(" %d", &temp);
+        sum_mugs += temp;
+        mugs[i] = temp;
+    }
+
+    double per_mug = (double)(b + sum_mugs) / n;
+
+    for (int i = 0; i < n; i++) {
+        if (mugs[i] > per_mug) {
+            printf("-1\n");
+            return 0;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("%f\n", per_mug - mugs[i]);
+    }
+
+    free(mugs);
+}
+#+end_src
+
+** 178a3.c
+#+begin_src C
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    long long n;
+    scanf(" %lld", &n);
+
+    long long *arr = malloc(n * sizeof(long long));
+    for (long long i = 0; i < n; i++)
+        scanf(" %lld", arr+i);
+
+    long long prev_moves = 0;
+    long long temp;
+    for (long long i = 0; i < n-1; i++) { // skipping last one
+        temp = arr[i];
+        arr[i] = 0;
+        printf("%lld\n", prev_moves+temp);
+
+        prev_moves += temp;
+        arr[ i + (long long) pow(2, (int) log2(n-(1+i))) ] += temp;
+    }
+}
+#+end_src
+
+* 1200
+** 492b.c
+#+begin_src C
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+#define rep(i, n) for (int i = 0; i < (n); i++)
+
+int compare(const void *a, const void* b) {
+    return *(int*)a - *(int*)b;
+}
+
+int main(void) {
+    int n, l;
+    scanf("%d %d", &n, &l);
+
+    int *arr = malloc(sizeof(int[n]));
+    rep(i, n) scanf("%d", arr+i);
+    qsort(arr, n, sizeof(int), compare);
+
+    double max = 0;
+    rep(i, n-1)
+        max = fmax(max, arr[i+1]-arr[i]);
+    double radius = max/2.0;
+
+    radius = fmax(radius, arr[0]);
+    radius = fmax(radius, l-arr[n-1]);
+
+    printf("%f\n", radius);
+
+    free(arr);
+}
+#+end_src
+
+* 1300
+** 189a.c
+#+begin_src C
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int comp(const void *a, const void *b) {
+    return *(int*)a - *(int*)b;
+}
+
+
+int pieces_with_two(int a, int b, int n) {
+    int pieces = 0;
+    int temp = n-b;
+    for (int i = 1; temp > 0; i++) {
+        if (temp % a == 0)
+            return i + temp/a;
+        temp -= b;
+    }
+    return 0;
+}
+
+
+int main(void) {
+    int n, arr[3];
+    scanf("%d%d%d%d", &n, arr, arr+1, arr+2);
+    qsort(arr, 3, sizeof(int), *comp);
+
+    int max_pieces = 0;
+    if (n % arr[0] == 0 && n/arr[0] > max_pieces) max_pieces = n/arr[0];
+    if (n % arr[1] == 0 && n/arr[1] > max_pieces) max_pieces = n/arr[1];
+    if (n % arr[2] == 0 && n/arr[2] > max_pieces) max_pieces = n/arr[2];
+
+    if (arr[0] + arr[1] <= n) {
+        int pieces = pieces_with_two(arr[0], arr[1], n);
+        if (pieces > max_pieces)
+            max_pieces = pieces;
+    }
+
+    if (arr[0] + arr[2] <= n) {
+        int pieces = pieces_with_two(arr[0], arr[2], n);
+        if (pieces > max_pieces)
+            max_pieces = pieces;
+    }
+
+    if (arr[1] + arr[2] <= n) {
+        int pieces = pieces_with_two(arr[1], arr[2], n);
+        if (pieces > max_pieces)
+            max_pieces = pieces;
+    }
+
+    if (arr[0]+arr[1]+arr[2] <= n) {
+        int pieces = 0;
+        int temp = n - arr[2];
+        for (int i = 1; temp > 0; i++) {
+            pieces = i + pieces_with_two(arr[0], arr[1], temp);
+            if (pieces > max_pieces)
+                max_pieces = pieces;
+
+            temp -= arr[2];
+        }
+    }
+    printf("%d\n", max_pieces);
+}
+#+end_src
+
+** 25a.c
+#+begin_src C
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    scanf(" %d", &n);
+
+    int counter[2] = {0};
+    int even_indx, odd_indx, temp;
+    for (int i = 0; i < n; i++) {
+        scanf(" %d", &temp);
+
+        if (temp % 2 == 0) {
+            counter[0]++;
+            even_indx = i;
+        } else {
+            counter[1]++;
+            odd_indx = i;
+        }
+    }
+
+    if (counter[0] == 1)
+        printf("%d\n", even_indx+1);
+    else
+        printf("%d\n", odd_indx+1);
+}
+#+end_src
+
