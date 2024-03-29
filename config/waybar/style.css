@@ -1,26 +1,43 @@
-@define-color bas       #EFF1F5;
-@define-color blue      #89B4FA;
-@define-color sky       #89DCEB;
-@define-color red       #F38BA8;
-@define-color pink      #F5C2E7;
-@define-color lavender  #B4BEFE;
-@define-color rosewater #F5E0DC;
-@define-color flamingo  #F2CDCD;
-@define-color fg        #4C4F69;
-@define-color green     #A6E3A1;
+@define-color Rosewater #f2d5cf;
+@define-color Flamingo  #eebebe;
+@define-color Pink      #f4b8e4;
+@define-color Mauve     #ca9ee6;
+@define-color Red       #e78284;
+@define-color Maroon    #ea999c;
+@define-color Peach     #ef9f76;
+@define-color Yellow    #e5c890;
+@define-color Green     #a6d189;
+@define-color Teal      #81c8be;
+@define-color Sky       #99d1db;
+@define-color Sapphire  #85c1dc;
+@define-color Blue      #8caaee;
+@define-color Lavender  #babbf1;
+@define-color Text      #c6d0f5;
+@define-color Subtext1  #b5bfe2;
+@define-color Subtext0  #a5adce;
+@define-color Overlay2  #949cbb;
+@define-color Overlay1  #838ba7;
+@define-color Overlay0  #737994;
+@define-color Surface2  #626880;
+@define-color Surface1  #51576d;
+@define-color Surface0  #414559;
+@define-color Base      #303446;
+@define-color Mantle    #292c3c;
+@define-color Crust     #232634;
+
+@define-color fg        @Text;
 @define-color dark-fg   #161320;
-@define-color peach     #FAB387;
-@define-color gray2     #6E6C7E;
-@define-color black4    #575268;
-@define-color black3    #302D41;
-@define-color maroon    #EBA0AC;
 
 @define-color bg-hover #1A1A28;
-@define-color bg @bas;
+@define-color bg @Base;
 
-@define-color accent @lavender;
+@define-color accent @Lavender;
 @define-color crust @dark-fg;
-@define-color border @gray2;
+@define-color border @Crust;
+
+/* @define-color accent @lavender; */
+/* @define-color crust @dark-fg; */
+/* @define-color border @gray2; */
 
 
 * {
@@ -60,16 +77,18 @@ window#waybar {
 }
 
 #workspaces button.active, #tags button.focused {
-  color: @red;
+  color: @Red;
 }
 
 #custom-add-workspace {
   margin-top: 5px;
+  color: @Red;
 }
 
 #custom-minimize-button {
   border-radius: 10px 0 0 10px;
   background: none;
+  color: @Teal;
   margin-top: 15px;
   padding-left: 12px;
   padding-right: 10px;
@@ -78,6 +97,7 @@ window#waybar {
 #custom-close-button {
   border-radius: 0 10px 10px 0;
   background: none;
+  color: @Red;
   margin-top: 15px;
   padding-left: 10px;
   padding-right: 12px;

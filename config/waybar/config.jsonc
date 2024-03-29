@@ -12,13 +12,13 @@
       "format": "{name}",
       "format": "{icon}",
       "tooltip": false,
-      "all-outputs": true,
+      "all-outputs": false,
     },
     "river/tags": {
         "num-tags": 8,
     },
     "custom/add-workspace": {
-      "format": "<span color='#F38BA8'><big>〉</big></span>",
+      "format": "<span><big>〉</big></span>",
       "on-click": "hyprctl dispatch workspace empty",
       /*"tooltip-format": "<big>Empty workspace</big>",*/
       "tooltip": false,
@@ -29,12 +29,12 @@
       "tooltip-format": "<tt>{calendar}</tt>",
     },
     "custom/close-button": {
-      "format": "<span color='#F38BA8'></span>",
+      "format": "<span></span>",
       "on-click": "hyprctl dispatch killactive a",
       "tooltip": false,
     },
     "custom/minimize-button": {
-      "format": "<span color='#89DCEB'>__</span>",
+      "format": "<span>__</span>",
       "on-click": "hyprctl dispatch movetoworkspacesilent special",
       "tooltip": false,
     },

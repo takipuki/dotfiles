@@ -1,1 +1,0 @@
-("~/.emacs.d/" "~/.dotfiles/" "~/Desktop/code/c/ncurses/" "~/Desktop/code/c/codeforces/" "~/Desktop/code/clj/" "~/Desktop/code/clj/manga_server/")

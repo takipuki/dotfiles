@@ -1,7 +1,0 @@
-CC = gcc
-CFLAGS = -Wall -Wextra
-LINKS = -lm
-EXE = exe
-
-all: main.c
-	$(CC) $(CFLAGS) $(LINKS) $^ -o $(EXE)

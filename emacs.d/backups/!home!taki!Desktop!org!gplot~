@@ -1,2 +1,0 @@
-set title "CGPA"
-plot using 2:xticlabels(1)

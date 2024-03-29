@@ -5,7 +5,7 @@
 
 SEARCH_URL = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
-DLP_FORMAT = "ba"           -- play video or just audio
+DLP_FORMAT = "bestaudio"    -- play video or just audio
 PLAYER_CMD = "mpv -"        -- media player
 
 
@@ -17,7 +17,7 @@ local ids = {}                    -- ids in this table will be played
 for _, argv in ipairs(arg) do
     if string.sub(argv, 1, 1) == '-' then
         local opt, val = argv:match('-([^=])=?"?(.*)"?')
-        if opt == 'v' then DLP_FORMAT = "22"
+        if     opt == 'v' then DLP_FORMAT = "bv[height<=2160]+ba"
         elseif opt == 'f' then DLP_FORMAT = val
         elseif opt == 'n' then SHOULD_PLAY = false
         elseif opt == 's' then table.insert(interactive_searches, val)
@@ -90,7 +90,7 @@ if SHOULD_PLAY then
     -- starting dlp downloads
     for _,id in ipairs(ids) do
         table.insert(dlp_processes, assert(io.popen(
-            'yt-dlp -q -o - -f '..DLP_FORMAT..' '..id
+            'yt-dlp -q -o - -f '.."'"..DLP_FORMAT.."'"..' -- '..id
         )))
     end
 

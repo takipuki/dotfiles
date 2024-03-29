@@ -1,6 +1,7 @@
 #alias ss="slurp | grim -g - - | wl-copy"
 #alias nvr="nvr --remote-tab-silent"
 
+alias sus="swaylock & sleep 2 && systemctl suspend"
 alias e="setsid emacsclient"
 
 alias open="gio open"
@@ -21,5 +22,6 @@ alias sorc="source ~/.zshrc"
 
 alias yt="lua ~/.local/script/yt.lua"
 alias elaach="bash ~/.local/script/elaach.sh"
+alias sam="bash ~/.local/script/sam.sh"
 
 alias asciidoctor-pdf="/home/taki/.local/share/gem/ruby/3.0.0/bin/asciidoctor-pdf"
