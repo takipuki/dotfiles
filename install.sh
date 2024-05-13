@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 ## firefox backup
 
-## install yay first
+## install yay, git first
 pkgs=(
     hyprland hyprpaper hyprpicker waybar
     wlogout wl-clipboard tofi mako swaylock
@@ -24,6 +24,7 @@ pkgs=(
     termdown
     zathura
     tldr
+    7z
 )
 
 echo ${pkgs[*]}
