@@ -24,11 +24,20 @@ PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 export EDITOR=nvim
 setopt HIST_IGNORE_ALL_DUPS
 
+precmd() {
+    if [[ `pwd` != $HOME && -f '.zshrc' ]]; then
+        source .zshrc
+    fi
+}
+
 source $HOME/.zsh/alias.sh
 source $HOME/.zsh/function.sh
 
 source ~/.zsh/themes/catppuccin_latte-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Created by `pipx` on 2023-12-09 12:18:40
 #export PATH="$PATH:/home/taki/.local/bin"

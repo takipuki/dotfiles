@@ -1,0 +1,13 @@
+#table-of-contents {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 200px; /* Adjust the width as needed */
+  background-color: #f1f1f1; /* Optional: Set a background color for the sidebar */
+  overflow-y: auto; /* Add scrollbar if content exceeds sidebar height */
+}
+
+#text-table-of-contents {
+  padding: 20px; /* Add some padding for better spacing */
+}

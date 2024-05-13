@@ -209,10 +209,10 @@ require('orgmode').setup({
 
 -- lsp -----------------------------------------------------------------------
 local lspconfig = require 'lspconfig'
-local root_pattern = require'lspconfig'.util.root_pattern
-require'lspconfig'.lua_ls.setup{}
-require'lspconfig'.clangd.setup{}
-require'lspconfig'.typst_lsp.setup{root_dir = root_pattern(".")}
+local root_pattern = lspconfig.util.root_pattern
+lspconfig.lua_ls.setup{}
+lspconfig.clangd.setup{}
+lspconfig.typst_lsp.setup{root_dir = root_pattern(".")}
 
 
 -- luasnip setup -------------------------------------------------------------

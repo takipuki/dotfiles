@@ -1,0 +1,21 @@
+import Browser
+import Html exposing (Html, div, button, text)
+import Html.Events exposing (onClick)
+
+main = Browser.sandbox {init = 0, update = update, view = view}
+
+type Msg = Inc | Dec
+
+update : Msg -> Int -> Int
+update msg counter =
+    case msg of
+        Inc -> counter + 1
+        Dec -> counter - 1
+
+view : Int -> Html Msg
+view counter =
+    div []
+        [ button [ onClick Inc ] [ text "+" ]
+        , div [] [ text (String.fromInt counter) ]
+        , button [ onClick Dec ] [ text "-" ]
+        ]

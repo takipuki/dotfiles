@@ -1,0 +1,39 @@
+---
+head:
+  - - link
+    - href: /custom.css
+      rel: stylesheet
+---
+
+# 23 Fall
+
+## 01
+
+1. 
+   ```c:line-numbers
+   #include <stdio.h>
+
+   int updateBalance(float *bals, int id, int type, float amount) {
+       if (type == 1) {
+           if (bals[id] < amount) return 0;
+           bals[id] -= amount;
+       }
+       else bals[id] += amount;
+
+       return 1;
+   }
+
+   int main() {
+       float bals[3];
+       for (int i = 0; i < 3; i++)
+           scanf("%f", bals+i);
+
+       int id, type; scanf("%d %d", &id, &type);
+       float amount; scanf("%f", &amount);
+
+       if (updateBalance(bals, id, type, amount))
+           printf("%f\n", bals[id]);
+       else
+           puts("Not sufficient balance");
+   }
+   ```

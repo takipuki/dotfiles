@@ -1,0 +1,257 @@
+
+* Nested loop
+:PROPERTIES:
+:header-args: :includes <stdio.h> :var n=5 :results output
+:END:
+
+** 01
+#+begin_src C
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j <= n; j++)
+        printf("%d", j);
+    putchar('\n');
+}
+#+end_src
+
+** 02
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    int start = i;
+    for (int j = 0; j < n; j++)
+        printf("%d", start++);
+    putchar('\n');
+}
+#+end_src
+
+** 03
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    int start = i;
+    for (int j = 0; j < i; j++)
+        printf("%d", start++);
+    putchar('\n');
+}
+#+end_src
+
+** 04
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    for (int j = 0; j < n-i; j++) putchar(' ');
+    for (int j = 0; j < i  ; j++) printf("%d", i);
+    putchar('\n');
+}
+#+end_src
+
+** 05
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    int start = n;
+    for (int j = 0; j < i; j++)
+        printf("%d", start--);
+    putchar('\n');
+}
+#+end_src
+
+** 06
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= i; j++)
+        printf("%d", j);
+    putchar('\n');
+}
+#+end_src
+
+** 07
+#+begin_src C
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++)
+        putchar('*');
+    putchar('\n');
+}
+#+end_src
+
+** 08
+#+begin_src C
+for (int i = n; i >= 1; i--) {
+    for (int j = 0; j < i; j++)
+        putchar('*');
+    putchar('\n');
+}
+#+end_src
+
+** 09
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    int start = i % 2;
+    for (int j = 0; j < n; j++) {
+        printf("%d", start);
+        start = !start;
+    }
+    putchar('\n');
+}
+#+end_src
+
+** 10
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    for (int j = 0; j < n-i; j++) putchar(' ');
+    for (int j = 0; j < i  ; j++) putchar('*');
+    putchar('\n');
+}
+#+end_src
+
+** 11
+#+begin_src C
+for (int i = 1; i <= n; i++) {
+    for (int j = 0; j < n-i; j++) putchar(' ');
+    for (int j = 0; j < i  ; j++) putchar('*');
+    for (int j = 0; j < i-1; j++) putchar('*');
+    putchar('\n');
+}
+#+end_src
+
+** 12
+#+begin_src C
+int loop = n/2+1;
+for (int i = 1; i <= loop; i++) {
+    for (int j = 0; j < loop-i; j++) putchar(' ');
+    for (int j = 0; j < i     ; j++) putchar('*');
+    for (int j = 0; j < i-1   ; j++) putchar('*');
+    putchar('\n');
+}
+
+for (int i = loop-1; i >= 1; i--) {
+    for (int j = 0; j < loop-i; j++) putchar(' ');
+    for (int j = 0; j < i     ; j++) putchar('*');
+    for (int j = 0; j < i-1   ; j++) putchar('*');
+    putchar('\n');
+}
+#+end_src
+
+** 13
+#+begin_src C
+int spaces = 2(n-1) - 1;
+for (int i = 1; i < n; i++) {
+    for (int j = 1; j <= i     ; j++) printf("%d", j);
+    for (int j = 0; j <  spaces; j++) putchar(' ');
+    spaces -= 2;
+    for (int j = i; j >= 1     ; j--) printf("%d", j);
+    putchar('\n');
+}
+
+for (int i = 1  ; i <= n; i++) printf("%d", i);
+for (int i = n-1; i >= 1; i--) printf("%d", i);
+putchar('\n');
+#+end_src
+
+** 14
+#+begin_src C
+for (int i = 0; i < n; i++) {
+    if (i % 2 == 0)
+        for (int j = 0; j < n; j++) putchar('*');
+    else {
+        putchar('*');
+        for (int j = 0; j < n-2; j++) putchar(' ');
+        putchar('*');
+    }
+    putchar('\n');
+}
+#+end_src
+
+** 15
+#+begin_src C
+for (int i = 0; i < n; i++) putchar('Z');
+putchar('\n');
+
+for (int i = n-1; i >= 2; i--)
+    printf("%*c\n", i, 'Z');
+
+for (int i = 0; i < n; i++) putchar('Z');
+putchar('\n');
+#+end_src
+
+** 16
+#+begin_src C
+int spaces = n-2;
+for (int i = 0; i < n/2; i++) {
+    for (int j = 0; j < i; j++) putchar(' ');
+    putchar('*');
+    for (int j = 0; j < spaces; j++) putchar(' ');
+    spaces -= 2;
+    putchar('*');
+    putchar('\n');
+}
+
+for (int i = 0; i < n/2; i++) putchar(' ');
+putchar('*');
+putchar('\n');
+
+spaces = 1;
+for (int i = n/2-1; i >= 0; i++) {
+    for (int j = 0; j < i; j++) putchar(' ');
+    putchar('*');
+    for (int j = 0; j < spaces; j++) putchar(' ');
+    spaces += 2;
+    putchar('*');
+    putchar('\n');
+}
+#+end_src
+
+** 17
+#+begin_src C
+for (int i = 0; i < n/2; i++) putchar(' ');
+putchar('$');
+putchar('\n');
+
+int spaces = 0;
+for (int i = n/2-1; i >= 1; i--) {
+    for (int j = 0; j < i; j++) putchar(' ');
+    putchar('$');
+
+    for (int j = 0; j < spaces; j++) putchar(' ');
+    putchar('$');
+
+    for (int j = 0; j < spaces; j++) putchar(' ');
+    putchar('$');
+
+    spaces++;
+    putchar('\n');
+}
+
+for (int i = 0; i < n; i++) putchar('$');
+putchar('\n');
+
+spaces--;
+for (int i = 1; spaces >= 0; i++) {
+    for (int j = 0; j < i; j++) putchar(' ');
+    putchar('$');
+
+    for (int j = 0; j < spaces; j++) putchar(' ');
+    putchar('$');
+
+    for (int j = 0; j < spaces; j++) putchar(' ');
+    putchar('$');
+
+    spaces--;
+    putchar('\n');
+}
+
+for (int i = 0; i < n/2; i++) putchar(' ');
+putchar('$');
+putchar('\n');
+#+end_src
+
+** 18
+#+begin_src C
+for (int i = 0; i < n; i++) {
+    if (i == n/2) {
+        for (int j = 0; j < n; j++) printf("H ");
+        putchar('\n');
+    } else {
+        putchar('H');
+        for (int j = 0; j < n-2; j++) printf("  ");
+        printf(" H");
+    }
+}
+#+end_src
+

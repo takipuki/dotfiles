@@ -1,0 +1,148 @@
+#+SETUPFILE: setup.org
+#+OPTIONS: toc:t
+#+HTML_HEAD: <style>
+#+HTML_HEAD: #text-table-of-contents li {
+#+HTML_HEAD:     display: list-item;
+#+HTML_HEAD:     margin-right: 1em;
+#+HTML_HEAD: }
+#+HTML_HEAD: #text-table-of-contents li li {
+#+HTML_HEAD:     display: list-item;
+#+HTML_HEAD:     margin-right: 1em;
+#+HTML_HEAD: }
+#+HTML_HEAD: </style>
+
+#+TITLE: Miscellaneous
+
+* Convert decimal to base
+#+begin_src C -n
+#include <stdio.h>
+
+char symbols[36]; // maximum base 36; digits (0-9) and alpha (A-Z)
+
+void dec_to_base(int n, int base) {
+    if (!n) return;
+
+    dec_to_base(n/base, base);
+    putchar(symbols[n % base]);    // least significant bit so printing last
+}
+
+int main(void) {
+    int base, n;
+    scanf("%d %d", &base, &n);
+
+    if (base < 2 || base > 36) {
+        printf("Only 2 to 36 bases are supported.\n");
+        return 0;
+    }
+
+    if (!n) {
+        printf("0\n");
+        return 0;
+    }
+
+    // initializing symbols
+    for (int i = 0; i < base; i++)
+        symbols[i] = (i >= 10) ? 'A' + i-10 : '0' + i;
+
+    dec_to_base(n, base);
+    putchar('\n');
+}
+#+end_src
+
+* Armstrong number
+#+begin_src C -n
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int n_digs = log10(n) + 1;
+
+    int sum = 0;
+    for (int i = n; i; i /= 10)
+        sum += pow(i % 10, n_digs);
+
+    if (sum == n)
+        printf("Yes\n");
+    else
+        printf("No\n");
+}
+#+end_src
+
+* Reverse the words in a string
+
+| Input           | Output          |
+|-----------------+-----------------|
+| my name is andy | andy is my name |
+
+** Iterative
+#+begin_src C -n
+#include <stdio.h>
+
+void rev_sen(char *src, int len, char *dst) {
+    for (int i = len-1; ; i--) {
+        if (src[i] == ' ' || i < 0) {
+            int j;
+            for (j = i+1; src[j] != '\0'; j++) {
+                *dst = src[j];
+                dst += 1;      // moving the pointer forward
+            }
+            *dst = ' ';
+            dst += 1;
+            src[i] = '\0';
+        }
+        if (i < 0) break;
+    }
+    *dst = '\0';
+}
+
+int main() {
+    char s[100];
+    int len;
+    for (len = 0; (s[len] = getchar()) != '\n'; len++);
+    s[len] = '\0';
+
+    char dup[100]; // duplicate
+    for (int i = 0; (dup[i] = s[i]) != '\0'; i++);
+    
+    rev_sen(dup, len, s);
+
+    puts(s);
+}
+#+end_src
+
+** Recursive
+#+begin_src C -n
+#include <stdio.h>
+
+char* rev_sen(char *dup, char *s) {
+    if (dup[0] == '\0') return s;
+    if (dup[0] == ' ') dup += 1; // skipping the space
+
+    int i;
+    for (i = 0; dup[i] != ' ' && dup[i] != '\0'; i++);
+
+    s = rev_sen(dup+i, s);
+
+    for (i = 0; dup[i] != ' ' && dup[i] != '\0'; s[i++] = dup[i]);
+    s[i] = ' ';
+
+    return s+i+1;
+}
+
+int main() {
+    char s[100];
+    int len;
+    for (len = 0; (s[len] = getchar()) != '\n'; len++);
+    s[len] = '\0';
+
+    char dup[100]; // duplicate
+    for (int i = 0; (dup[i] = s[i]) != '\0'; i++);
+    
+    char *after_end = rev_sen(dup, s);
+    *(after_end-1) = '\0';
+
+    puts(s);
+}
+#+end_src

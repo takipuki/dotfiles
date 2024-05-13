@@ -1,0 +1,425 @@
+
+#+OPTIONS: toc:nil
+#+OPTIONS: num:0
+
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt]
+#+LATEX_HEADER: \usepackage[a4paper, margin=1in]{geometry}
+#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{array,multirow,tabularx}
+
+# vars #
+\newcommand{\lcno}{0000223240400054}
+\newcommand{\billdate}{06.01.2024}
+\newcommand{\lcdate}{10.01.2024}
+
+\newcommand{\scnddate}{26.07.2023}
+
+\newcommand{\exportlcno}{QUAZI/TFHK/44TT-598}
+\newcommand{\exportlcdate}{19.11.2023}
+
+\newcommand{\spelled}{Five Thousand Ninety-nine and Fourty Cents only}
+
+\newcommand{\totalquant}{7,600}
+\newcommand{\quantspelled}{Seven Thousand Six Hundred}
+
+\newcommand{\pino}{STEX/QAT/115}
+\newcommand{\pidate}{20.11.2023}
+
+\newcommand{\bank}{Pubali Bank Limited}
+\newcommand{\location}{Gulshan Model Town Branch, Dhaka BD}
+
+\newcommand{\quant}{3419}
+\newcommand{\quantt}{2911}
+\newcommand{\rate}{0.65}
+\newcommand{\ratee}{0.65}
+\newcommand{\price}{2222.22}
+\newcommand{\pricee}{1891.89}
+\newcommand{\totalprice}{5,099.40}
+
+\newcommand{\fabrics}{White,Black,white,Black,White}
+\newcommand{\rolls}{80}
+
+\newcommand{\garments}{Quazi Abedin Tex Ltd.}
+\newcommand{\glocation}{Shovapur. Rajfulbaria, Savar, Dhaka, Bangladesh}
+
+\newcommand{\synlocation}{Rasulpur, Araihazar, Narayangonj, Bangladesh}
+
+\parindent
+
+# ######## page 01 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+# body #
+\begin{center}
+\LARGE \textbf{Bill of Exchange}
+\end{center}
+
+\vspace{\baselineskip}
+FIRST COPY
+
+\vspace{\baselineskip}
+Under documentary credit No. \lcno{} Date: \lcdate{} export
+L/C Contact No: \exportlcno{},
+Date: \exportlcdate{} drawn on \bank{}, \location{}. exchange for USD _\totalprice{}_
+
+\vspace{\baselineskip}
+At 90 days sight of this first of exchange second copy of the same
+tenor of date being unpaid pay to be order of Islami Bank Bangladesh
+Limited, Madhabdi Branch, Narsingdi.
+
+\vspace{\baselineskip}
+The sum of USD _\spelled{}_ only. Value received against supply of \totalquant{} YDS fabrics.
+
+\vfill
+To, \\
+\bank{}, \\
+\location{}.
+
+\vfill
+\begin{center}
+\large
+FACTORY: \synlocation{}, Phone: 01713201958
+\end{center}
+
+
+
+\pagebreak
+# ######## page 02 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+# body #
+\begin{center}
+\LARGE \textbf{Bill of Exchange}
+\end{center}
+
+\vspace{\baselineskip}
+SECOND COPY
+
+\vspace{\baselineskip}
+Under documentary credit No. \lcno{} Date: \lcdate{} export
+L/C Contact No: \exportlcno{},
+Date: \exportlcdate{} drawn on \bank{}, \location{}. exchange for USD _\totalprice{}_
+
+\vspace{\baselineskip}
+At 90 days sight of this first of exchange first copy of the same
+tenor of date being unpaid pay to be order of Islami Bank Bangladesh
+Limited, Madhabdi Branch, Narsingdi.
+
+\vspace{\baselineskip}
+The sum of USD _\spelled{}_ only. Value received against supply of \totalquant{} YDS fabrics.
+
+\vfill
+To, \\
+\bank{}, \\
+\location{}.
+
+\vfill
+\begin{center}
+\large
+FACTORY: \synlocation{}, Phone: 01713201958
+\end{center}
+
+
+
+\pagebreak
+# ######## page 03 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+# body #
+\begin{center}
+\LARGE \textbf{Delivery Challan / Truck Receipt}
+\end{center}
+
+Challan No. 10070 \\
+Vehicle No: Dhaka Metro Ma 51-1168 \\
+(Won Service)
+
+\vspace{\baselineskip}
+\renewcommand{\arraystretch}{2}
+\begin{tabularx}{\textwidth}{
+  | >{\raggedright}X | >{\raggedright\arraybackslash}X |}
+
+\hline
+
+Exporter: Synergy Textile \synlocation{}      & Documentary Credit No. \lcno{} DATES: \lcdate{} EXPORT L/C NO. \exportlcno{} \\ \hline
+
+For Account \& Risk: \garments{} \glocation{} & L/C Issuing Bank \bank{}, \location{} \\ \hline
+
+Notify Bank: \bank{}, \location{}.            & Remarks 'Freight Prepaid' \\ \hline
+
+T/R Pocketing fabrics                        & No of rolls: \rolls{} total quantity - \totalquant{} yds \\ \hline
+
+Total quantity \quantspelled{} only          & Total – \totalquant{} yds \\ \hline
+
+\end{tabularx}
+
+\vspace{\baselineskip}
+THE GOODS HAVE RECEIVED IN GOOD CONDITION.
+
+
+
+\pagebreak
+# ######## page 04 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+# body #
+\begin{center}
+\LARGE \textbf{Packing List}
+\end{center}
+
+\renewcommand{\arraystretch}{2}
+
+\begin{tabularx}{\textwidth}{ | >{\raggedright}X | >{\raggedright\arraybackslash}X | }
+\hline
+
+\multirow{3}{=}{For Account \& Risk Of M/S \garments{} \glocation{}} & Proforma Invoice \pino{} DATE: \pidate{}  \\ \cline{2-2}
+                                                                     & Remarks: L/C No: \lcno{} DATES: \lcdate{} \\ \cline{2-2}
+                                                                     & Drawer: \bank{}, \location{}.             \\ \hline
+
+\end{tabularx}
+
+\begin{tabular}{| m{3em} | m{13.53em} | m{4em} | m{4em} | m{4em} |}
+& & & & \\
+\hline
+Marks \& No. & Description of Goods  & Package       & Quanity           & Remarks \\ \hline
+01.          & T/C POCKETING FABRICS & \rolls{} Roll & \totalquant{} yds &         \\ \hline
+\end{tabular}
+
+
+\pagebreak
+# ######## page 05 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+
+# body #
+\begin{center}
+\LARGE \textbf{Commercial Invoice}
+\end{center}
+
+\renewcommand{\arraystretch}{1.5}
+\vspace{\baselineskip}
+\begin{tabular}{| m{0.334\textwidth} | m{0.167\textwidth} | m{0.417\textwidth} |}
+\hline
+
+Proforma Invoice No. \pino{} & DATE: \pidate{}       & Drawee: \bank{}, \location{}. \\ \hline
+Against L/C No: \lcno{}      & DATE: \lcdate{}       & \multirow{2}{0.417\textwidth}{ \garments{} \glocation{} } \\ \cline{1-2}
+EXPORT L/C NO. \exportlcno{} & DATE: \exportlcdate{} & 
+
+\end{tabular}
+
+# \renewcommand{\arraystretch}{1.5}
+\begin{tabular}{| m{0.167\textwidth} | m{0.334\textwidth} | m{0.12\textwidth} | m{0.122\textwidth} | m{0.12\textwidth} |}
+\hline
+
+Shipped & Delivery By Turk & \multicolumn{3}{p{0.362\textwidth}|}{Order As Per Performa Invoice} \\ \hline
+Remarks & & & & \\ \hline
+Marks \& No & Description of Goods & Quantity & Price/yds & Amount (USD) \\ \hline
+
+\multirow{3}{*}{40Pkt} & T/C Pocketing Fabrics \fabrics{} & \quant{} yds & \$\rate{}/yds & \$\price{} \\ \cline{2-5}
+                       & The Sum of Says US \$\totalprice{} (USD \spelled{}) We Certify That The Merchandise Delivery Is of Bangladeshi Origin & \quantt{} yds & \$\ratee{}/yds & \$\pricee{} \\ \cline{3-5}
+                       &                                                                                                                                                   &          & Total      & \$\totalprice{} \\
+
+\hline
+\end{tabular}
+
+
+
+\pagebreak
+# ######## page 06 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+
+# body #
+\begin{center}
+\LARGE \textbf{Beneficiary's Certificate}
+\end{center}
+
+We Do Hereby Would Like Certify and Specification of The Merchandise
+Under INVOICE NO: \pino{} DATE: \pidate{} Is In Accordance with
+The Proforma Invoice. The Shipment Made By Freight Prepaid The L/C No:
+\lcno{} DATES: \lcdate{} EXPORT L/C NO. \\
+\exportlcno{}, DATE: \exportlcdate{}
+
+\vspace{3in}
+
+Signed By \\
+\\
+BURHAN UDDIN \\
+SYNERGY TEXTILE
+
+
+
+
+\pagebreak
+# ######## page 06 ##########
+# headline #
+\begin{center}
+\color{Blue}
+
+\Huge \textbf{SYNERGY TEXTILE}
+
+\color{Black}
+\large
+\vspace{\baselineskip}
+Local Office: Rain OK Market, Birampur, Madhabdi , Narshingdi \\
+Phone: 01713201958 Gmail: burhan.stex@gmail.com
+
+\hrulefill
+\end{center}
+
+\Large
+
+\begin{flushright}
+Date: \billdate{}
+\end{flushright}
+
+
+# body #
+\begin{center}
+\LARGE \textbf{Certificate of Origin}
+\end{center}
+
+This is to certify that we have supplied goods as under: \\
+
+AGAINST L/C NO: \lcno{} DATES: \lcdate{}
+EXPORT L/C NO. \exportlcno{}
+DATE: \exportlcdate{} \\
+
+Buyer: \garments{} \\
+\glocation{} \\
+
+Description of Goods: \\
+
+\begin{tabular}{| m{0.1\textwidth} | m{0.30\textwidth} | m{0.25\textwidth} | m{0.24\textwidth} |}
+\hline
+
+Sl No. & Item                  & Color      & Quantity \\ \hline
+01     & T/C Pocketing Fabrics & \fabrics{} & \totalquant{} yds \\ \hline
+       &                       & Total      & \totalquant{} yds \\ \hline
+
+\end{tabular}
+
+\vfill
+
+\normalsize
+
+\begin{tabularx}{\textwidth}{ >{\centering}X  >{\centering}X  >{\centering}X  }
+\cline{1-1}
+\cline{3-3}
+Scal \& Signature of Buyer &  & Authorized Signature
+\end{tabularx}

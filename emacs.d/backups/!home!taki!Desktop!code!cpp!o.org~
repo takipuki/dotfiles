@@ -1,0 +1,26 @@
+#+title: Testing syntax highlighting
+
+#+begin_src cpp
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+#define nl << '\n'
+
+void append(vector<int> *v, int n) {
+    v->push_back(n);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+
+    vector<int> list;
+    list.push_back(1);
+    for (auto e : list) cout << e << ' ';
+    cout nl;
+    append(&list, 10);
+    for (auto e : list) cout << e << ' ';
+    cout nl;
+}
+#+end_src

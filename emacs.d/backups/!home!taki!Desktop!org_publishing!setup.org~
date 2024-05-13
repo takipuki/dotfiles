@@ -1,0 +1,16 @@
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+#+STARTUP: overview
+
+#+OPTIONS: html-postamble:nil
+#+OPTIONS: html-style:nil
+#+HTML_DOCTYPE: html5
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../asset/clean.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../asset/clean.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="asset/clean.css"/>
+
+#+HTML_HEAD: <link rel="icon" type="image/x-icon" href="../../asset/favicon.ico">
+#+HTML_HEAD: <link rel="icon" type="image/x-icon" href="../asset/favicon.ico">
+#+HTML_HEAD: <link rel="icon" type="image/x-icon" href="asset/favicon.ico">

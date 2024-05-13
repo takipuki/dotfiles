@@ -1,0 +1,12 @@
+#+setupfile: setup.org
+#+title: 23su
+
+Note: Click on the equations to go to its graph.
+
+* 01
+a) 
+   1. [[https://www.symbolab.com/graphing-calculator?functions=y=3x-x^2][$y=3x-x^2$]] \\
+      $\mathbb{R} \to (-\infty, \frac{9}{4}]$
+
+   2. [[https://www.symbolab.com/graphing-calculator?functions=y=2e^{-x}+1][$y=2e^{-x}+1$]] \\
+      $\mathbb{R} \to (-\infty, \frac{9}{4}]$

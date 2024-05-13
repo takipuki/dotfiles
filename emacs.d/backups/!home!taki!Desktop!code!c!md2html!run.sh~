@@ -1,0 +1,3 @@
+run() {
+    make -s && wc -c in.txt | awk '{print $1}' | cat - in.txt | ./exe
+}

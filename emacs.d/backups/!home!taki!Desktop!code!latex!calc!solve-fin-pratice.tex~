@@ -1,0 +1,42 @@
+\documentclass[11pt, titlepage]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[fleqn]{nccmath}
+\usepackage{multicol}
+\usepackage{parskip}
+%\usepackage{hyphenat}
+\usepackage{setspace}
+%\usepackage{wrapfig}
+\usepackage{graphicx}
+%\usepackage{blindtext}
+%\usepackage{booktabs}
+
+
+
+% SETUPS ----------------------------------------------------------------------
+\onehalfspacing
+\everymath{\displaystyle}
+
+
+\title{Solve Fin Practice, Spring 2024}
+\date{\today}
+\author{Tashfiq Ahmed Taki\\ 0112330316}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+\setcounter{enumi}{27}
+\item \begin{enumerate}
+
+    \setcounter{enumi}{4}
+    \item \begin{align*}
+    \end{align*}
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

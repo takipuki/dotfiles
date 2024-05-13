@@ -49,12 +49,14 @@
         "spacing": 6
     },
     "pulseaudio": {
-      "format": "<span color='#b4befe'>{icon}</span> {volume}%",
-      "format-muted": "<span color='#F38BA8'></span> {volume}%",
+      "format": "<span color='#b4befe'><big>{icon}</big></span>  {volume}% {format_source}",
+      "format-source": "Mic ON",
+      "format-source-muted": "Mic <span color='#e78284'>OFF</span>",
+      "format-muted": "<span color='#F38BA8'></span>  {volume}% {format_source}",
       "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
       "tooltip": false,
       "format-icons": {
-        "headphone": "",
+        "headphone": "", 
         "default": ["", "", "󰕾", "󰕾", "󰕾", "", "", ""]
       },
       "scroll-step": 5,

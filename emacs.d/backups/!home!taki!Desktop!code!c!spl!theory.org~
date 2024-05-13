@@ -1,0 +1,2468 @@
+#+SETUPFILE: setup.org
+#+OPTIONS: toc:t
+
+#+TITLE: SPL Problem Set
+
+* Intro
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    double d; int b;
+    d = 3.14; b = 1;
+    printf("Double value: %f\n", d);
+    printf("Boolean value: %d\n", b);
+}
+#+end_src
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    long int ld;
+    long long int ldd;
+    long double Ld;
+    short hd;
+    ld = 2147484;
+    ldd = 922337;
+    Ld = 1.1E+4932;
+    hd = 32767;
+    printf("long int      : %ld\n", ld);
+    printf("long long int : %lld\n", lld);
+    printf("long double   : %Ld\n", Ld);
+    printf("short         : %hd\n", hd);
+}
+#+end_src
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    unsigned int u;
+    unsigned long int lu;
+    unsigned long long int llu;
+    unsigned short hu;
+    u = 42;
+    lu = 42943;
+    llu = 1844674;
+    hu = 0;
+    printf("unsigned int           : %u\n", u);
+    printf("unsigned long int      : %lu\n", lu);
+    printf("unsigned long long int : %llu\n", llu);
+    printf("unsigned short         : %hu\n", hu);
+}
+#+end_src
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    const float pi = 3.14195;
+    printf("Value of pi: %f\n", pi);
+}
+#+end_src
+** 13
+#+begin_src C -n
+#include <stdio.h>
+
+#define PI 3.14195
+
+int main() {
+    printf("Value of pi: %f\n", PI);
+}
+#+end_src
+** 14
+#+begin_src C -n
+#include <stdio.h>
+
+int a = 10;
+
+int main() {
+    printf("Global: %d\n", a);
+    int a = 20;
+    printf("Local: %d\n", a);
+
+    {
+        extern int a;
+        printf("Global: %d\n", a);
+    }
+}
+#+end_src
+** 15
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float n; scanf("%f", &n);
+    printf("%f   \n", n);
+    printf("%10f \n", n);
+    printf("%2f  \n", n);
+    printf("%.2f \n", n);
+    printf("%.0f \n", n);
+    printf("%e   \n", n);
+}
+#+end_src
+
+* Operator
+** 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float x, y;
+    scanf("%f %f", &x, &y);
+
+    printf("Addition: %.2f\n", x+y);
+    printf("Substraction: %.2f\n", x-y);
+    printf("Multiplication: %.2f\n", x*y);
+    printf("Quotient: %d\n", (int)(x/y));
+    printf("Remainder: %d\n", (int)x % (int)y);
+}
+#+end_src 
+** 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float r;
+    scanf("%f", &r);
+    printf("Area: %.2f\n", 2*3.14159*r);
+}
+#+end_src 
+** 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    scanf("%f%f", &a, &b);
+    printf("x = %f\n", (3.31 * a*a + 2.01 * b*b*b) / (7.16 * b*b + 2.01 * a*a*a));
+}
+#+end_src 
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x;
+    scanf("%d", &x);
+
+    int tmp = x;
+    printf("%d\n", tmp++);
+    tmp = x;
+    printf("%d\n", ++tmp);
+    tmp = x;
+    printf("%d\n", tmp--);
+    tmp = x;
+    printf("%d\n", --tmp);
+}
+#+end_src 
+** 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x, y;
+    scanf("%d%d", &x, &y);
+
+    int tmp = x;
+    printf("Incremented value: %d\n", tmp += y);
+    tmp = x;
+    printf("Decremented value: %d\n", tmp -= y);
+}
+#+end_src 
+** 06
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x, y;
+    scanf("%d%d", &x, &y);
+
+    int tmp = x;
+    printf("Multiplication: %d\n", tmp *= y);
+    tmp = x;
+    printf("Division: %d\n", tmp /= y);
+}
+#+end_src 
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int i;
+    float f;
+    scanf("%d %f", &i, &f);
+
+    float floati = i;
+    int intf = f;
+
+    printf("Assignment: %f assigned to an int produces %d\n", f, intf);
+    printf("Assignment: %d assigned to an int produces %f\n", i, floati);
+
+    printf("Types casting: (float) %d produces %f\n", i, floati);
+    printf("Types casting: (int) %f produces %d\n", f, intf);
+}
+#+end_src 
+** 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    scanf("%d%d", &a, &b);
+    (a > b) ? printf("Max: %d\n", a) : printf("Max: %d\n", b);
+}
+#+end_src 
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    scanf("%d%d%d", &a, &b, &c);
+    printf("x = %d\n", a - b / 3 + c * 2 - 1);
+    printf("y = %d\n", a - (b / ( 3 + c ) * 2) - 1);
+    printf("z = %d\n", a - ((b / 3) + c * 2) - 1);
+}
+#+end_src 
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    scanf("%d%d%d", &a, &b, &c);
+
+    printf("a) %d\n", (a+b) <= 80);
+    printf("b) %d\n", !(a+b));
+    printf("c) %d\n", c != 0);
+}
+#+end_src 
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    scanf("%d%d%d", &a, &b, &c);
+
+    printf("1) %d\n", (a+b) <= 80 && c >= 0);
+    printf("2) %d\n", (a-b) == 0 || c != 0);
+    printf("3) %d\n", a != b || !(b < c) && c > 0);
+    printf("4) %d\n", (a != b || !(b < c)) && c > 0);
+}
+#+end_src 
+** 12
+#+begin_src C -n
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int a, b, c;
+    scanf("%d%d%d", &a, &b, &c);
+
+    int discriminant = b*b - 4*a*c;
+    if (discriminant < 0) {
+        printf("Imaginary\n");
+        return 0;
+    }
+
+    float x1 = (-b + sqrt(discriminant)) / (2*a);
+    float x2 = (-b - sqrt(discriminant)) / (2*a);
+    printf("%.2f %.2f\n", x1, x2);
+}
+#+end_src 
+** 13
+#+begin_src C -n
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float x;
+    scanf("%f", &x);
+
+    float rads = x * 3.14159 / 180;
+    printf("%f\n", 2*cos(rads)*cos(rads)
+                   - sqrt(3)*sin(sin(rads))
+                   + log10(x/2));
+}
+#+end_src 
+** 14
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float x; scanf("%f", &x);
+
+    int ceil, floor; float abs;
+    if (x >= 0) {
+        ceil  = ((int)x == x) ? x : (x+1);
+        floor = (int)x;
+        abs = x;
+    } else {
+        ceil  = (int)x;
+        floor = ((int)x == x) ? x : (x-1);
+        abs = -x;
+    }
+
+    printf("A = %d, B = %d, C = %.2f\n", ceil, floor, abs);
+}
+#+end_src 
+** 15
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    printf("Size of int in byte(s)    = %lu\n", sizeof(int));
+    printf("Size of float in byte(s)  = %lu\n", sizeof(float));
+    printf("Size of double in byte(s) = %lu\n", sizeof(double));
+    printf("Size of char in byte(s)   = %lu\n", sizeof(char));
+}
+#+end_src 
+
+* Condition
+** 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float n;
+    scanf("%f", &n);
+    (n < 0) ? printf("Negative\n") : printf("Positive\n");
+}
+#+end_src
+** 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    (n % 2 == 0) ? printf("Even\n") : printf("Odd\n");
+}
+#+end_src
+** 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int dig;
+    scanf("%d", &dig);
+
+    switch (dig) {
+    case 0:
+        printf("zero\n");
+        break;
+    case 1:
+        printf("one\n");
+        break;
+    case 2:
+        printf("two\n");
+        break;
+    case 3:
+        printf("three\n");
+        break;
+    case 4:
+        printf("four\n");
+        break;
+    case 5:
+        printf("five\n");
+        break;
+    case 6:
+        printf("six\n");
+        break;
+    case 7:
+        printf("seven\n");
+        break;
+    case 8:
+        printf("eight\n");
+        break;
+    case 9:
+        printf("nine\n");
+        break;
+    }
+}
+#+end_src
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    scanf("%d %d %d", &a, &b, &c);
+
+    if (a+b+c == 180 && a*b*c > 0)
+        printf("Yes\n");
+    else
+        printf("No\n");
+}
+#+end_src
+** 05
+#+begin_src C -n
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    int p = log2(n);
+    int q = 1;
+    for (int i = 0; i < p; i++) q *= 2;
+    if (q == n)
+        printf("Yes\n");
+    else
+        printf("No\n");
+}
+#+end_src
+** 06
+#+begin_src C -n
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    if (!n) {
+        printf("Zero not valid!\n");
+        return 0;
+    } else if (n < 0) {
+        printf("Negative not valid!\n");
+        return 0;
+    }
+
+    int p = log2(n);
+    int q = 1;
+    for (int i = 0; i < p; i++) q *= 2;
+    if (q == n)
+        printf("Yes\n");
+    else
+        printf("No\n");
+}
+#+end_src
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+
+    if (x > y)
+        printf("%d is greater than %d\n", x, y);
+    else if (x < y)
+        printf("%d is less than %d\n", x, y);
+    else
+        printf("%d is equal to %d\n", x, y);
+}
+#+end_src
+** 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int year;
+    scanf("%d", &year);
+
+    ((year%4 == 0 && year%100 != 0) || (year%400 == 0)) ?
+        printf("Yes\n") : printf("No\n");
+}
+#+end_src
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    scanf(" %c", &ch);
+
+    if (ch >= '0' && ch <= '9')
+        printf("Digit\n");
+    else if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
+        printf("Alphabet\n");
+    else
+        printf("Special\n");
+}
+#+end_src
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    char op;
+    scanf("%f %c %f", &a, &op, &b);
+
+    switch (op) {
+    case '+':
+        printf("Addition: %.2f\n", a+b);
+        break;
+    case '-':
+        printf("Substraction: %.2f\n", a-b);
+        break;
+    case '*':
+        printf("Multiplication: %.2f\n", a*b);
+        break;
+    case '/':
+        printf("Division: ");
+        if (!b) {
+            printf("Zero as divisor is not valid!\n");
+            return 0;
+        }
+        printf("%.2f\n", a/b);
+        break;
+    }
+}
+#+end_src
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float marks;
+    scanf("%f", &marks);
+
+    if (marks >= 90 && marks <= 100)
+        printf("Grade: A\n");
+    else if (marks >= 86)
+        printf("Grade: A-\n");
+    else if (marks >= 82)
+        printf("Grade: B+\n");
+    else if (marks >= 78)
+        printf("Grade: B\n");
+    else if (marks >= 74)
+        printf("Grade: B-\n");
+    else if (marks >= 70)
+        printf("Grade: C -n+\n");
+    else if (marks >= 66)
+        printf("Grade: C -n\n");
+    else if (marks >= 62)
+        printf("Grade: C -n-\n");
+    else if (marks >= 58)
+        printf("Grade: D+\n");
+    else if (marks >= 55)
+        printf("Grade: D\n");
+    else if (marks < 55)
+        printf("Grade: F\n");
+}
+#+end_src
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    int op;
+    scanf("%f %f %d", &a, &b, &op);
+
+    switch (op) {
+    case 1:
+        printf("Addition: %.2f\n", a+b);
+        break;
+    case 2:
+        printf("Substraction: %.2f\n", a-b);
+        break;
+    case 3:
+        printf("Multiplication: %.2f\n", a*b);
+        break;
+    case 4:
+        printf("Quotient: %d\n", (int)(a/b));
+        break;
+    }
+}
+#+end_src
+** 13
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    int op;
+    scanf("%f %f %d", &a, &b, &op);
+
+    switch (op) {
+    case 1:
+        printf("Addition: %.2f\n", a+b);
+        break;
+    case 2:
+        printf("Substraction: %.2f\n", a-b);
+        break;
+    case 3:
+        printf("Multiplication: %.2f\n", a*b);
+        break;
+    case 4:
+        scanf("%d", &op);
+        switch (op) {
+        case 1:
+            printf("Quotient: %d\n", (int)(a/b));
+            break;
+        case 2:
+            printf("Remainder: %d\n", (int)a % (int)b);
+            break;
+        }
+        break;
+    }
+}
+#+end_src
+** 14
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    float a, b;
+    int op;
+    scanf("%f %f %d", &a, &b, &op);
+
+    switch (op) {
+    case 1:
+        printf("Addition: %.2f\n", a+b);
+        break;
+    case 2:
+        printf("Substraction: %.2f\n", a-b);
+        break;
+    case 3:
+        printf("Multiplication: %.2f\n", a*b);
+        break;
+    case 4:
+        if (!b) {
+            printf("Error: Divisor is zero\n");
+            return 0;
+        }
+
+        scanf("%d", &op);
+        switch (op) {
+        case 1:
+            printf("Quotient: %d\n", (int)(a/b));
+            break;
+        case 2:
+            printf("Remainder: %d\n", (int)a % (int)b);
+            break;
+        }
+        break;
+    }
+}
+#+end_src
+** 15
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int correct, guess;
+    scanf("%d", &correct);
+
+    scanf("%d", &guess);
+    if (guess == correct) {
+        printf("Right. Player-2 wins!\n");
+        return 0;
+    }
+    printf("Wrong, 2 chances left!\n");
+
+    scanf("%d", &guess);
+    if (guess == correct) {
+        printf("Right. Player-2 wins!\n");
+        return 0;
+    }
+    printf("Wrong, 1 chances left!\n");
+    
+    scanf("%d", &guess);
+    if (guess == correct) {
+        printf("Right. Player-2 wins!\n");
+        return 0;
+    }
+
+    printf("Player-1 wins!\n");
+}
+#+end_src
+
+* Loop
+** 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        printf("%d ", i);
+    putchar('\n');
+}
+#+end_src
+** 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int tmp = -1;
+    for (int i = 0; i < n; i++)
+        printf("%d ", tmp += 2);
+    putchar('\n');
+}
+#+end_src
+** 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int bool = 0;
+    for (int i = 0; i < n; i++)
+        printf("%d ", bool = !bool);
+    putchar('\n');
+}
+#+end_src
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    float sum = 0, tmp;
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &tmp);
+        sum += tmp;
+    }
+    printf("Avg of %d inputs: %.2f\n", n, sum/n);
+}
+#+end_src
+** 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x, y; scanf("%d%d", &x, &y);
+
+    if (x < y)
+        for (; x < y; x++)
+            printf("%d, ", x*x);
+    else if (x > y)
+        for (; x > y; x--)
+            printf("%d, ", x*x);
+
+    printf("Reached!\n");
+}
+#+end_src
+** 06
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int correct, N, guess;
+    scanf("%d%d", &correct, &N);
+
+    for (int i = 1; i <= N; i++) {
+        scanf("%d", &guess);
+        if (guess == correct) {
+            printf("Right, Player-2 wins!\n");
+            return 0;
+        }
+        printf("Wrong, %d chance(s) left!\n", N-i);
+    }
+
+    printf("Player-1 wins!\n");
+}
+#+end_src
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char tmp;
+    for (int i = 1; scanf(" %c", &tmp) && tmp != 'A'; i++)
+        printf("Input %d: %c\n", i, tmp);
+}
+#+end_src
+** 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    for (; n; n /= 10)
+        printf("%d", n % 10);
+    putchar('\n');
+}
+#+end_src
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        float result = 0, tmp;
+        scanf("%f", &tmp);
+        result += tmp;
+        scanf("%f", &tmp);
+        result += tmp;
+        scanf("%f", &tmp);
+        result += tmp;
+        scanf("%f", &tmp);
+        result += 30 * tmp / 50;
+        scanf("%f", &tmp);
+        result += 40 * tmp / 100;
+
+        if (result >= 90 && result <= 100)
+            printf("Student %d: A\n", i);
+        else if (result >= 86)
+            printf("Student %d: A-\n", i);
+        else if (result >= 82)
+            printf("Student %d: B+\n", i);
+        else if (result >= 78)
+            printf("Student %d: B\n", i);
+        else if (result >= 74)
+            printf("Student %d: B-\n", i);
+        else if (result >= 70)
+            printf("Student %d: C+\n", i);
+        else if (result >= 66)
+            printf("Student %d: C\n", i);
+        else if (result >= 62)
+            printf("Student %d: C-\n", i);
+        else if (result >= 58)
+            printf("Student %d: D+\n", i);
+        else if (result >= 55)
+            printf("Student %d: D\n", i);
+        else if (result < 55)
+            printf("Student %d: F\n", i);
+    }
+}
+#+end_src
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int sign = 1, sum = 0;
+    for (int i = 1; i <= n; sign = -sign)
+        sum += sign * i++;
+    printf("Result: %d\n", sum);
+}
+#+end_src
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int sum = 0;
+    for (int i = 1; i <= n; i++) sum += i*i * (i+1);
+    printf("Result: %d\n", sum);
+}
+#+end_src
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int prev = 0, curr = 1, tmp;
+    for (int i = 0; i < n; i++) {
+        printf("%d ", curr);
+        tmp = curr;
+        curr = prev+curr;
+        prev = tmp;
+    }
+    putchar('\n');
+}
+#+end_src
+** 13
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int fact = 1;
+    for (; n; n--) fact *= n;
+    printf("%d\n", fact);
+}
+#+end_src
+** 14
+#+begin_src C -n
+#include <stdio.h>
+
+int fact(int n) {
+    int fact = 1;
+    for (; n; n--) fact *= n;
+    return fact;
+}
+
+int main() {
+    int n, r; scanf("%d%d", &n, &r);
+
+    int fact_n = 1;
+    for (int i = 1; i <= n; i++)
+        fact_n *= i;
+
+    int fact_r = 1;
+    for (int i = 1; i <= n; i++)
+        fact_r *= i;
+
+    int fact_n_r = 1;
+    for (int i = 1; i <= n; i++)
+        fact_n_r *= i;
+
+    printf("%d\n", fact_n / (fact_r * fact_n_r));
+}
+#+end_src
+** 15
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x, y; scanf("%d%d", &x, &y);
+
+    int pow = 1;
+    for (; y; y--) pow *= x;
+    printf("%d\n", pow);
+}
+#+end_src
+** 16
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x, y; scanf("%d%d", &x, &y);
+
+/**
+ * the gcd is the largest number <= the smaller of the two
+ * that can devide both x and y;
+ * so we can start from the smaller one of the two and
+ * keep decrementing that value until it can devide the two
+ * e.g.
+ * x = 12 and y = 9
+ * take the smaller one y and begin tesing
+ * 9 cannot devide the two; decrement 9
+ * 8 cannot devide the two; decrement 8
+ * 7 cannot devide the two; decrement 7
+ * 6 cannot devide the two; decrement 6
+ * 5 cannot devide the two; decrement 5
+ * 4 cannot devide the two; decrement 4
+ * 3 can devide the two
+ * so 3 is the gcd
+ */
+
+    // taking the smaller one of the two
+    // as the larger one cannot be the gcd
+    int gcd = (x < y) ? x : y;
+    for (; !(x % gcd == 0 && y % gcd == 0); gcd--);
+    //       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^
+    // if gcd cant devide the two^          ^decrement gcd
+
+    printf("GCD: %d\n", gcd);
+
+
+/**
+ * the lcm of x and y has to be the multiple of both x and y;
+ * so we can just test the multiples of any one of them (x or y);
+ * just check whether the multiples of any one (x or y) is divisible by
+ * the other number;
+ * e.g.
+ * x = 6 and y = 8
+ * testing multiples of y
+ * y * 1 = 8; 8 not divisible by x
+ * go to next multiple of y
+ * y * 2 = 16; 16 not divisible by x
+ * go to next multiple of y
+ * y * 3 = 24; 24 is divisible by x
+ * so 24 is the lcm
+ */
+
+    // taking the larger one of the two
+    // as the smaller one cannot be the lcm
+    int max = (x > y) ? x : y; // max
+    int lcm = max;
+    for (; !(lcm % x == 0 && lcm % y == 0); lcm += max);
+    //       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^
+    // if the two nums cant devide the lcm^ ^go to next multiple
+    printf("LCM: %d\n", lcm);
+}
+#+end_src
+** 17
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int isprime = (n == 1) ? 0 : 1;
+    for (int i = 2; i < n/2; i++)
+        if (n % i == 0) isprime = 0;
+
+    (isprime) ? printf("Prime\n") : printf("Not Prime\n");
+}
+#+end_src
+** 18
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    
+    int original = n;
+    int reverse  = 0;
+    while (n > 0) {
+        reverse = (reverse * 10) + (n % 10);
+        // n = 123       0 * 10  +  123 % 10 = 0   + 3 = 3
+        // n = 12        3 * 10  +  12  % 10 = 30  + 2 = 32
+        // n = 1        32 * 10  +  1   % 10 = 320 + 1 = 321
+        n /= 10;
+    }
+
+    if (original == reverse)
+        printf("Yes\n");
+    else
+        printf("No\n");
+}
+#+end_src
+** 19
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int x; scanf("%d", &x);
+
+    long double result = 0;
+    int sign = 1;
+
+    for (int i = 1; i <= 20; i += 2) {
+        long long fact = 1;
+        for (int j = 2; j <= i; j++)
+            fact *= j;
+
+        long long pow = 1;
+        for (int j = 1; j <= i; j++)
+            pow *= x;
+
+        result += sign * (double)pow/fact;
+        sign = -sign;
+    }
+
+    printf("%.3Lf\n", result);
+}
+#+end_src
+** 20
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int sum = 0;
+    int curr = 0;
+    for (int i = 1; i <= n; i++) {
+        curr = curr*10 + i;
+        sum += curr;
+    }
+
+    printf("%d\n", sum);
+}
+#+end_src
+
+* Nested Loop
+** 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j <= n; j++)
+            printf("%d", j);
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        int start = i;
+        for (int j = 0; j < n; j++)
+            printf("%d", start++);
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        int start = i;
+        for (int j = 0; j < i; j++)
+            printf("%d", start++);
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < n-i; j++) putchar(' ');
+        for (int j = 0; j < i  ; j++) printf("%d", i);
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        int start = n;
+        for (int j = 0; j < i; j++)
+            printf("%d", start--);
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 06
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++)
+            printf("%d", j);
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+            putchar('*');
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = n; i >= 1; i--) {
+        for (int j = 0; j < i; j++)
+            putchar('*');
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        int start = i % 2;
+        for (int j = 0; j < n; j++) {
+            printf("%d", start);
+            start = !start;
+        }
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < n-i; j++) putchar(' ');
+        for (int j = 0; j < i  ; j++) putchar('*');
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < n-i; j++) putchar(' ');
+        for (int j = 0; j < i  ; j++) putchar('*');
+        for (int j = 0; j < i-1; j++) putchar('*');
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    // top half + middle line
+    int loop = n/2+1;
+    for (int i = 1; i <= loop; i++) {
+        for (int j = 0; j < loop-i; j++) putchar(' ');
+        for (int j = 0; j < i     ; j++) putchar('*');
+        for (int j = 0; j < i-1   ; j++) putchar('*');
+        putchar('\n');
+    }
+
+    // bottom half; thus starting from loop-1
+    for (int i = loop-1; i >= 1; i--) {
+        for (int j = 0; j < loop-i; j++) putchar(' ');
+        for (int j = 0; j < i     ; j++) putchar('*');
+        for (int j = 0; j < i-1   ; j++) putchar('*');
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 13
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    int spaces = 2*(n-1) - 1;
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j <= i     ; j++) printf("%d", j);
+        for (int j = 0; j <  spaces; j++) putchar(' ');
+        spaces -= 2;
+        for (int j = i; j >= 1     ; j--) printf("%d", j);
+        putchar('\n');
+    }
+
+    // the last line
+    for (int i = 1  ; i <= n; i++) printf("%d", i);
+    for (int i = n-1; i >= 1; i--) printf("%d", i);
+    putchar('\n');
+}
+#+end_src
+
+** 14
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        if (i % 2 == 0)
+            for (int j = 0; j < n; j++) putchar('*');
+        else {
+            putchar('*');
+            for (int j = 0; j < n-2; j++) putchar(' ');
+            putchar('*');
+        }
+        putchar('\n');
+    }
+}
+#+end_src
+
+** 15
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) putchar('Z');
+    putchar('\n');
+
+    for (int i = n-1; i >= 2; i--)
+        printf("%*c\n", i, 'Z');
+
+    for (int i = 0; i < n; i++) putchar('Z');
+    putchar('\n');
+}
+#+end_src
+
+** 16
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    // top half
+    int spaces = n-2; // spaces in-between stars
+    for (int i = 0; i < n/2; i++) {
+        for (int j = 0; j < i; j++) putchar(' ');
+        putchar('*');
+        for (int j = 0; j < spaces; j++) putchar(' ');
+        spaces -= 2;
+        printf("*\n");
+    }
+
+    // middle line; single star
+    for (int i = 0; i < n/2; i++) putchar(' ');
+    printf("*\n");
+
+    // bottom half
+    spaces = 1;
+    for (int i = n/2-1; i >= 0; i--) {
+        for (int j = 0; j < i; j++) putchar(' ');
+        putchar('*');
+        for (int j = 0; j < spaces; j++) putchar(' ');
+        spaces += 2;
+        printf("*\n");
+    }
+}
+#+end_src
+
+** 17
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 0; i < n/2; i++) putchar(' ');
+    printf("$\n");
+
+    int spaces = 0;
+    for (int i = n/2-1; i >= 1; i--) {
+        for (int j = 0; j < i; j++) putchar(' ');
+        putchar('$');
+
+        for (int j = 0; j < spaces; j++) putchar(' ');
+        putchar('$');
+
+        for (int j = 0; j < spaces; j++) putchar(' ');
+        putchar('$');
+
+        spaces++;
+        putchar('\n');
+    }
+
+    for (int i = 0; i < n; i++) putchar('$');
+    putchar('\n');
+
+    spaces--;
+    for (int i = 1; spaces >= 0; i++) {
+        for (int j = 0; j < i; j++) putchar(' ');
+        putchar('$');
+
+        for (int j = 0; j < spaces; j++) putchar(' ');
+        putchar('$');
+
+        for (int j = 0; j < spaces; j++) putchar(' ');
+        putchar('$');
+
+        spaces--;
+        putchar('\n');
+    }
+
+    for (int i = 0; i < n/2; i++) putchar(' ');
+    printf("$\n");
+}
+#+end_src
+
+** 18
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        if (i == n/2) {
+            for (int j = 0; j < n; j++) printf("H ");
+            putchar('\n');
+        } else {
+            putchar('H');
+            for (int j = 0; j < n-2; j++) printf("  ");
+            printf(" H\n");
+        }
+    }
+}
+#+end_src
+* 1D Arrays
+** 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);
+
+    for (int i = n-1; i >= 0; i--) printf("%d ", arr[i]);
+    putchar('\n');
+}
+#+end_src
+** 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    int sum = 0;
+    for (int i = 0; i < n; i++) sum += arr[i];
+    printf("%d\n", sum);
+}
+#+end_src
+** 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+        if (arr[i] % 2 == 0)
+            sum += arr[i];
+
+    printf("%d\n", sum);
+}
+#+end_src
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+        if (i % 2 == 0)
+            sum += arr[i];
+
+    printf("%d\n", sum);
+}
+#+end_src
+** 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    for (int i = 0, tmp; i < n/2; i++) {
+        tmp = arr[i];
+        arr[i] = arr[n-1 - i];
+        arr[n-1 - i] = tmp;
+    }
+
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    putchar('\n');
+}
+#+end_src
+** 06
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);
+
+    int max = 0,
+        min = 99999,
+        max_indx = 0,
+        min_indx = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+            max_indx = i;
+        }
+        if (arr[i] < min){
+             min = arr[i];
+             min_indx = i;
+        }
+    }
+
+    printf("Max: %d, Index: %d\n", max, max_indx);
+    printf("Min: %d, Index: %d\n", min, min_indx);
+}
+#+end_src
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    char arr[n];
+    for (int i = 0; i < n; i++) scanf(" %c", arr+i);
+
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        char ch = arr[i];
+        if (ch == 'A'
+            || ch == 'E'
+            || ch == 'I'
+            || ch == 'O'
+            || ch == 'U')
+            count++;
+    }
+
+    printf("Count: %d\n", count);
+}
+#+end_src
+** 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);
+    int query; scanf("%d", &query);
+
+    int found_n = 0;
+    int found_indc[n]; // max we need is n; all same
+    for (int i = 0; i < n; i++)
+        if (arr[i] == query)
+            found_indc[found_n++] = i;
+
+    if (found_n) {
+        printf("FOUND at index position: ");
+        for (int i = 0; i < found_n; i++)
+            printf("%d ", found_indc[i]);
+        putchar('\n');
+    } else
+        printf("NOT FOUND\n");
+}
+#+end_src
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    int arr_rev[n];
+    for (int i = 0; i < n; i++)
+        arr_rev[i] = arr[n-1 - i];
+
+    printf("Array A: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    putchar('\n');
+
+    printf("Array B: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr_rev[i]);
+    putchar('\n');
+}
+#+end_src
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a[50];
+    int a_n; scanf("%d", &a_n);
+    for (int i = 0; i < a_n; i++) scanf("%d", a+i);   
+
+    int b[50];
+    int b_n; scanf("%d", &b_n);
+    for (int i = 0; i < b_n; i++) scanf("%d", b+i);   
+
+    int max = (a_n > b_n) ? a_n : b_n;
+    for (int i = 0; i < max; i++) {
+        int tmp = a[i];
+        a[i] = b[i];
+        b[i] = tmp;
+    }
+
+    printf("Array A: ");
+    for (int i = 0; i < b_n; i++)
+        printf("%d ", a[i]);
+    putchar('\n');
+
+    printf("Array B: ");
+    for (int i = 0; i < a_n; i++)
+        printf("%d ", b[i]);
+    putchar('\n');
+}
+#+end_src
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    for (int i = 0; i < n; i++)
+        if (arr[i] % 3 == 0)
+            arr[i] = -1;
+
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    putchar('\n');
+}
+#+end_src
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);   
+
+    int sorted = 0; // flag
+    for (int i = 0; !sorted && i < n; i++) {
+        sorted = 1;
+        for (int j = 1; j < n-i; j++)
+            if (arr[j-1] > arr[j]) {
+                int tmp  = arr[j];
+                arr[j]   = arr[j-1];
+                arr[j-1] = tmp;
+                sorted = 0; // had to swap so not sorted yet
+            }
+    }
+
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    putchar('\n');
+}
+#+end_src
+** 13
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) scanf("%d", arr+i);
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            if (arr[i] == arr[j]) {
+                // matched; no need to remove, just shift left
+                // [1 1 2 3] -> [1 2 3]
+                // [1 1 2 3] -> [1 2 2 3] -> [1 2 3]
+                //  k---^          k---^
+                for (int k = j+1; k < n; k++)
+                    arr[k-1] = arr[k];
+
+                n--; // one gone
+                j--; // [1 1 2 3] -> [1 2 3]
+                     // j--^         j--^
+                     // j will go to 3 on the next loop
+                     // so decrement j so it starts from 2 again
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    putchar('\n');
+}
+#+end_src
+** 14
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a_n; scanf("%d", &a_n);
+    int a[a_n];
+    for (int i = 0; i < a_n; i++) scanf("%d", a+i);
+
+    int b_n; scanf("%d", &b_n);
+    int b[b_n];
+    for (int i = 0; i < b_n; i++) scanf("%d", b+i);
+
+    int intrsctn[(a_n < b_n) ? a_n : b_n];
+    int intrsctn_n = 0;
+
+    for (int i = 0; i < a_n; i++)
+        for (int j = 0; j < b_n; j++)
+            if (a[i] == b[j])
+                intrsctn[intrsctn_n++] = b[j];
+
+    if (!intrsctn_n)
+        printf("Empty set");
+    else
+        for (int i = 0; i < intrsctn_n; i++) printf("%d ", intrsctn[i]);
+    putchar('\n');
+}
+#+end_src
+** 15
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a_n; scanf("%d", &a_n);
+    int a[a_n];
+    for (int i = 0; i < a_n; i++) scanf("%d", a+i);
+
+    int b_n; scanf("%d", &b_n);
+    int b[b_n];
+    for (int i = 0; i < b_n; i++) scanf("%d", b+i);
+
+    int uni[a_n + b_n];
+    int uni_n = 0;
+
+    for (int i = 0; i < a_n; i++)
+        uni[i] = a[i];
+    uni_n = a_n;
+
+    for (int i = 0; i < b_n; i++) {
+        int found = 0;
+        for (int j = 0; j < a_n; j++) {
+            if (b[i] == uni[j]) {
+                found = 1;
+                break; // don't add
+            }
+        }
+        if (!found) uni[uni_n++] = b[i];
+    }
+
+    if (!uni_n)
+        printf("Empty set");
+    else
+        for (int i = 0; i < uni_n; i++) printf("%d ", uni[i]);
+    putchar('\n');
+}
+#+end_src
+** 16
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a_n; scanf("%d", &a_n);
+    int a[a_n];
+    for (int i = 0; i < a_n; i++) scanf("%d", a+i);
+
+    int b_n; scanf("%d", &b_n);
+    int b[b_n];
+    for (int i = 0; i < b_n; i++) scanf("%d", b+i);
+    
+    // searching in b
+    // if found shifting left
+    for (int i = 0; i < a_n; i++) {
+        for (int j = 0; j < b_n; j++) {
+            if (a[i] == b[j]) {
+                for (int k = i+1; k < a_n; k++)
+                    a[k-1] = a[k];
+                a_n--; // one gone
+                i--; 
+            }
+        }
+    }
+
+    for (int i = 0; i < a_n; i++) printf("%d ", a[i]);
+    putchar('\n');
+}
+#+end_src
+
+* 2D Arrays
+** 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int mat[3][3];
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            scanf("%d", &mat[i][j]);
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++)
+            printf("%d ", mat[i][j]);
+        putchar('\n');
+    }
+}
+#+end_src
+** 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int m, n; scanf("%d%d", &m, &n);
+    int mat[m][n];
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &mat[i][j]);
+
+    printf("Row-wise: ");
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            printf("%d ", mat[i][j]);
+    putchar('\n');
+
+    printf("Col-wise: ");
+    for (int j = 0; j < n; j++)
+        for (int i = 0; i < m; i++)
+            printf("%d ", mat[i][j]);
+    putchar('\n');
+}
+#+end_src
+** 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int mat[3][3];
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            scanf("%d", &mat[i][j]);
+
+    int determinant =
+          mat[0][0] * (mat[1][1]*mat[2][2] - mat[2][1]*mat[1][2])
+        - mat[0][1] * (mat[1][0]*mat[2][2] - mat[2][0]*mat[1][2])
+        + mat[0][2] * (mat[1][0]*mat[2][1] - mat[2][0]*mat[1][1]);
+
+    printf("%d\n", determinant);
+}
+#+end_src
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int mat[n][n];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &mat[i][j]);
+
+    printf("Major diagonal: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", mat[i][i]);
+    putchar('\n');
+
+    printf("Minor diagonal: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", mat[i][n-1-i]);
+    putchar('\n');
+}
+#+end_src
+** 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int mat[n][n];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (i == j)
+                mat[i][j] = 1;
+            else
+                mat[i][j] = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%d ", mat[i][j]);
+        putchar('\n');
+    }
+}
+#+end_src
+** 06
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int m; scanf("%d", &m);
+    int n; scanf("%d", &n);
+    int A[m][n], B[m][n];
+
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &B[i][j]);
+
+    int C[m][n];
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            C[i][j] = A[i][j] + B[i][j];
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%d ", C[i][j]);
+        putchar('\n');
+    }
+}
+#+end_src
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n = 3;
+    int A[n][n], B[n][n];
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &B[i][j]);
+
+    int C[n][n];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
+            C[i][j] = A[i][0]*B[0][j]
+                    + A[i][1]*B[1][j]
+                    + A[i][2]*B[2][j];
+        }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%2d ", C[i][j]);
+        putchar('\n');
+    }
+}
+#+end_src
+** 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int m; scanf("%d", &m);
+    int n; scanf("%d", &n);
+    int A[m][n];
+
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+
+    int max = 0, max_i = 0, max_j = 0;
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            if (A[i][j] > max) {
+                max = A[i][j];
+                max_i = i;
+                max_j = j;
+            }
+
+    printf("Max: %d\nLoc: [%d][%d]\n", max, max_i, max_j);
+}
+#+end_src
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int A[n][n];
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+
+    int sum = 0;
+    // first row
+    for (int i = 0; i < n; i++)
+        sum += A[0][i];
+    // last row
+    for (int i = 0; i < n; i++)
+        sum += A[n-1][i];
+
+    for (int i = 1; i < n-1; i++)
+        sum += A[i][i] + A[i][n-1-i];
+
+    sum -= A[n/2][n/2]; // added twice on previous loop
+
+    printf("%d\n", sum);
+}
+#+end_src
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int A[n][n];
+    
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+    
+    int sum = 0;
+
+    // first row
+    for (int i = 0; i <= n/2; i++)
+        sum += A[0][i];
+    sum += A[0][n-1];
+
+    // last row
+    for (int i = n/2; i < n; i++)
+        sum += A[n-1][i];
+    sum += A[n-1][0];
+    
+    // middle row
+    for (int i = 0; i < n; i++)
+        sum += A[n/2][i];
+
+    // top half
+    for (int i = 1; i < n/2; i++)
+        sum += A[i][n/2] + A[i][n-1];
+    
+    // bottom half
+    for (int i = n/2+1; i < n-1; i++)
+        sum += A[i][0] + A[i][n/2];
+    
+    printf("%d\n", sum);
+}
+#+end_src
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int A[n][n];
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+        if (i % 2 == 0) {  // even index row; sum only odd indices
+            for (int j = 1; j < n-1; j++)
+                if (j % 2)
+                    sum += A[i][j];
+        } else {  // odd index row; sum all indices
+            for (int j = 0; j < n; j++)
+                sum += A[i][j];
+        }
+
+    printf("%d\n", sum);
+}
+#+end_src
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int m; scanf("%d", &m);
+    int n; scanf("%d", &n);
+    int A[m][n];
+
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n/2; j++) {
+            int tmp = A[i][j];
+            A[i][j] = A[i][n-1-j];
+            A[i][n-1-j] = tmp;
+        }
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%d ", A[i][j]);
+        putchar('\n');
+    }
+}
+#+end_src
+** 13
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int A[n][n];
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+
+    for (int i = 0; i <= n/2; i++)
+        for (int j = 0; j < n; j++)
+            if (A[i][j] != A[j][i]) {
+                printf("No\n");
+                return 0;
+            }
+
+    printf("Yes\n");
+}
+#+end_src
+** 14
+#+begin_src C -n
+#include <stdio.h>
+ 
+int main() {
+    int m; scanf("%d", &m);
+    int n; scanf("%d", &n);
+    int A[m][n];
+ 
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+ 
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++) {
+            int curr = A[i][j];
+            for (int k = i; k < m; k++) {
+                for (int l = (k==i)?j+1:0; l < n; l++)
+                    if (A[k][l] == curr)
+                        A[k][l] = -1;
+            }
+        }
+ 
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%d ", A[i][j]);
+        putchar('\n');
+    }
+ 
+}
+#+end_src
+** 15
+#+begin_src C -n
+#include <stdio.h>
+ 
+int main() {
+    int m; scanf("%d", &m);
+    int n; scanf("%d", &n);
+    int A[m][n];
+ 
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &A[i][j]);
+ 
+    int sum = 0;
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            sum += A[i][j];
+ 
+    printf("%d\n", sum);
+}
+#+end_src
+
+* String
+** 01
+#+begin_src C -n
+#include <stdio.h>
+ 
+int main() {
+    char ch; scanf(" %c", &ch);
+ 
+    printf("%c\n", ch + ' ');
+}
+#+end_src
+** 02
+#+begin_src C -n
+#include <stdio.h>
+ 
+int main() {
+    char ch; scanf(" %c", &ch);
+ 
+    if (ch >= 'A' && ch <= 'Z')
+        printf("%c\n", ch + ' ');
+    else if (ch >= 'a' && ch <= 'z')
+        printf("%c\n", ch - ' ');
+}
+#+end_src
+** 03
+#+begin_src C -n
+#include <stdio.h>
+ 
+int main() {
+    char ch; scanf(" %c", &ch);
+ 
+    if (ch >= '0' && ch <= '9')
+        printf("%d\n", ch - '0');
+    else
+        printf("Wrong input!\n");
+}
+#+end_src
+
+** 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    int count = 0;
+    do {
+        scanf("%c", &ch);
+        count++;
+    } while (ch != '\n');
+    count--; // removing the '\n' at the end
+
+    printf("%d\n", count);
+}
+#+end_src
+** 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    do {
+        scanf("%c", &ch);
+        if (ch >= 'A' && ch <= 'Z')
+            putchar(ch + ' ');
+        else
+            putchar(ch);
+    } while (ch != '\n');
+}
+#+end_src
+** 06
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    do {
+        scanf("%c", &ch);
+        if (ch >= 'A' && ch <= 'Z')
+            putchar(ch + ' ');
+        else if (ch >= 'a' && ch <= 'z')
+            putchar(ch - ' ');
+        else
+            putchar(ch); // spaces and newlines
+    } while (ch != '\n');
+}
+#+end_src
+** 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    int length = 0;
+    char ch;
+    do {
+        scanf("%c", &ch);
+        str[length++] = ch;
+    } while (ch != '\n');
+    length--; // '\n' at the end
+
+    for (int i = 0; i < length/2; i++)
+        if (str[i] != str[length-1 - i]) {
+            printf("Not palindrome\n");
+            return 0;
+        }
+
+    printf("Palindrome\n");
+}
+#+end_src
+** 08
+Disclaimer: Sample output does not match the instructions given. The code
+follows the sample output.
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    char string1[100];
+    int len1 = 0;
+    do {
+        scanf("%c", &ch);
+        string1[len1++] = ch;
+    } while (ch != '\n');
+    len1--;                 // '\n' at the end
+    string1[len1] = '\0';   // inserting null for easier printing
+
+    char string2[100];
+    int len2 = 0;
+    do {
+        scanf("%c", &ch);
+        string2[len2++] = ch;
+    } while (ch != '\n');
+    len2--;
+    string2[len2] = '\0';
+
+    int n_loops = (len1 < len2) ? len1 : len2;
+    for (int i = 0; i < n_loops; i++) {
+        if (string1[i] < string2[i]) {
+            printf("%s\n", string1);
+            return 0;
+        }
+        if (string2[i] < string1[i]) {
+            printf("%s\n", string2);
+            return 0;
+        }
+    }
+
+    if (len1 < len2)
+        printf("%s\n", string1);
+    else if (len2 < len1)
+        printf("%s\n", string2);
+    else
+        printf("Both equal\n");
+}
+#+end_src
+** 09
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    char string[100];
+    int len = 0;
+    do {
+        scanf("%c", &ch);
+        string[len++] = ch;
+    } while (ch != '\n');
+    len--;
+
+    char copy[len+1];       // +1 for the null character
+    for (int i = 0; i < len; i++)
+        copy[i] = string[i];
+    copy[len] = '\0';       // inserting null for easier printing
+
+    printf("%s\n", copy);
+}
+#+end_src
+** 10
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    char str1[100];
+    int len1 = 0;
+    do {
+        scanf("%c", &ch);
+        str1[len1++] = ch;
+    } while (ch != '\n');
+    len1--;
+    
+    char str2[100];
+    int len2 = 0;
+    do {
+        scanf("%c", &ch);
+        str2[len2++] = ch;
+    } while (ch != '\n');
+    len2--;
+
+    for (int i = 0; i < len2; i++)
+        str1[len1++] = str2[i];
+    str1[len1] = '\0';
+
+    printf("%s\n", str1);
+}
+#+end_src
+** 11
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    char str1[100];
+    int len1 = 0;
+    do {
+        scanf("%c", &ch);
+        str1[len1++] = ch;
+    } while (ch != '\n');
+    len1--;
+    
+    char str2[100];
+    int len2 = 0;
+    do {
+        scanf("%c", &ch);
+        str2[len2++] = ch;
+    } while (ch != '\n');
+    len2--;
+
+    if (len2 > len1) {
+        printf("Not substring\n");
+        return 0;
+    }
+
+    for (int i = 0; i < len1; i++) {
+        if (str1[i] == str2[0]) {
+            int flag = 1;
+            for (int j = 1; j < len2; j++) {
+                if (str1[i+j] != str2[j]) {
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag) {
+                printf("Substring\n");
+                return 0;
+            }
+        }
+    }
+
+    printf("Not substring\n");
+}
+#+end_src
+** 12
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char ch;
+    char str[100];
+    int len = 0;
+    do {
+        scanf("%c", &ch);
+        str[len++] = ch;
+    } while (ch != '\n');
+    len--;
+
+    for (int i = 0; i < len; i++)
+        if (str[i] == ' ')
+            putchar('\n');
+        else
+            putchar(str[i]);
+    putchar('\n');
+}
+#+end_src

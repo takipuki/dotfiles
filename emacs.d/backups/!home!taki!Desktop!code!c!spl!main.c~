@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fileptr = fopen("sample.txt", "r");
+    char buf[100], *ptr;
+    for (ptr = buf; (*ptr = fgetc(fileptr)) != EOF; ptr++);
+    *ptr = '\0';
+    printf("%s", buf);
+    fclose(fileptr);
+}

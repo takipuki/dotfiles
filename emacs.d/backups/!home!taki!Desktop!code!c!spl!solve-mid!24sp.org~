@@ -1,0 +1,58 @@
+#+setupfile: /home/taki/Desktop/code/c/spl/setup.org
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../clean.css"/>
+#+HTML_HEAD: <style type="text/css">
+#+HTML_HEAD:  ol { list-style-type: lower-alpha; }
+#+HTML_HEAD:  li { margin: 1em 0; }
+#+HTML_HEAD: </style>
+
+#+title: Mid - 24sp
+
+* 01
+a) Correction
+   #+begin_src C -n
+   #include <stdio.h>
+   int main() {
+       int Num, a;
+       Num = 20 % 3;
+       a = Num + 10;
+       printf("%d %d ", Num, a);
+       return 0;
+   }
+   #+end_src
+
+b) output
+   #+begin_example
+   result = 6
+   a = 3
+   #+end_example
+
+* 02
+a) Rewrite
+   #+begin_src C -n
+   int num = 5, sum = 10, i = 4, j = 9;
+   if (num == 1) {
+       sum *= 3;
+       sum += --j * 2;
+       i--;
+   } else if (num == 2 || num == 3) {
+       sum += --j * 2;
+       i--;
+   }
+   #+end_src
+
+* 03
+a) Pattern '2'
+
+b) Rewrite
+   #+begin_src C -n
+   int i = 0, count = 0;
+   for (int n = 12345; n != 0; ) {
+       printf("%d", n % 10);
+       count++;
+       while (i < count) {
+           printf("%d", n /= 10);
+           i++;
+       }
+       printf("\n");
+   }
+   #+end_src

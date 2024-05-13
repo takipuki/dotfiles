@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: main no args
+# key: main()
+# --
+int main() {
+    $0
+}

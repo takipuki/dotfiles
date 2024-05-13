@@ -1,0 +1,4 @@
+# name: graph
+# key: gr
+# --
+[[https://www.symbolab.com/graphing-calculator?functions=$1][$1]]

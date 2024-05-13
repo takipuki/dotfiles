@@ -1,0 +1,6 @@
+#! /usr/bin/bash
+
+for f in *.c
+do
+  head $f -c 50
+done

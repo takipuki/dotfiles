@@ -1,0 +1,15 @@
+
+t = int(input())
+for _ in range(t):
+    _ = input()
+    x = input()
+    s = input()
+    if s in x:
+        print(0)
+        continue
+
+    while i in range(6):
+        x += x
+        if s in x:
+            print(i)
+            break

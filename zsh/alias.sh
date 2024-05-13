@@ -2,7 +2,8 @@
 #alias nvr="nvr --remote-tab-silent"
 
 alias sus="swaylock & sleep 2 && systemctl suspend"
-alias e="setsid emacsclient"
+alias e="setsid emacsclient --alternate-editor=''"
+alias ec="setsid emacsclient --alternate-editor='' --create-frame"
 
 alias open="gio open"
 alias hs="http-server"
@@ -17,10 +18,13 @@ alias yays="yay -S"
 alias rum="gio trash"
 #alias rum="/usr/bin/rm"
 alias mv="mv -i"
+alias ls="ls -F"
+alias cpy=wl-copy
+alias pst=wl-paste
 
 alias sorc="source ~/.zshrc"
 
-alias yt="lua ~/.local/script/yt.lua"
+alias yt='COLUMNS=$COLUMNS lua ~/.local/script/yt.lua'
 alias elaach="bash ~/.local/script/elaach.sh"
 alias sam="bash ~/.local/script/sam.sh"
 

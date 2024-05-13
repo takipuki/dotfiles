@@ -1,0 +1,290 @@
+#+SETUPFILE: "../../setup.org"
+#+OPTIONS: toc:t
+
+#+TITLE: Pointers-Recursion-File
+
+* 01
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b; scanf("%d %d", &a, &b);
+    int *aptr = &a, *bptr = &b;
+    printf("%d\n", *aptr + *bptr);
+}
+#+end_src
+* 02
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b; scanf("%d %d", &a, &b);
+    int *aptr = &a, *bptr = &b;
+    printf("%d\n", *aptr > *bptr ? *aptr : *bptr);
+}
+#+end_src
+* 03
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int ar[n];
+    for (int i = 0; i < n; i++) scanf("%d", ar+i);
+
+    for (int *ptr = ar; n; n--, ptr++) printf("%d ", *ptr);
+    putchar('\n');
+}
+#+end_src
+* 04
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    char str[100] = {0};
+    scanf("%[^\n]", str);
+    int len = 0;
+    for (char *s = str; *s != '\0'; len++, s++);
+    printf("%d\n", len);
+}
+#+end_src
+* 05
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int a, b; scanf("%d %d", &a, &b);
+    printf("%d %d\n", a, b);
+    int *aptr = &a, *bptr = &b;
+    int tmp = *aptr;
+    *aptr = *bptr;
+    *bptr = tmp;
+    printf("%d %d\n", a, b);
+}
+#+end_src
+* 06
+#+begin_src C -n
+#include <stdio.h>
+
+char* str_chr(char *s, char c) {
+    for (; *s; s++) if (*s == c) return s;
+    return NULL;
+}
+
+int is_alpha(char c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
+
+int main() {
+    char str[100] = {0};
+    scanf("%[^\n]", str);
+    int v = 0, c = 0;
+    for (char *s = str; *s != '\0'; s++) {
+        if (str_chr("aeiouAEIOU", *s))
+            v++;
+        else if (is_alpha(*s))
+            c++;
+    }
+    printf("vowels     = %d\n", v);
+    printf("consonants = %d\n", c);
+}
+#+end_src
+* 07
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int ar[n];
+    for (int i = 0; i < n; i++)
+        scanf("%d", ar+i);
+
+    int sum = 0;
+    for (int *ptr = ar; n; n--, ptr++)
+        sum += *ptr;
+    printf("%d\n", sum);
+}
+#+end_src
+* 08
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    int n; scanf("%d", &n);
+    int ar[n];
+    for (int i = 0; i < n; i++)
+        scanf("%d", ar+i);
+
+    for (int *ptr = ar+n-1; n; n--, ptr--)
+        printf("%d ", *ptr);
+    putchar('\n');
+}
+#+end_src
+* 09
+#+begin_src C -n
+#include <stdio.h>
+
+void solve(int n) {
+    if (n > 10) return;
+    printf("%d ", n);
+    solve(n+1);
+}
+
+int main() {
+    solve(1);
+    putchar('\n');
+}
+#+end_src
+* 10
+#+begin_src C -n
+#include <stdio.h>
+
+int sum(int n) {
+    if (n == 0) return 0;
+    return n + sum(n-1);
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    printf("%d\n", sum(n));
+}
+#+end_src
+* 11
+#+begin_src C -n
+#include <stdio.h>
+
+int fib(int n) {
+    if (n == 1) return 0;
+    if (n == 2) return 1;
+    return fib(n-1) + fib(n-2);
+}
+
+void print_fib(int n) {
+    if (n == 0) return;
+    print_fib(n-1);
+    printf("%d ", fib(n));
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    print_fib(n);
+    putchar('\n');
+}
+#+end_src
+* 12
+#+begin_src C -n
+#include <stdio.h>
+
+void print_arr(int *ar, int n) {
+    if (n == 0) return;
+    printf("%d ", *ar);
+    print_arr(ar+1, n-1);
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    int ar[n];
+    for (int i = 0; i < n; i++)
+        scanf("%d", ar+i);
+
+    print_arr(ar, n);
+    putchar('\n');
+}
+#+end_src
+* 13
+#+begin_src C -n
+#include <stdio.h>
+
+int digs(int n) {
+    if (n < 10) return 1;
+    return 1 + digs(n/10);
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    printf("%d\n", digs(n));
+}
+#+end_src
+* 14
+#+begin_src C -n
+#include <stdio.h>
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+int max_arr(int *ar, int n) {
+    if (n == 0) return 0;
+    return max(*ar, max_arr(ar+1, n-1));
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    int ar[n];
+    for (int i = 0; i < n; i++)
+        scanf("%d", ar+i);
+
+    printf("%d\n", max_arr(ar, n));
+}
+#+end_src
+* 15
+#+begin_src C -n
+#include <stdio.h>
+
+void print_every_other(int n) {
+    if (n < 1) return;
+    print_every_other(n-2);
+    printf("%d ", n);
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    print_every_other(n);
+    putchar('\n');
+}
+#+end_src
+* 16
+#+begin_src C -n
+#include <stdio.h>
+
+int is_pal(char *s, int len) {
+    if (len < 2) return 1;
+    if (*s != *(s+len-1)) return 0;
+    return is_pal(s+1, len-2);
+}
+
+int main() {
+    char str[100];
+    int len;
+    for (len = 0; (str[len] = getchar()) != '\n'; len++);
+
+    if (is_pal(str, len))
+        puts("YES");
+    else
+        puts("NO");
+}
+#+end_src
+* 17
+#+begin_src C -n
+#include <stdio.h>
+
+int main() {
+    FILE *fileptr = fopen("sample.txt", "w");
+    fprintf(fileptr, "1 Zahid\n");
+    fprintf(fileptr, "2 Tanvir\n");
+    fprintf(fileptr, "3 Akif\n");
+    fclose(fileptr);
+}
+#+end_src
+# * 18
+# #+begin_src C -n
+# #+end_src
+# * 19
+# #+begin_src C -n
+# #+end_src
+# * 20
+# #+begin_src C -n
+# #+end_src
+# * 21
+# #+begin_src C -n
+# #+end_src

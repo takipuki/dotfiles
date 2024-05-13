@@ -1,0 +1,201 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define INLINE_TAGS "*/_=+$"
+
+typedef struct {
+    int cursor;
+    char *text;
+} Parser;
+
+void parse_par(Parser *p);
+void parse_tag(Parser *p);
+void parse_sen(Parser *p);
+void parse_ul(Parser *p);
+void parse_ol(Parser *p);
+void trim(Parser *p);
+bool is_start_ul(Parser *p);
+void parse(Parser *p);
+
+int main() {
+    Parser p;
+    int n; scanf("%d ", &n);
+    p.text = malloc(n+1);
+    for (int i = 0; i < n; i++) p.text[i] = getchar();
+    p.text[n] = '\0';
+
+    parse(&p);
+}
+
+void parse(Parser *p) {
+    for (char ch; (ch = p->text[p->cursor]) != '\0' ;) {
+        // heading
+        if (ch == '*') {
+            int level = 1;
+            char c;
+            while ((c = p->text[++p->cursor]) != '\0') {
+                if (c == '*') level++;
+                else break;
+            }
+            if (level > 6) level = 6;
+
+            printf("\n<h%d>", level);
+            trim(p);
+            for (c = p->text[p->cursor];
+                 c != '\0' && c != '\n';
+                 c = p->text[++p->cursor])
+                putchar(c);
+
+            printf("</h%d>\n", level);
+            p->cursor++;
+        }
+
+        // ul
+        else if ((ch == '-' || ch == '+') &&
+                 p->text[p->cursor+1] == ' ') parse_ul(p);
+
+        // ol
+        else if (isdigit(ch)) {
+            int at_digit = p->cursor;
+            char c;
+            while (isdigit(c = p->text[++p->cursor]));
+            if (c == '\0') break;
+
+            if (c == '.' && (c = p->text[++p->cursor]) == ' ') {
+                p->cursor = at_digit;
+                parse_ol(p);
+            } else {
+                p->cursor = at_digit;
+                parse_par(p);
+            }
+        }
+
+        else parse_par(p);
+    }
+}
+
+void parse_ul(Parser *p) {
+    char list_ch = p->text[p->cursor];
+    p->cursor++; // on the space; - hello
+                 //         here --^
+    printf("\n<ol>\n<li>");
+    for (char ch; (ch = p->text[p->cursor]) != '\0';) {
+        if (ch == '\n') {
+            if (p->text[p->cursor+1] == '\n') {
+                trim(p);
+                if (is_start_ul(p)) p->cursor++;
+                else break;
+            }
+            else {
+                trim(p);
+                if (is_start_ul(p)) {
+                    if (p->text[p->cursor] == list_ch) {
+                        printf("</li>\n<li>");
+                        p->cursor++; // on the space
+                    }
+                    else parse_ul(p);
+                }
+            }
+        }
+        else {
+            putchar(ch);
+            p->cursor++;
+        }
+    }
+    printf("</li>\n</ol>\n");
+}
+
+bool is_start_ul(Parser *p) {
+    char ch = p->text[p->cursor];
+    if ((ch == '-' || ch == '+') && p->text[p->cursor+1] == ' ')
+        return true;
+    return false;
+}
+
+void parse_ol(Parser *p) {
+    printf("\n-ol-UNIMPLEMENTED-\n");
+    p->cursor++;
+}
+
+void parse_sen(Parser *p) {
+    trim(p);
+    for (char ch; (ch = p->text[p->cursor]) != '\0' ;) {
+        if (ch == '\n') {
+            char ch_next = p->text[++p->cursor];
+            if (ch_next == '\0') return;
+
+            if (ch_next == '\n') {
+                while (ch_next == '\n') ch_next = p->text[++p->cursor];
+                return;
+            }
+
+            else putchar(ch);
+        }
+
+        else if (ch == '\\') {
+            char ch_next = p->text[++p->cursor];
+            if (ch_next == '\0') return;
+            putchar(ch_next);
+            p->cursor++;
+        }
+
+        else if (strchr(INLINE_TAGS, ch) != NULL)
+            parse_tag(p);
+
+        else {
+            putchar(ch);
+            p->cursor++;
+        }
+    }
+}
+
+void parse_par(Parser *p) {
+    printf("\n<p>\n");
+    parse_sen(p);
+    printf("\n</p>\n");
+}
+
+void parse_tag(Parser *p) {
+    char tag_ch = p->text[p->cursor];
+    char *tag_html;
+
+    if (tag_ch == '*')
+        tag_html = "b";
+    else if (tag_ch == '/')
+        tag_html = "i";
+    else if (tag_ch == '_')
+        tag_html = "u";
+    else if (tag_ch == '=')
+        tag_html = "pre";
+    else if (tag_ch == '+')
+        tag_html = "s";
+
+    if (tag_ch == '$') printf("\\(");
+    else               printf("<%s>", tag_html);
+
+    p->cursor++;
+    for (char ch; (ch = p->text[p->cursor]) != '\0' ;) {
+        if (ch == tag_ch) {
+            if (tag_ch == '$') printf("\\)");
+            else               printf("</%s>", tag_html);
+            p->cursor++;
+            return;
+        }
+
+        if (strchr(INLINE_TAGS, ch) != NULL)
+            parse_tag(p);
+        else {
+            putchar(ch);
+            p->cursor++;
+        }
+    }
+}
+
+void trim(Parser *p) {
+    for (char ch = p->text[p->cursor];
+         ch == ' ' || ch == '\n';
+         ch = p->text[++p->cursor]);
+}

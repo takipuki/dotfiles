@@ -1,0 +1,40 @@
+#define rep(i, start, end) for (int i = (start); i < (end); i++)
+#define deb(x) cout << #x << " = " << x <<nl
+#define ig(c) cin.ignore(numeric_limits<streamsize>::max(), c)
+#define debarr(arr, n) {cout<<#arr<<" = ";rep(i, 0, n) cout << arr[i] << ' ';cout<<nl;}
+
+#include <limits>
+
+#include <iostream>
+using namespace std;
+#define nl '\n'
+
+int rev(int n, int r = 0) {
+    if (n < 10) return r*10+n;
+    return rev(n/10, r*10+n%10);
+}
+
+void rev_n_add(int n, int i) {
+    n += rev(n);
+    i++;
+    if (n == rev(n)) {
+        cout << i << ' ' << n << nl;
+        return;
+    }
+    rev_n_add(n, i);
+}
+
+void input(int n) {
+    if (n <= 0) return;
+    int a; cin >> a;
+    rev_n_add(a, 0);
+    input(n-1);
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n; cin >> n;
+    input(n);
+}

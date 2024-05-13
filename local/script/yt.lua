@@ -1,12 +1,31 @@
+#! /usr/bin/env lua
+
+HELP = [[
+
+stream youtube video/audio to mpv
+
+Usage:
+  yt [options] [query]
+
+Options:
+  -h                show this help
+  -v                play video
+  -n                print videos ids without playing
+  -f<FORMAT>        yt-dlp format
+  -s<QUERY>         interactively search and select videos (can be multiple)
+  -i<VIDEO ID>      manually add id to play
+]]
 
 --- TODO directly given ids are played first; should play in the order of arguments
 ---      make searching a function and use it in getopts
 
 
-SEARCH_URL = "https://www.youtube.com/results?search_query="
+SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
-DLP_FORMAT = "bestaudio"    -- play video or just audio
-PLAYER_CMD = "mpv -"        -- media player
+DLP_FORMAT  = "bestaudio"    -- play video or just audio
+PLAYER_CMD  = "mpv -"        -- media player
+COLS        = tonumber(os.getenv("COLUMNS"))
+COLS        = COLS > 100 and 100 or COLS
 
 
 local interactive_searches = {}   -- choose from search results
@@ -16,12 +35,14 @@ local ids = {}                    -- ids in this table will be played
 -- parsing args
 for _, argv in ipairs(arg) do
     if string.sub(argv, 1, 1) == '-' then
-        local opt, val = argv:match('-([^=])=?"?(.*)"?')
+        local opt, val = argv:match('-(%a)(.*)')
         if     opt == 'v' then DLP_FORMAT = "bv[height<=2160]+ba"
         elseif opt == 'f' then DLP_FORMAT = val
         elseif opt == 'n' then SHOULD_PLAY = false
         elseif opt == 's' then table.insert(interactive_searches, val)
         elseif opt == 'i' then table.insert(ids, val)
+        elseif opt == 'h' then print(HELP); os.exit()
+        else print("Unknown option "..opt) os.exit()
         end
     else
         table.insert(non_i_searches, argv)
@@ -66,7 +87,8 @@ for _,process in ipairs(i_query_processes) do
     local search_results = {}
     for i=0,9 do
         search_results[i+1] = process:read()
-        print(string.format("%d %-70.65s%10s", i, process:read(), process:read()))
+        print(string.format("%d %-"..(COLS-20)..'.'..(COLS-20).."s%10s",
+            i, process:read(), process:read()))
     end
     process:close()
 

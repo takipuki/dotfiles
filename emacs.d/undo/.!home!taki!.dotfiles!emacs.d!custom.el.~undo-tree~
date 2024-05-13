@@ -1,0 +1,241 @@
+(undo-tree-save-format-version . 1)
+"bb345357556e2ba8e8aa12cb9e3f4093abcfef73"
+[nil nil nil nil (26052 27808 146074 407000) 0 nil]
+([nil nil ((1700 . 1939) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -1700) (1534 . 1699) (#("
+" 0 1 (fontified nil)) . -1534) (1151 . 1535) (#(" " 0 1 (fontified nil)) . 1151) (1121 . 1152) (1047 . 1052) (#("  " 0 2 (fontified nil)) . 1047) (1035 . 1044) (#("      " 0 6 (fontified nil)) . 1035) (953 . 962) (#("      " 0 6 (fontified nil)) . 953) (916 . 921) (#("  " 0 2 (fontified nil)) . 916) (904 . 913) (#("      " 0 6 (fontified nil)) . 904) (830 . 839) (#("      " 0 6 (fontified nil)) . 830) (793 . 798) (#("  " 0 2 (fontified nil)) . 793) (781 . 790) (#("      " 0 6 (fontified nil)) . 781) (723 . 732) (#("      " 0 6 (fontified nil)) . 723) (#("
+" 0 1 (fontified nil)) . -1094) (1023 . 1025) (1014 . 1020) (935 . 941) (901 . 903) (892 . 898) (821 . 827) (787 . 789) (778 . 784) (723 . 729) (1052 . 1053) (982 . 983) (#(" " 0 1 (fontified nil)) . -982) (979 . 980) (#(" " 0 1 (fontified nil)) . -979) (906 . 907) (#(" " 0 1 (fontified nil)) . 906) (874 . 875) (#("
+" 0 1 (fontified nil)) . 874) (874 . 875) (#(" " 0 1 (fontified nil)) . -874) (871 . 872) (#(" " 0 1 (fontified nil)) . -871) (806 . 807) (#(" " 0 1 (fontified nil)) . 806) (774 . 775) (#("
+" 0 1 (fontified nil)) . 774) (774 . 775) (#(" " 0 1 (fontified nil)) . -774) (771 . 772) (#(" " 0 1 (fontified nil)) . -771) (722 . 723) (#(" " 0 1 (fontified nil)) . 722) (695 . 1052) (#(" " 0 1 (fontified nil)) . 695) (1 . 696) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(calendar-week-start-day 6)
+ '(coffee-tab-width 2)
+ '(company-idle-delay 0)
+ '(company-minimum-prefix-length 1)
+ '(electric-indent-mode t)
+ '(electric-pair-mode t)
+ '(global-ligature-mode t)
+ '(org-agenda-files '(\"/home/taki/.notes/plan.org\"))
+ '(org-agenda-span 'fortnight)
+ '(org-agenda-start-on-weekday 6)
+ '(org-edit-src-content-indentation 0)
+ '(org-list-allow-alphabetical t)
+ '(org-mode-hook
+   '(#[0 \"\\301\\211\\20\\207\"
+         [imenu-create-index-function org-imenu-get-tree]
+         2]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-fold-show-all append local]
+         5]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-babel-show-result-all append local]
+         5]
+     org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
+ '(package-selected-packages
+   '(undo-tree underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme tagedit clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile treemacs-magit setup rainbow-delimiters paredit lsp-ui lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
+ '(tab-width 4)
+ '(truncate-lines t)
+ '(x-select-enable-clipboard-manager nil)
+ '(yas-global-mode t))" 0 1670 (fontified nil)) . -1) (t 26052 26556 138765 545000)) nil (26052 27808 146067 842000) 0 nil])
+([nil nil ((1767 . 2006) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -1767) (1534 . 1766) (#("
+" 0 1 (fontified nil)) . -1534) (1151 . 1535) (#(" " 0 1 (fontified nil)) . 1151) (1121 . 1152) (1047 . 1052) (#("  " 0 2 (fontified nil)) . 1047) (1035 . 1044) (#("      " 0 6 (fontified nil)) . 1035) (953 . 962) (#("      " 0 6 (fontified nil)) . 953) (916 . 921) (#("  " 0 2 (fontified nil)) . 916) (904 . 913) (#("      " 0 6 (fontified nil)) . 904) (830 . 839) (#("      " 0 6 (fontified nil)) . 830) (793 . 798) (#("  " 0 2 (fontified nil)) . 793) (781 . 790) (#("      " 0 6 (fontified nil)) . 781) (723 . 732) (#("      " 0 6 (fontified nil)) . 723) (#("
+" 0 1 (fontified nil)) . -1094) (1023 . 1025) (1014 . 1020) (935 . 941) (901 . 903) (892 . 898) (821 . 827) (787 . 789) (778 . 784) (723 . 729) (1052 . 1053) (982 . 983) (#(" " 0 1 (fontified nil)) . -982) (979 . 980) (#(" " 0 1 (fontified nil)) . -979) (906 . 907) (#(" " 0 1 (fontified nil)) . 906) (874 . 875) (#("
+" 0 1 (fontified nil)) . 874) (874 . 875) (#(" " 0 1 (fontified nil)) . -874) (871 . 872) (#(" " 0 1 (fontified nil)) . -871) (806 . 807) (#(" " 0 1 (fontified nil)) . 806) (774 . 775) (#("
+" 0 1 (fontified nil)) . 774) (774 . 775) (#(" " 0 1 (fontified nil)) . -774) (771 . 772) (#(" " 0 1 (fontified nil)) . -771) (722 . 723) (#(" " 0 1 (fontified nil)) . 722) (695 . 1052) (#(" " 0 1 (fontified nil)) . 695) (1 . 696) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(calendar-week-start-day 6)
+ '(coffee-tab-width 2)
+ '(company-idle-delay 0)
+ '(company-minimum-prefix-length 1)
+ '(electric-indent-mode t)
+ '(electric-pair-mode t)
+ '(global-ligature-mode t)
+ '(global-undo-tree-mode t)
+ '(org-agenda-files '(\"/home/taki/.notes/plan.org\"))
+ '(org-agenda-span 'fortnight)
+ '(org-agenda-start-on-weekday 6)
+ '(org-edit-src-content-indentation 0)
+ '(org-list-allow-alphabetical t)
+ '(org-mode-hook
+   '(#[0 \"\\301\\211\\20\\207\"
+         [imenu-create-index-function org-imenu-get-tree]
+         2]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-fold-show-all append local]
+         5]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-babel-show-result-all append local]
+         5]
+     org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
+ '(package-selected-packages
+   '(undo-tree underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme tagedit clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile treemacs-magit setup rainbow-delimiters paredit lsp-ui lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
+ '(tab-width 4)
+ '(truncate-lines t)
+ '(x-select-enable-clipboard-manager nil)
+ '(yas-global-mode t))" 0 1698 (fontified nil)) . -1) (t 26052 27808 153570 555000)) nil (26052 27877 564801 771000) 0 nil])
+([nil nil ((1757 . 1996) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -1757) (1524 . 1756) (#("
+" 0 1 (fontified nil)) . -1524) (1151 . 1525) (#(" " 0 1 (fontified nil)) . 1151) (1121 . 1152) (1047 . 1052) (#("  " 0 2 (fontified nil)) . 1047) (1035 . 1044) (#("      " 0 6 (fontified nil)) . 1035) (953 . 962) (#("      " 0 6 (fontified nil)) . 953) (916 . 921) (#("  " 0 2 (fontified nil)) . 916) (904 . 913) (#("      " 0 6 (fontified nil)) . 904) (830 . 839) (#("      " 0 6 (fontified nil)) . 830) (793 . 798) (#("  " 0 2 (fontified nil)) . 793) (781 . 790) (#("      " 0 6 (fontified nil)) . 781) (723 . 732) (#("      " 0 6 (fontified nil)) . 723) (#("
+" 0 1 (fontified nil)) . -1094) (1023 . 1025) (1014 . 1020) (935 . 941) (901 . 903) (892 . 898) (821 . 827) (787 . 789) (778 . 784) (723 . 729) (1052 . 1053) (982 . 983) (#(" " 0 1 (fontified nil)) . -982) (979 . 980) (#(" " 0 1 (fontified nil)) . -979) (906 . 907) (#(" " 0 1 (fontified nil)) . 906) (874 . 875) (#("
+" 0 1 (fontified nil)) . 874) (874 . 875) (#(" " 0 1 (fontified nil)) . -874) (871 . 872) (#(" " 0 1 (fontified nil)) . -871) (806 . 807) (#(" " 0 1 (fontified nil)) . 806) (774 . 775) (#("
+" 0 1 (fontified nil)) . 774) (774 . 775) (#(" " 0 1 (fontified nil)) . -774) (771 . 772) (#(" " 0 1 (fontified nil)) . -771) (722 . 723) (#(" " 0 1 (fontified nil)) . 722) (695 . 1052) (#(" " 0 1 (fontified nil)) . 695) (1 . 696) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(calendar-week-start-day 6)
+ '(coffee-tab-width 2)
+ '(company-idle-delay 0)
+ '(company-minimum-prefix-length 1)
+ '(electric-indent-mode t)
+ '(electric-pair-mode t)
+ '(global-ligature-mode t)
+ '(global-undo-tree-mode t)
+ '(org-agenda-files '(\"/home/taki/.notes/plan.org\"))
+ '(org-agenda-span 'fortnight)
+ '(org-agenda-start-on-weekday 6)
+ '(org-edit-src-content-indentation 0)
+ '(org-list-allow-alphabetical t)
+ '(org-mode-hook
+   '(#[0 \"\\301\\211\\20\\207\"
+         [imenu-create-index-function org-imenu-get-tree]
+         2]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-fold-show-all append local]
+         5]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-babel-show-result-all append local]
+         5]
+     org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
+ '(package-selected-packages
+   '(undo-tree underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme tagedit clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile treemacs-magit setup rainbow-delimiters paredit lsp-ui lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
+ '(tab-width 4)
+ '(truncate-lines t)
+ '(undo-tree-history-directory-alist '((\".\" . \"~/.emacs.d/undo\")))
+ '(x-select-enable-clipboard-manager nil)
+ '(yas-global-mode t))" 0 1765 (fontified nil)) . -1) (t 26052 27877 573064 852000)) nil (26052 35934 642852 69000) 0 nil])
+([nil nil ((1773 . 2012) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -1773) (1540 . 1772) (#("
+" 0 1 (fontified nil)) . -1540) (1151 . 1541) (#(" " 0 1 (fontified nil)) . 1151) (1121 . 1152) (1047 . 1052) (#("  " 0 2 (fontified nil)) . 1047) (1035 . 1044) (#("      " 0 6 (fontified nil)) . 1035) (953 . 962) (#("      " 0 6 (fontified nil)) . 953) (916 . 921) (#("  " 0 2 (fontified nil)) . 916) (904 . 913) (#("      " 0 6 (fontified nil)) . 904) (830 . 839) (#("      " 0 6 (fontified nil)) . 830) (793 . 798) (#("  " 0 2 (fontified nil)) . 793) (781 . 790) (#("      " 0 6 (fontified nil)) . 781) (723 . 732) (#("      " 0 6 (fontified nil)) . 723) (#("
+" 0 1 (fontified nil)) . -1094) (1023 . 1025) (1014 . 1020) (935 . 941) (901 . 903) (892 . 898) (821 . 827) (787 . 789) (778 . 784) (723 . 729) (1052 . 1053) (982 . 983) (#(" " 0 1 (fontified nil)) . -982) (979 . 980) (#(" " 0 1 (fontified nil)) . -979) (906 . 907) (#(" " 0 1 (fontified nil)) . 906) (874 . 875) (#("
+" 0 1 (fontified nil)) . 874) (874 . 875) (#(" " 0 1 (fontified nil)) . -874) (871 . 872) (#(" " 0 1 (fontified nil)) . -871) (806 . 807) (#(" " 0 1 (fontified nil)) . 806) (774 . 775) (#("
+" 0 1 (fontified nil)) . 774) (774 . 775) (#(" " 0 1 (fontified nil)) . -774) (771 . 772) (#(" " 0 1 (fontified nil)) . -771) (722 . 723) (#(" " 0 1 (fontified nil)) . 722) (695 . 1052) (#(" " 0 1 (fontified nil)) . 695) (1 . 696) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(calendar-week-start-day 6)
+ '(coffee-tab-width 2)
+ '(company-idle-delay 0)
+ '(company-minimum-prefix-length 1)
+ '(electric-indent-mode t)
+ '(electric-pair-mode t)
+ '(global-ligature-mode t)
+ '(global-undo-tree-mode t)
+ '(org-agenda-files '(\"/home/taki/.notes/plan.org\"))
+ '(org-agenda-span 'fortnight)
+ '(org-agenda-start-on-weekday 6)
+ '(org-edit-src-content-indentation 0)
+ '(org-list-allow-alphabetical t)
+ '(org-mode-hook
+   '(#[0 \"\\301\\211\\20\\207\"
+         [imenu-create-index-function org-imenu-get-tree]
+         2]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-fold-show-all append local]
+         5]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-babel-show-result-all append local]
+         5]
+     org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
+ '(package-selected-packages
+   '(underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme tagedit clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile treemacs-magit setup rainbow-delimiters paredit lsp-ui lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
+ '(tab-width 4)
+ '(truncate-lines t)
+ '(undo-tree-history-directory-alist '((\".\" . \"~/.emacs.d/undo\")))
+ '(x-select-enable-clipboard-manager nil)
+ '(yas-global-mode t))" 0 1755 (fontified nil)) . -1) (t 26052 35934 641708 250000)) nil (26052 35948 659762 278000) 0 nil])
+([nil current ((1807 . 2046) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -1807) (1540 . 1806) (#("
+" 0 1 (fontified nil)) . -1540) (1151 . 1541) (#(" " 0 1 (fontified nil)) . 1151) (1121 . 1152) (1047 . 1052) (#("  " 0 2 (fontified nil)) . 1047) (1035 . 1044) (#("      " 0 6 (fontified nil)) . 1035) (953 . 962) (#("      " 0 6 (fontified nil)) . 953) (916 . 921) (#("  " 0 2 (fontified nil)) . 916) (904 . 913) (#("      " 0 6 (fontified nil)) . 904) (830 . 839) (#("      " 0 6 (fontified nil)) . 830) (793 . 798) (#("  " 0 2 (fontified nil)) . 793) (781 . 790) (#("      " 0 6 (fontified nil)) . 781) (723 . 732) (#("      " 0 6 (fontified nil)) . 723) (#("
+" 0 1 (fontified nil)) . -1094) (1023 . 1025) (1014 . 1020) (935 . 941) (901 . 903) (892 . 898) (821 . 827) (787 . 789) (778 . 784) (723 . 729) (1052 . 1053) (982 . 983) (#(" " 0 1 (fontified nil)) . -982) (979 . 980) (#(" " 0 1 (fontified nil)) . -979) (906 . 907) (#(" " 0 1 (fontified nil)) . 906) (874 . 875) (#("
+" 0 1 (fontified nil)) . 874) (874 . 875) (#(" " 0 1 (fontified nil)) . -874) (871 . 872) (#(" " 0 1 (fontified nil)) . -871) (806 . 807) (#(" " 0 1 (fontified nil)) . 806) (774 . 775) (#("
+" 0 1 (fontified nil)) . 774) (774 . 775) (#(" " 0 1 (fontified nil)) . -774) (771 . 772) (#(" " 0 1 (fontified nil)) . -771) (722 . 723) (#(" " 0 1 (fontified nil)) . 722) (695 . 1052) (#(" " 0 1 (fontified nil)) . 695) (1 . 696) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(calendar-week-start-day 6)
+ '(coffee-tab-width 2)
+ '(company-idle-delay 0)
+ '(company-minimum-prefix-length 1)
+ '(electric-indent-mode t)
+ '(electric-pair-mode t)
+ '(global-ligature-mode t)
+ '(global-undo-tree-mode t)
+ '(org-agenda-files '(\"/home/taki/.notes/plan.org\"))
+ '(org-agenda-span 'fortnight)
+ '(org-agenda-start-on-weekday 6)
+ '(org-edit-src-content-indentation 0)
+ '(org-list-allow-alphabetical t)
+ '(org-mode-hook
+   '(#[0 \"\\301\\211\\20\\207\"
+         [imenu-create-index-function org-imenu-get-tree]
+         2]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-fold-show-all append local]
+         5]
+     #[0 \"\\300\\301\\302\\303\\304$\\207\"
+         [add-hook change-major-mode-hook org-babel-show-result-all append local]
+         5]
+     org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
+ '(package-selected-packages
+   '(undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme tagedit clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile treemacs-magit setup rainbow-delimiters paredit lsp-ui lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
+ '(tab-width 4)
+ '(truncate-lines t)
+ '(undo-tree-history-directory-alist '((\".\" . \"~/.emacs.d/undo\")))
+ '(x-select-enable-clipboard-manager nil)
+ '(yas-global-mode t))" 0 1771 (fontified nil)) . -1) (t 26052 35948 669044 699000)) nil (26052 36007 927079 46000) 0 nil])
+nil

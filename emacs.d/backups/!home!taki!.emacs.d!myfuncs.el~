@@ -1,0 +1,4 @@
+
+(defun my-cgpa (grades creds)
+  (->> (cl-map 'array (lambda (el) (* el (pop creds))) grades)
+       (cl-reduce '+)))

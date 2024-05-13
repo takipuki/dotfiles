@@ -1,0 +1,518 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[fleqn]{nccmath}
+\usepackage{multicol}
+\usepackage{parskip}
+%\usepackage{hyphenat}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{blindtext}
+%\usepackage{booktabs}
+
+
+
+% SETUPS ----------------------------------------------------------------------
+\graphicspath{{./imgs/}}
+\onehalfspacing
+
+
+\begin{document}
+
+% COVER PAGE ------------------------------------------------------------------
+%\pagenumbering{roman}
+%\thispagestyle{empty}
+
+%\begin{titlepage}
+%  \begin{center}
+%
+%    \Huge
+%    \textbf{Report On C \\ The Programming Language}
+%    %\vspace{0.7cm}
+%    %\hrule
+%
+%    \vspace{\baselineskip}
+%    \large
+%    Course Title: Introduction to Computer System \\
+%    Course Code: CSE 1110
+%
+%    \vfill
+%    \Large
+%    \begin{flushleft}
+%      \textbf{Submitted by}  \\
+%      Tashfiq Ahmed Taki   \\
+%      ID: 0112330316       \\
+%      Department of CSE    \\
+%      United International University
+%    \end{flushleft}
+%
+%    \vfill
+%    \begin{flushright}
+%      \textbf{Submitted to} \\
+%      Yeasir Arafat         \\
+%      Department of CSE     \\
+%      United International University
+%    \end{flushright}
+%
+%    \vfill
+%    \includegraphics[width=.12\textwidth]{uiu.png}
+%    \huge \textbf{United International University}
+%
+%    \large Date of Submission: 16 October 2023
+%
+%  \end{center}
+%\end{titlepage}
+
+
+% CHAPTERS --------------------------------------------------------------------
+%\titleformat{\chapter}
+%    [hang]
+%    {\huge\bfseries\vfill\centering}
+%    {\chaptertitlename\ \thechapter.}
+%    {1em}
+%    {\huge\MakeUppercase}
+%    [\vfill]
+
+%\newpage
+%\pagenumbering{arabic}
+
+\begin{enumerate}
+  \item $f(x) = 2 - x^2; x_0 = -1 \text{ and } x_1 = 2$
+    \begin{enumerate}
+      \item Instantaneous rate of change at $x_0$
+        \begin{fleqn}[3em]
+          \begin{align*}
+            &\Rightarrow \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0} \\
+            &= \lim_{x\to -1} \frac{f(x) - f(-1)}{x - (-1)} \\
+            &= \lim_{x\to -1} \frac{f(x) - f(-1)}{x - (-1)} \\
+            &= \lim_{x\to -1} \frac{2 - x^2 - 2 + 1}{x + 1} \\
+            &= \lim_{x\to -1} \frac{1 - x^2}{1 + x} \\
+            &= \lim_{x\to -1} 1 - x \\
+            &= 1 + 1 \\
+            &= 2
+          \end{align*}
+        \end{fleqn}
+
+      \item Average rate of change at interval $[x_0, x_1]$
+        \begin{fleqn}[3em]
+          \begin{align*}
+            &\Rightarrow \frac{f(x_1) - f(x_0)}{x_1 - x_0} \\
+            &= \frac{2 - x_1^2 - 2 + x_0^2}{x_1 - x_0} \\
+            &= \frac{x_0^2 - x_1^2}{x_1 - x_0} \\
+            &= - \frac{x_1^2 - x_0^2}{x_1 - x_0} \\
+            &= - (x_1 + x_0) \\
+            &= -x_1 - x_0 \\
+            &= - 2 - (-1) \\
+            &= -1
+          \end{align*}
+        \end{fleqn}
+
+      \item Equation of the tangent line; $x = -1$ and slope $= 2$
+        \begin{fleqn}[3em]
+          \begin{align*}
+            y = 2 - (-1)^2 = 1 \\
+            \text{point} (-1, 1) \\
+          \end{align*}
+        \end{fleqn}
+
+        \begin{fleqn}[3em]
+          \begin{align*}
+            y - 1 = 2 (x + 1) \\
+            \Rightarrow y = 2x + 3
+          \end{align*}
+        \end{fleqn}
+
+        Equation of the secant; $x = -1, 2$
+        \begin{fleqn}[3em]
+          \begin{align*}
+            y = 2 - (-1)^2 = 1 \\
+            y = 2 - 2^2 = -2 \\
+            \text{points} (-1, 1) \text{ and } (2, -2)
+          \end{align*}
+        \end{fleqn}
+
+        \begin{fleqn}[3em]
+          \begin{align*}
+            \frac{y - 1}{1 + 2} = \frac{x + 1}{-1 - 2} \\
+            y - 1 = -x - 1 \\
+            y = -x
+          \end{align*}
+        \end{fleqn}
+
+        \begin{center}
+          \includegraphics[width=.4\textwidth]{01.png}
+        \end{center}
+
+      \item The tangent only touches a single point on $f(x)$ which is $(-1,1)$ and
+        intersects the y axis at point $(0, 3)$.
+
+        On the other hand, the secant intersects $f(x)$ at two points: $(-1,1)$ and
+        $(2, -2)$.
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}
+      \item Average velocity over the time $A = 1.7$ to $D = 11$
+        \begin{fleqn}[3em]
+          \begin{align*}
+            \text{avg} &= \frac{f(D) - f(A)}{D - A} \\
+            &= \frac{f(11) - f(2)}{11 - 1.7} \\
+            &= \frac{3 - 20}{11 - 1.7} \\
+            &= - \frac{17}{9.3}
+          \end{align*}
+        \end{fleqn}
+
+      \item Instantaneous velocity is zero at $t = 1.7, 5, 10, 13.8$
+
+      \item Rough sketch of the velocity graph
+        %#align(center, image("02c.png", width: 65%))
+        \begin{center}
+          \includegraphics[width=.49\textwidth]{02c.png}
+        \end{center}
+    \end{enumerate}
+
+  \item Let $f(x) = x^2 + 3x$
+
+    \begin{enumerate}
+      \item Finding the slope of the tangent at $x = -1$
+        \begin{fleqn}[3em]
+          \begin{align*}
+            &\Rightarrow \lim_{x\to -1} \frac{f(x) - f(-1)}{x - (-1)} \\
+            &= \lim_{x\to -1} \frac{x^2 + 3x - 1 + 3}{x + 1} \\
+            &= \lim_{x\to -1} \frac{x^2 + 3x + 2}{x + 1} \\
+            &= \lim_{x\to -1} \frac{x^2 + x + 2x + 2}{x + 1} \\
+            &= \lim_{x\to -1} \frac{x(x + 1) + 2(x + 1)}{x + 1} \\
+            &= \lim_{x\to -1} x + 2 \\
+            &= -1 + 2 \\
+            &= 1
+          \end{align*}
+        \end{fleqn}
+
+        Equation of the tangent at point $(-1, -2)$ and slope 1
+        \begin{fleqn}[3em]
+          \begin{align*}
+            y + 2 &= 1 (x + 1) \\
+            y &= x - 1
+          \end{align*}
+        \end{fleqn}
+
+    \end{enumerate}
+
+  \item Derivative of $f(x) = \frac{1}{2x}$ with respect to $x$
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{h\to 0} \frac{f(x+h) - f(x)}{h} \\
+        &= \lim_{h\to 0} \left(\frac{1}{2(x+h)} - \frac{1}{2x}\right) \frac{1}{h} \\
+        &= \lim_{h\to 0} \frac{2x - 2x - 2h}{4x(x+h)} \cdot \frac{1}{h} \\
+        &= \lim_{h\to 0} \frac{- 2h}{4x(x+h)} ) \cdot \frac{1}{h} \\
+        &= \lim_{h\to 0} \frac{- 1}{2x(x+h)} \\
+        &= - \frac{1}{2x(x+0)} \\
+        &= - \frac{1}{2x^2}
+      \end{align*}
+    \end{fleqn}
+
+    Equation of the tangent line; $x = 3$
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\text{slope} = - \frac{1}{2 \cdot 3^2} = -\frac{1}{18} \\
+        &\text{point } (3, \frac{1}{6})
+      \end{align*}
+    \end{fleqn}
+    \begin{fleqn}[3em]
+      \begin{align*}
+        y - \frac{1}{6} &= -\frac{1}{18} (x - 3) \\
+        18y - 3 &= -x + 3 \\
+        x + 18y &= 6
+      \end{align*}
+    \end{fleqn}
+
+  \item
+    \begin{multicols}{2}
+    LHL:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^-} f(x) \\
+        &= \lim_{x\to 2^-} x^2 - 4 \\
+        &= 4 - 4 \\
+        &= 0
+      \end{align*}
+    \end{fleqn}
+
+    \columnbreak
+
+    RHL:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^+} f(x) \\
+        &= \lim_{x\to 2^+} -x + 2 \\
+        &= -2 + 2 \\
+        &= 0
+      \end{align*}
+    \end{fleqn}
+    \end{multicols}
+
+    Functional value: $f(2) = 2^2 - 4 = 0$
+
+    $\text{LHL} = \text{RHL} = f(x)$ \\
+    $\therefore f(x)$ is continuous at $x = 2$
+
+    \pagebreak
+
+    \begin{multicols}{2}
+    LHD:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^-} \frac{f(x) - f(2)}{x - 2} \\
+        &= \lim_{x\to 2^-} \frac{x^2 - 4 - 4 + 4}{x - 2} \\
+        &= \lim_{x\to 2^-} \frac{x^2 - 2^2}{x - 2} \\
+        &= \lim_{x\to 2^-} x + 2 \\
+        &= 2 + 2 \\
+        &= 4
+      \end{align*}
+    \end{fleqn}
+
+    \columnbreak
+
+    RHD:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^+} \frac{f(x) - f(2)}{x - 2} \\
+        &= \lim_{x\to 2^+} \frac{-x + 2 + 2 - 2}{x - 2} \\
+        &= \lim_{x\to 2^+} - \frac{x - 2}{x - 2} \\
+        &= -1
+      \end{align*}
+    \end{fleqn}
+    \end{multicols}
+
+
+    $\text{LHD} \ne \text{RHD}$ \\
+    $\therefore f(x)$ is not differentiable at $x = 2$
+
+    %#align(center, image("05.png", width: 49%))
+    \begin{center}
+      \includegraphics[width=.49\textwidth]{05.png}
+    \end{center}
+
+  \item
+    \begin{multicols}{2}
+    LHL:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 0^-} f(x) \\
+        &= \lim_{x\to 0^-} -x \\
+        &= 0
+      \end{align*}
+    \end{fleqn}
+
+    \columnbreak
+
+    RHL:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 0^+} f(x) \\
+        &= \lim_{x\to 0^+} x^2 \\
+        &= 0
+      \end{align*}
+    \end{fleqn}
+    \end{multicols}
+
+    Functional value: $f(0) = 0^2 = 0$
+
+    $\text{LHL} = \text{RHL} = f(x)$ \\
+    $\therefore f(x)$ is continuous at $x = 0$
+
+    \pagebreak
+
+    \begin{multicols}{2}
+    LHD:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 0^-} \frac{f(x) - f(0)}{x - 0} \\
+        &= \lim_{x\to 0^-} \frac{-x - 0}{x} \\
+        &= \lim_{x\to 0^-} -1 \\
+        &= -1
+      \end{align*}
+    \end{fleqn}
+
+    \columnbreak
+
+    RHD:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 0^+} \frac{f(x) - f(0)}{x - 0} \\
+        &= \lim_{x\to 0^+} \frac{x^2 - 0^2}{x} \\
+        &= \lim_{x\to 0^+} x \\
+        &= 0
+      \end{align*}
+    \end{fleqn}
+    \end{multicols}
+
+
+    $\text{LHD} \ne \text{RHD}$ \\
+    $\therefore f(x)$ is not differentiable at $x = 0$
+
+    %#align(center, image("06.png", width: 49%))
+    \begin{center}
+      \includegraphics[width=.49\textwidth]{06.png}
+    \end{center}
+
+\item
+  \begin{multicols}{2}
+    LHL:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^-} f(x) \\
+        &= \lim_{x\to 2^-} x^2 - 1 \\
+        &= 4 - 1 = 3
+      \end{align*}
+    \end{fleqn}
+
+    \columnbreak
+
+    RHL:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^+} f(x) \\
+        &= \lim_{x\to 2^+} 2x - 1 \\
+        &= 4 - 1 = 3
+      \end{align*}
+    \end{fleqn}
+  \end{multicols}
+
+  Functional value: $f(2) = 2^2 - 1 = 3$
+
+  $\text{LHL} = \text{RHL} = f(x)$ \\
+  $\therefore f(x)$ is continuous at $x = 2$
+
+  \pagebreak
+
+  \begin{multicols}{2}
+    LHD:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^-} \frac{f(x) - f(2)}{x - 2} \\
+        &= \lim_{x\to 2^-} \frac{x^2 - 1 - (4 - 1)}{x - 2} \\
+        &= \lim_{x\to 2^-} \frac{x^2 - 4}{x - 2} \\
+        &= \lim_{x\to 2^-} x + 2 \\
+        &= 4
+      \end{align*}
+    \end{fleqn}
+
+    \columnbreak
+
+    RHD:
+    \begin{fleqn}[3em]
+      \begin{align*}
+        &\Rightarrow \lim_{x\to 2^+} \frac{f(x) - f(2)}{x - 2} \\
+        &= \lim_{x\to 2^+} \frac{2x - 1 - (4 - 1)}{x - 2} \\
+        &= \lim_{x\to 2^+} \frac{2x - 4}{x - 2} \\
+        &= 2
+      \end{align*}
+    \end{fleqn}
+  \end{multicols}
+
+
+  $\text{LHD} \ne \text{RHD}$ \\
+  $\therefore f(x)$ is not differentiable at $x = 2$
+
+  \begin{center}
+    \includegraphics[width=.49\textwidth]{07.png}
+  \end{center}
+
+\item
+  Graph of the derivative
+  \begin{center}
+    \includegraphics[width=.49\textwidth]{08.png}
+  \end{center}
+
+\item
+  \begin{fleqn}[3em]
+    \begin{align*}
+      u(x)   &= f(x) \cdot g(x) \\
+      u'(x)  &= f'(x) \cdot g(x) + f(x) \cdot g'(x) \\
+      u'(-1) &= f'(-1) \cdot g(-1) + f(-1) \cdot g'(-1) \\
+             &= 7 \cdot (-2) + 4 \cdot (-3) \\
+             &= -14 - 12 \\
+             &= -26 \\
+      \\
+      v(x)   &= \frac{f(x)}{g(x)} \\
+      v'(x)  &= \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{g(x)^2} \\
+      v'(0)  &= \frac{f'(0) \cdot g(0) - f(0) \cdot g'(0)}{g(0)^2} \\
+             &= \frac{(-1) \cdot (3) - (7) \cdot (-2)}{3^2} \\
+             &= \frac{-3 + 14}{9} \\
+             &= \frac{11}{9}
+    \end{align*}
+  \end{fleqn}
+
+\item
+  \begin{enumerate}
+    \item
+      \begin{fleqn}[3em]
+        \begin{align*}
+          u &= t^3 - 2t\cos t + 5 \\
+          \frac{d}{dt} u &= 3t^2 - (2\cos t - 2t\sin t) + 0 \\
+          \\
+          x &= \tan u \\
+          \frac{d}{dt} x &= \sec^2 u \cdot \frac{d}{dt} u \\
+                        &= (3t^2 - 2\cos t + 2t\sin t) \cdot \sec^2 (t^3 - 2t\cos t + 5)
+        \end{align*}
+      \end{fleqn}
+
+    \item
+      \begin{fleqn}[3em]
+        \begin{align*}
+                       y &= \cot^3 \sqrt{2 - 3\sin x} \\
+          \frac{d}{dx} y &= 3\cot^2 \sqrt{2-3\sin x} \cdot (-\csc^2 \sqrt{2-3\sin x})
+                            \cdot \frac{1}{2 \sqrt{2-3\sin x}} \cdot (0 - 3\cos x) \\
+                         &= \frac{9\cos x}{2\sqrt{2-3\sin x}} \cdot \cot^2 \sqrt{2-3\sin x}
+                            \cdot \csc^2 \sqrt{2-3\sin x}
+        \end{align*}
+      \end{fleqn}
+
+    \item
+      \begin{fleqn}[3em]
+        \begin{align*}
+          y &= \sqrt{x^4 + \cos 3x} \\
+          \frac{d}{dx} y &= \frac{4x^3 - \sin 3x \cdot 3}{2\sqrt{x^4 + \cos 3x}} \\
+          \\
+          y &= x^3 \sec \frac{1}{x} \\
+          \frac{d}{dx} y &= 3x^2 \sec \frac{1}{x} + x^3 \sec \frac{1}{x} \tan \frac{1}{x} \cdot (-\frac{1}{x^2}) \\
+                         &= 3x^2 \sec \frac{1}{x} - x \sec \frac{1}{x} \tan \frac{1}{x}
+        \end{align*}
+      \end{fleqn}
+
+    \item
+      \begin{fleqn}[3em]
+        \begin{align*}
+          w &= \sin 2x = \sin 2\sqrt{1 + \cos t^2} \\
+          \frac{d}{dt} w &= \cos 2\sqrt{1 + \cos t^2} \cdot 2 \cdot \frac{0 - \sin t^2 \cdot 2t}{2\sqrt{1 + \cos t^2}} \\
+                         &= - \frac{2t\sin t^2 \cos 2\sqrt{1 + \cos t^2}}{\sqrt{1 + \cos t^2}}
+        \end{align*}
+      \end{fleqn}
+
+    \item
+      \begin{fleqn}[3em]
+        \begin{align*}
+          w &= w^2 = (\sin y)^2 = (\sin \sqrt{t})^2 \\
+          \frac{d}{dx} w &= 2\sin \sqrt{t} \cdot \cos \sqrt{t} \cdot \frac{1}{2\sqrt{t}} \\
+                         &= \frac{1}{\sqrt{t}} \cdot \sin \sqrt{t} \cos \sqrt{t}
+        \end{align*}
+      \end{fleqn}
+
+    \item
+      \begin{fleqn}[3em]
+        \begin{align*}
+          y &= \frac{(\ln (\tan x))^2}{x^3} \\
+          \frac{d}{dx} y &= \frac{x^3 \frac{d}{dx} (\ln(\tan x))^2 - (\ln(\tan x))^2 \cdot \frac{d}{dx}x^3}{(x^3)^2} \\
+                         &= \frac{x^3 \cdot \frac{2\ln(\tan x)}{\tan x} \cdot \sec^2 x - (\ln(\tan x))^2 \cdot 2x^2}{x^6} \\
+                         &= \frac{2x \cdot \ln(\tan x) \cdot \frac{\sec^2 x}{\tan x} - 2(\ln(\tan x))^2}{x^4}
+        \end{align*}
+      \end{fleqn}
+
+  \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

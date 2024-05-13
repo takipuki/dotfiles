@@ -1,0 +1,16 @@
+
+* Functions
+
+Function is a *mapping*....
+
+** Types of function
+
+1. One-to-many
+2. Many-to-one
+3. One-to-one
+
+$$ f(x) = x^2 $$
+
+* Graphs
+
+Graphs consist of /nodes/ and /edges/.

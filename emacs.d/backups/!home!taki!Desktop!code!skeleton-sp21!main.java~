@@ -1,0 +1,9 @@
+import java.utils.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.
+        System.out.println("Hello world!");
+    } 
+}

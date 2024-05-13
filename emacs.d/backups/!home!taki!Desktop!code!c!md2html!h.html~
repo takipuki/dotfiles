@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+<link rel='stylesheet' type='text/css' href='clean.css'</head>
+<body>
+
+
+<h1> Markdown syntax demo</h1>
+
+<h2> Headings start with #</h2>
+
+<p>
+this is a paragraph
+we are on the same paragraph
+</p>
+
+<p>
+new paragraph here
+</p>
+
+<h2> Inline formatting</h2>
+
+<p>
+<b>bold</b>
+</p>
+
+<p>
+<i>italic</i>
+</p>
+
+<p>
+<code>monospace</code>
+</p>
+
+<p>
+superscript: hello<sup>world</sup>
+</p>
+
+<p>
+subscript: H<sub>2</sub>O
+</p>
+
+<h2> Lists</h2>
+
+<p>
+unordered lists
+</p>
+<ul>
+<li><p>first</p></li>
+<li><p>second</p>
+<ul>
+<li><p>nested list</p></li>
+<li><p>second</p></li>
+</ul>
+nested paragraph</p>
+<ul>
+<li><p>another nest</p>
+<ul>
+<li><p>more nesting</p>
+<ul>
+<li><p>even more</p></li>
+</ul>
+</p></li>
+</ul>
+</p></li>
+<li><p>more symbols</p></li>
+<li><p>even more</p></li>
+</ul>
+</p></li>
+<li><p>third</p></li>
+</ul>
+
+<p>
+ordered lists
+</p>
+<ol start='1'>
+<li><p>first</p></li>
+<li><p>second</p>
+<ol start='4'>
+<li><p>nested list (starting number is preserved)</p></li>
+<li><p>second</p>
+<ol start='111'>
+<li><p>more nesting</p>
+<ol start='1'>
+<li><p>even more</p></li>
+</ol>
+</p></li>
+</ol>
+</p></li>
+</ol>
+</p></li>
+<li><p>third</p></li>
+</ol>
+
+<h2> Maths</h2>
+
+<p>
+write latex between dollar signs
+</p>
+
+<p>
+inline math: \(x^2 - y^2 = (x+y)(x-y)\)
+</p>
+
+<p>
+block math:
+</p>
+\[
+\frac{d}{dx} f(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+\]
+<h2> Code blocks</h2>
+<pre>
+#include &lt;stdio.h&gt;
+
+int main() {
+    puts("Hello world");
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,7 @@
+CC = g++
+CFLAGS = -Wall -Wextra
+LINKS = 
+EXE = exe
+
+cpp: main.cpp
+	$(CC) $(CFLAGS) $(LINKS) $^ -o $(EXE)

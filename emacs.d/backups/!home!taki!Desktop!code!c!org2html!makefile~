@@ -1,0 +1,11 @@
+CC = gcc
+CPP = g++
+CFLAGS = 
+LINKS = -lm
+EXE = exe
+
+c: main.c
+	$(CC) $(CFLAGS) $(LINKS) $^ -o $(EXE)
+
+cpp: main.cpp
+	$(CPP) $(CFLAGS) $(LINKS) $^ -o $(EXE)
