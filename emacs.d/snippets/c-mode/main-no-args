@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: main no args
-# key: main()
+# key: ma
 # --
 int main() {
     $0

@@ -12,13 +12,13 @@ alias sctl="systemctl"
 
 alias pacss="sudo pacman -Ss"
 alias pacs="sudo pacman -S"
-alias pacr="sudo pacman -Rs"
+alias pacr="sudo pacman -Rus"
 alias yays="yay -S"
 
 alias rum="gio trash"
 #alias rum="/usr/bin/rm"
 alias mv="mv -i"
-alias ls="ls -F"
+alias ls="ls -FH"
 alias cpy=wl-copy
 alias pst=wl-paste
 

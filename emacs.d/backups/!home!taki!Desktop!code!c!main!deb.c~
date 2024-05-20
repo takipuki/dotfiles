@@ -1,7 +1,0 @@
-
-#define nl '\n'
-#define deb(i) printf(#i" = %d"nl, (i))
-#define debc(c) printf(#c" = %c\n"nl, (c))
-#define FOR(i, init, n) for (int i = (init); i < (n); i++)
-#define ROF(i, init, n) for (int i = (init); i >= (n); i--)
-#define REP(n) FOR(_, 0, n)

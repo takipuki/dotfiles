@@ -1,5 +1,0 @@
-
-(() => {
-  let no = prompt("Problem no.");
-  console.log(no.replace(' ', '/'));
-})();

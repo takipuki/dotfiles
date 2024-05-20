@@ -22,7 +22,15 @@
   :config (yas-minor-mode))
 
 (use-package ivy :config (ivy-mode))
+(use-package counsel)
 (use-package ivy-rich :config (ivy-rich-mode))
+
+(use-package markdown-mode
+  :config
+  (add-hook 'markdown-mode-hook
+    (lambda ()
+      (make-local-variable 'evil-shift-width)
+      (setq evil-shift-width 3))))
 
 (use-package which-key
   :config
@@ -37,6 +45,13 @@
           (setq recentf-max-menu-items 25)
           (global-set-key "\C-x\ \C-r" 'recentf-open-files))
 
+(use-package evil-org)
+(use-package org
+    :config (add-hook 'org-mode-hook (lambda () (evil-org-mode 1))))
+
+;; (define-key org-mode-map (kbd "TAB") 'org-cycle)
+;; (add-hook 'org-mode-hook (lambda () (define-key org-mode-map (kbd "TAB") #'org-cycle)))
+
 (use-package evil
   :init (setq evil-want-C-i-jump nil)
   :config
@@ -44,16 +59,18 @@
   (evil-set-undo-system 'undo-redo)
 
   (define-key evil-normal-state-map (kbd "z y")
-  (lambda () (interactive)
+    (lambda () (interactive)
       (evil-use-register ?+)
       (call-interactively 'evil-yank)))
   (define-key evil-normal-state-map (kbd "z p") "\"+p")
   (define-key evil-normal-state-map (kbd "z j") 'evil-avy-goto-char)
   (define-key evil-normal-state-map (kbd "z x") 'align-regexp)
   (define-key evil-normal-state-map (kbd "z X")
-  (lambda () (interactive)
+    (lambda () (interactive)
       (setq current-prefix-arg '(t))
       (call-interactively 'align-regexp)))
+  ;; (define-key evil-normal-state-map (kbd "C-a") (kbd ":s/(/z"))
+  ;; (define-key evil-visual-state-map (kbd ";") (kbd ":'<,'>s/d/z"))
   (define-key evil-insert-state-map (kbd "C-e") 'yas-expand))
 
 (use-package company
@@ -84,11 +101,6 @@
   (modify-syntax-entry ?< "." org-mode-syntax-table)
   (modify-syntax-entry ?> "." org-mode-syntax-table))
 (add-hook 'org-mode-hook 'org-fix-angle-brackets)
-
-(add-hook 'markdown-mode
-  (lambda ()
-    (make-local-variable 'evil-shift-width)
-    (setq evil-shift-width 3)))
 
 
 ;;;;; editing
@@ -167,6 +179,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-file-name-transforms '((".*" "~/.emacs.d/backups" t)))
+ '(backup-directory-alist `(("." . "~/.emacs.d/backups")))
  '(c-basic-offset 4)
  '(calendar-week-start-day 6)
  '(coffee-tab-width 2)
@@ -197,7 +211,7 @@
          5]
      org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
  '(package-selected-packages
-   '(elm-mode zig-mode racket-mode avy magit tagedit smooth-scrolling smooth-scroll htmlize go-mode undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile setup rainbow-delimiters paredit lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+   '(evil-org markdown-mode counsel elm-mode zig-mode racket-mode avy magit tagedit smooth-scrolling smooth-scroll htmlize go-mode undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile setup rainbow-delimiters paredit lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)
  '(tab-width 4)
@@ -205,7 +219,7 @@
  '(truncate-lines t)
  '(undo-fu-session-global-mode t)
  '(undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
- '(backup-directory-alist `(("." . "~/.saves")))
+ '(use-package-always-ensure t)
  '(x-select-enable-clipboard-manager nil)
  '(yas-global-mode t))
 (custom-set-faces

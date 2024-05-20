@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: link-graph
-# key: zgr
-# --
-[[https://www.symbolab.com/graphing-calculator?functions=$1][\$$1\$]] \\
-$0

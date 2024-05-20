@@ -1,43 +1,40 @@
-@define-color Rosewater #f2d5cf;
-@define-color Flamingo  #eebebe;
-@define-color Pink      #f4b8e4;
-@define-color Mauve     #ca9ee6;
-@define-color Red       #e78284;
-@define-color Maroon    #ea999c;
-@define-color Peach     #ef9f76;
-@define-color Yellow    #e5c890;
-@define-color Green     #a6d189;
-@define-color Teal      #81c8be;
-@define-color Sky       #99d1db;
-@define-color Sapphire  #85c1dc;
-@define-color Blue      #8caaee;
-@define-color Lavender  #babbf1;
-@define-color Text      #c6d0f5;
-@define-color Subtext1  #b5bfe2;
-@define-color Subtext0  #a5adce;
-@define-color Overlay2  #949cbb;
-@define-color Overlay1  #838ba7;
-@define-color Overlay0  #737994;
-@define-color Surface2  #626880;
-@define-color Surface1  #51576d;
-@define-color Surface0  #414559;
-@define-color Base      #303446;
-@define-color Mantle    #292c3c;
-@define-color Crust     #232634;
+@define-color Rosewater #dc8a78;
+@define-color Flamingo 	#dd7878;
+@define-color Pink      #ea76cb;
+@define-color Mauve     #8839ef;
+@define-color Red       #d20f39;
+@define-color Maroon    #e64553;
+@define-color Peach     #fe640b;
+@define-color Yellow    #df8e1d;
+@define-color Green     #40a02b;
+@define-color Teal      #179299;
+@define-color Sky       #04a5e5;
+@define-color Sapphire 	#209fb5;
+@define-color Blue      #1e66f5;
+@define-color Lavender 	#7287fd;
+@define-color Text      #4c4f69;
+@define-color Subtext1 	#5c5f77;
+@define-color Subtext0 	#6c6f85;
+@define-color Overlay2 	#7c7f93;
+@define-color Overlay1 	#8c8fa1;
+@define-color Overlay0 	#9ca0b0;
+@define-color Surface2 	#acb0be;
+@define-color Surface1 	#bcc0cc;
+@define-color Surface0 	#ccd0da;
+@define-color Base      #eff1f5;
+@define-color Mantle    #e6e9ef;
+@define-color Crust     #dce0e8;
 
-@define-color fg        @Text;
-@define-color dark-fg   #161320;
 
-@define-color bg-hover #1A1A28;
-@define-color bg @Base;
+@define-color bg-hover  @Surface0;
 
-@define-color accent @Lavender;
-@define-color crust @dark-fg;
-@define-color border @Crust;
+@define-color light-fg  @Text;
+@define-color light-bg  @Base;
+@define-color dark-fg   #cdd6f4;
+@define-color dark-bg   #1e1e2e;
 
-/* @define-color accent @lavender; */
-/* @define-color crust @dark-fg; */
-/* @define-color border @gray2; */
+@define-color accent    @Lavender;
+@define-color border    @Crust;
 
 
 * {
@@ -45,90 +42,53 @@
   font-family: 'Fira Code', 'Symbols Nerd Font Mono';
   font-size: 16px;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-  min-height: 30px;
 }
 
 window#waybar {
-  background: transparent;
+  color: @dark-fg;
+  background: rgba(30, 30, 30, 0.1);
+  border-radius: 20px;
 }
 
-#custom-arch, #workspaces, #tags {
-  border-radius: 10px;
-  background-color: @bg;
-  color: @fg;
-  margin-top: 10px;
-  margin-right: 15px;
-  padding-top: 0px;
-  padding-left: 10px;
-  padding-right: 10px;
+.modules-left, .modules-right {
+  padding: 0 15px;
 }
 
-#custom-arch {
-  /*font-size: 20px;*/
-  margin-left: 15px;
-  color: @accent;
+#workspaces button {
+  padding: 0 5px;
+  color: @light-fg;
 }
 
-#workspaces button, #tags button {
-  padding-left: 5px;
-  padding-right: 5px;
-  background: @bg;
-  color: @fg;
-}
-
-#workspaces button.active, #tags button.focused {
-  color: @Red;
+#workspaces button.active {
+  color: @Flamingo;
 }
 
 #custom-add-workspace {
-  margin-top: 5px;
-  color: @Red;
+  padding-bottom: 6px;
+  color: @Flamingo;
+}
+
+#workspaces, .modules-center, #pulseaudio, #tray {
+  color: @light-fg;
+  background: @light-bg;
+  margin: 2px 15px;
+  padding: 0 10px;
+  border-radius: 20px;
+}
+
+#pulseaudio {
+  margin-right: 0;
 }
 
 #custom-minimize-button {
-  border-radius: 10px 0 0 10px;
-  background: none;
-  color: @Teal;
-  margin-top: 15px;
-  padding-left: 12px;
-  padding-right: 10px;
+  margin-right: 15px;
+  color: @Green;
 }
 
 #custom-close-button {
-  border-radius: 0 10px 10px 0;
-  background: none;
-  color: @Red;
-  margin-top: 15px;
-  padding-left: 10px;
-  padding-right: 12px;
-  margin-right: 15px;
+  color: @Flamingo;
 }
 
-#clock, #backlight, #tray, #pulseaudio, #bluetooth, #network, #battery{
-  border-radius: 10px;
-  background-color: @bg;
-  color: @fg;
-  margin-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: 15px;
-}
-
-#backlight, #bluetooth {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  padding-right: 5px;
-  margin-right: 0
-}
-
-/*
-#pulseaudio, #network {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  padding-left: 5px;
-}
-*/
-
-#clock {
-  margin-right: 0;
+#custom-power-menu {
+  margin: 2px 0 2px 15px;
 }

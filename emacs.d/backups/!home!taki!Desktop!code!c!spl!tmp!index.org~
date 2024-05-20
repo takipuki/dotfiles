@@ -1,7 +1,0 @@
-#+SETUPFILE: setup.org
-#+TITLE: Index
-
-1. [[file:spl-theory/index.org][SPL theory problem set]]
-2. [[./lab.html][SPL lab problem set]]
-2. [[file:solve-mid/index.org][SPL Solve Mid]]
-3. [[./misc.html][Miscellaneous]]
