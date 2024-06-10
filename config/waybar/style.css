@@ -76,8 +76,9 @@ window#waybar {
   border-radius: 20px;
 }
 
-#pulseaudio {
+#pulseaudio, #tray {
   margin-right: 0;
+  margin-left: 5px;
 }
 
 #custom-minimize-button {
@@ -86,9 +87,15 @@ window#waybar {
 }
 
 #custom-close-button {
+  margin-right: 5px;
   color: @Flamingo;
 }
 
 #custom-power-menu {
+  margin: 2px 0 2px 15px;
+}
+
+#custom-power-menu:hover {
+  color: @Flamingo;
   margin: 2px 0 2px 15px;
 }

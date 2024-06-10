@@ -24,8 +24,11 @@ SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
 DLP_FORMAT  = "bestaudio"    -- play video or just audio
 PLAYER_CMD  = "mpv -"        -- media player
-COLS        = tonumber(os.getenv("COLUMNS"))
-COLS        = COLS > 100 and 100 or COLS
+
+p = io.popen("tput cols", 'r')
+COLS = tonumber(p:read())
+p:close()
+COLS = COLS > 100 and 100 or COLS
 
 
 local interactive_searches = {}   -- choose from search results
@@ -36,7 +39,7 @@ local ids = {}                    -- ids in this table will be played
 for _, argv in ipairs(arg) do
     if string.sub(argv, 1, 1) == '-' then
         local opt, val = argv:match('-(%a)(.*)')
-        if     opt == 'v' then DLP_FORMAT = "bv[height<=2160]+ba"
+        if     opt == 'v' then DLP_FORMAT = "bv[height<=1080]+ba"
         elseif opt == 'f' then DLP_FORMAT = val
         elseif opt == 'n' then SHOULD_PLAY = false
         elseif opt == 's' then table.insert(interactive_searches, val)
@@ -112,7 +115,7 @@ if SHOULD_PLAY then
     -- starting dlp downloads
     for _,id in ipairs(ids) do
         table.insert(dlp_processes, assert(io.popen(
-            'yt-dlp -q -o - -f '.."'"..DLP_FORMAT.."'"..' -- '..id
+            'yt-dlp -q --no-warnings -o - -f '.."'"..DLP_FORMAT.."'"..' -- '..id
         )))
     end
 
@@ -120,11 +123,12 @@ if SHOULD_PLAY then
     for _,dlp_proc in ipairs(dlp_processes) do
         local player_proc = assert(io.popen(PLAYER_CMD, "w"))
 
-        -- keep piping 100 bytes into player
-        local media_raw = dlp_proc:read(100)
+        -- keep piping chunk into player
+        local chunk_size = 8 * 1024
+        local media_raw = dlp_proc:read(chunk_size)
         while media_raw do
             player_proc:write(media_raw)
-            media_raw = dlp_proc:read(100)
+            media_raw = dlp_proc:read(chunk_size)
         end
 
         dlp_proc:close()

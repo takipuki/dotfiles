@@ -39,7 +39,8 @@
     "custom/power-menu": {
         "format": "",
         "tooltip": false,
-        "on-click": "wlogout"
+        "on-click": "wlogout",
+        "on-click-right": "swaylock",
     },
     "backlight": {
         "device": "intel_backlight",
@@ -54,12 +55,12 @@
     "pulseaudio": {
         "format": "<span color='#b4befe'><big>{icon}</big></span>  {volume}% {format_source}",
         "format-source": "Mic ON",
-        "format-source-muted": "Mic <span color='#e78284'>OFF</span>",
+        "format-source-muted": "Mic <span color='#F38BA8'>OFF</span>",
         "format-muted": "<span color='#F38BA8'></span>  {volume}% {format_source}",
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "tooltip": false,
         "format-icons": {
-            "headphone": " ", 
+            "headphone": "", 
             "default": ["", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾"],
             // "default": ["", "", "󰕾", "󰕾", "󰕾", "", "", ""]
         },

@@ -36,8 +36,16 @@ source $HOME/.zsh/function.sh
 source ~/.zsh/themes/catppuccin_latte-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
+--color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
+--color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
+
 #source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 #export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Created by `pipx` on 2023-12-09 12:18:40
 #export PATH="$PATH:/home/taki/.local/bin"
+
+# Created by `pipx` on 2024-05-26 21:09:23
+export PATH="$PATH:/home/taki/.dotfiles/local/bin"

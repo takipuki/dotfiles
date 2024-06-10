@@ -2,8 +2,8 @@
 #alias nvr="nvr --remote-tab-silent"
 
 alias sus="swaylock & sleep 2 && systemctl suspend"
-alias e="setsid emacsclient --alternate-editor=''"
-alias ec="setsid emacsclient --alternate-editor='' --create-frame"
+alias e="setsid emacsclient --alternate-editor='' > /dev/null 2>&1"
+alias ec="setsid emacsclient --alternate-editor='' --create-frame > /dev/null 2>&1"
 
 alias open="gio open"
 alias hs="http-server"
@@ -11,7 +11,7 @@ alias hs="http-server"
 alias sctl="systemctl"
 
 alias pacss="sudo pacman -Ss"
-alias pacs="sudo pacman -S"
+alias pacs="sudo pacman -S --needed"
 alias pacr="sudo pacman -Rus"
 alias yays="yay -S"
 
@@ -24,7 +24,7 @@ alias pst=wl-paste
 
 alias sorc="source ~/.zshrc"
 
-alias yt='COLUMNS=$COLUMNS lua ~/.local/script/yt.lua'
+alias yt='lua ~/.local/script/yt.lua'
 alias elaach="bash ~/.local/script/elaach.sh"
 alias sam="bash ~/.local/script/sam.sh"
 

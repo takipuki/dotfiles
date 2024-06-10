@@ -21,6 +21,11 @@
 (use-package yasnippet-snippets
   :config (yas-minor-mode))
 
+(use-package tree-sitter
+  :hook (java-mode . tree-sitter-mode)
+  :hook (java-mode . tree-sitter-hl-mode))
+(use-package tree-sitter-langs)
+
 (use-package ivy :config (ivy-mode))
 (use-package counsel)
 (use-package ivy-rich :config (ivy-rich-mode))
@@ -43,11 +48,24 @@
 (use-package recentf
   :config (recentf-mode 1)
           (setq recentf-max-menu-items 25)
-          (global-set-key "\C-x\ \C-r" 'recentf-open-files))
+          (global-set-key "\C-x\ \C-r" 'counsel-recentf))
 
-(use-package evil-org)
+(defun org-syntax-table-modify ()
+  "Modify `org-mode-syntax-table' for the current org buffer."
+  (modify-syntax-entry ?< "." org-mode-syntax-table)
+  (modify-syntax-entry ?> "." org-mode-syntax-table))
+;; (add-hook 'evil-org-mode-hook #'org-syntax-table-modify)
+
+(use-package evil-org
+  :hook (evil-org-mode . org-syntax-table-modify)
+  ;; :config
+  ;; (add-hook 'org-mode-hook (lambda () (evil-org-mode 1)))
+)
+
 (use-package org
-    :config (add-hook 'org-mode-hook (lambda () (evil-org-mode 1))))
+  :hook (org-mode . evil-org-mode)
+  :hook (org-mode . org-indent-mode)
+)
 
 ;; (define-key org-mode-map (kbd "TAB") 'org-cycle)
 ;; (add-hook 'org-mode-hook (lambda () (define-key org-mode-map (kbd "TAB") #'org-cycle)))
@@ -71,7 +89,10 @@
       (call-interactively 'align-regexp)))
   ;; (define-key evil-normal-state-map (kbd "C-a") (kbd ":s/(/z"))
   ;; (define-key evil-visual-state-map (kbd ";") (kbd ":'<,'>s/d/z"))
-  (define-key evil-insert-state-map (kbd "C-e") 'yas-expand))
+  (define-key evil-insert-state-map (kbd "C-e") 'yas-expand)
+  (define-key evil-normal-state-map (kbd "M-h") "gT")
+  (define-key evil-normal-state-map (kbd "M-l") "gt")
+  (add-hook 'sh-mode-hook (lambda () (setq evil-shift-width 2))))
 
 (use-package company
   :config (add-hook 'after-init-hook 'global-company-mode))
@@ -95,12 +116,6 @@
   ;; Enables ligature checks globally in all buffers. You can also do it
   ;; per mode with `ligature-mode'.
   ); (global-ligature-mode t)
-
-
-(defun org-fix-angle-brackets () 
-  (modify-syntax-entry ?< "." org-mode-syntax-table)
-  (modify-syntax-entry ?> "." org-mode-syntax-table))
-(add-hook 'org-mode-hook 'org-fix-angle-brackets)
 
 
 ;;;;; editing
@@ -180,38 +195,30 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/backups" t)))
- '(backup-directory-alist `(("." . "~/.emacs.d/backups")))
+ '(backup-directory-alist '(("." . "~/.emacs.d/backups/")))
  '(c-basic-offset 4)
  '(calendar-week-start-day 6)
  '(coffee-tab-width 2)
  '(company-idle-delay 0)
  '(company-minimum-prefix-length 1)
  '(custom-safe-themes
-   '("80214de566132bf2c844b9dee3ec0599f65c5a1f2d6ff21a2c8309e6e70f9242" default))
+    '("80214de566132bf2c844b9dee3ec0599f65c5a1f2d6ff21a2c8309e6e70f9242" default))
  '(electric-indent-mode t)
  '(electric-pair-mode t)
  '(global-ligature-mode t)
  '(global-undo-tree-mode t)
+ '(lisp-body-indent 2)
+ '(lisp-indent-offset 2)
  '(org-agenda-files '("/home/taki/.notes/plan.org"))
  '(org-agenda-span 'fortnight)
  '(org-agenda-start-on-weekday 6)
+ '(org-confirm-babel-evaluate nil)
  '(org-edit-src-content-indentation 0)
  '(org-html-htmlize-font-prefix "org-")
  '(org-html-htmlize-output-type 'css)
  '(org-list-allow-alphabetical t)
- '(org-mode-hook
-   '(#[0 "\301\211\20\207"
-         [imenu-create-index-function org-imenu-get-tree]
-         2]
-     #[0 "\300\301\302\303\304$\207"
-         [add-hook change-major-mode-hook org-fold-show-all append local]
-         5]
-     #[0 "\300\301\302\303\304$\207"
-         [add-hook change-major-mode-hook org-babel-show-result-all append local]
-         5]
-     org-babel-result-hide-spec org-babel-hide-all-hashes org-indent-mode))
  '(package-selected-packages
-   '(evil-org markdown-mode counsel elm-mode zig-mode racket-mode avy magit tagedit smooth-scrolling smooth-scroll htmlize go-mode undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile setup rainbow-delimiters paredit lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+    '(tree-sitter-langs tree-sitter java-snippets evil-org markdown-mode counsel elm-mode zig-mode racket-mode avy magit tagedit smooth-scrolling smooth-scroll htmlize go-mode undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile setup rainbow-delimiters paredit lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)
  '(tab-width 4)
