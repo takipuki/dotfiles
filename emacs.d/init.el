@@ -92,6 +92,7 @@
   (define-key evil-insert-state-map (kbd "C-e") 'yas-expand)
   (define-key evil-normal-state-map (kbd "M-h") "gT")
   (define-key evil-normal-state-map (kbd "M-l") "gt")
+  (define-key evil-insert-state-map (kbd "S-SPC") "_")
   (add-hook 'sh-mode-hook (lambda () (setq evil-shift-width 2))))
 
 (use-package company

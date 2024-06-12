@@ -1,14 +1,16 @@
 #! /usr/bin/bash
 
 usage () { echo "Usage: $0 [url] [-s query]"; exit 1; }
-if [[ $# -lt 1 || $# -gt 2 ]]; then
-  usage
-fi
+# if [[ $# -lt 1 || $# -gt 2 ]]; then
+#   usage
+# fi
 
 digit='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%98%85%20%200%20%20%E2%80%94%20%209/'
 a_l='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20L/'
 m_r='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20M%20%20%E2%80%94%20%20R/'
 s_z='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20S%20%20%E2%80%94%20%20Z/'
+kdrama='http://172.16.50.14/DHAKA-FLIX-14/KOREAN%20TV%20%26%20WEB%20Series/'
+stdout='/dev/stdout'
 
 scrape_one () {
   sam_url="$(echo $1 | grep -Eo '172.16.50.[0-9]+')"
@@ -39,10 +41,16 @@ scrape_list () {
   scrape_one $sam_url$(echo "$both" | awk -F$'\t' '{print $1}' | sed $get'q;d')
 }
 
-while getopts ":s:" o; do
+while getopts ":s:o:k" o; do
   case "${o}" in
     s)
       query=${OPTARG}
+      ;;
+    o)
+      stdout=${OPTARG}
+      ;;
+    k)
+      kd=y
       ;;
     *)
       usage
@@ -53,12 +61,14 @@ done
 shift $((OPTIND-1))
 
 if [[ -n $1 ]]; then
-  scrape_one $1
+  scrape_one $1 > $stdout
   exit 0
 fi
 
 c=${query:0:1}
-if [[ $c =~ [0-9] ]]; then
+if [[ -n $kd ]]; then
+  scrape_list $kdrama
+elif [[ $c =~ [0-9] ]]; then
   scrape_list $digit
 elif [[ $c =~ [a-l] ]]; then
   scrape_list $a_l
@@ -66,4 +76,4 @@ elif [[ $c =~ [m-r] ]]; then
   scrape_list $m_r
 else
   scrape_list $s_z
-fi
+fi > $stdout
