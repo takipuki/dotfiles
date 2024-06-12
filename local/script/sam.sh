@@ -1,16 +1,68 @@
 #! /usr/bin/bash
 
-usage () { echo "Usage: $0 [url] [-s query]"; exit 1; }
-# if [[ $# -lt 1 || $# -gt 2 ]]; then
-#   usage
-# fi
+ex () {
+  echo ctrl_c
+  [ -f .sam_tmp ] && rm .sam_tmp
+  exit 1
+}
+trap ex SIGINT
 
-digit='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%98%85%20%200%20%20%E2%80%94%20%209/'
-a_l='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20L/'
-m_r='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20M%20%20%E2%80%94%20%20R/'
-s_z='http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20S%20%20%E2%80%94%20%20Z/'
-kdrama='http://172.16.50.14/DHAKA-FLIX-14/KOREAN%20TV%20%26%20WEB%20Series/'
-stdout='/dev/stdout'
+a_0_9="http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%98%85%20%200%20%20%E2%80%94%20%209/"
+a_a_f="http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20F/"
+a_g_m="http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A5%20%20G%20%20%E2%80%94%20%20M/"
+a_n_s="http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A6%20%20N%20%20%E2%80%94%20%20S/"
+a_t_z="http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A6%20%20T%20%20%E2%80%94%20%20Z/"
+k="http://172.16.50.14/DHAKA-FLIX-14/KOREAN%20TV%20%26%20WEB%20Series/"
+t_0_9="http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%98%85%20%200%20%20%E2%80%94%20%209/"
+t_a_l="http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20L/"
+t_m_r="http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20M%20%20%E2%80%94%20%20R/"
+t_s_z="http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20S%20%20%E2%80%94%20%20Z/"
+
+c=$(
+cat << EOM | fzf || exit 1
+anime
+kdrama
+tv
+movies
+EOM
+)
+[ $? == 1 ] && exit 1
+
+case $c in
+  anime)
+    c=$(echo {a..z} | sed 's/ /\n/g' | fzf || exit 1)
+    [ $? == 1 ] && exit 1
+    case $c in
+      [0-9]) url=$a_0_9 ;;
+      [a-f]) url=$a_a_f ;;
+      [g-m]) url=$a_g_m ;;
+      [n-s]) url=$a_n_s ;;
+      [t-z]) url=$a_t_z ;;
+    esac
+    ;;
+
+  kdrama)
+    url=$k
+    ;;
+
+  tv)
+    c=$(echo {a..z} | sed 's/ /\n/g' | fzf || exit 1)
+    [ $? == 1 ] && exit 1
+    case $c in
+      [0-9]) url=$a_0_9 ;;
+      [a-f]) url=$a_a_f ;;
+      [g-m]) url=$a_g_m ;;
+      [n-s]) url=$a_n_s ;;
+      [t-z]) url=$a_t_z ;;
+    esac
+    ;;
+
+  movies)
+    c=$(seq 1995 `date +%Y` | sed 's/ /\n/g' | fzf)
+    [ $? == 1 ] && exit 1
+    url='http://172.16.50.14/DHAKA-FLIX-14/English%20Movies%20%281080p%29/%28'$c'%29%201080p/'
+    ;;
+esac
 
 scrape_one () {
   sam_url="$(echo $1 | grep -Eo '172.16.50.[0-9]+')"
@@ -37,43 +89,13 @@ scrape_list () {
       sed '1d' |
       sed -E 's|.*"([^"]+)">([^<]+)<.*|\1\t\2|'
   )
-  get=$(echo "$both" | awk -F$'\t' '{print NR, $2}' | fzf | awk '{print $1}')
-  scrape_one $sam_url$(echo "$both" | awk -F$'\t' '{print $1}' | sed $get'q;d')
+  get=$(echo "$both" | awk -F$'\t' '{print NR, $2}' | fzf || exit 1)
+  [ $? == 1 ] && exit 1
+  get=$(echo $get | awk '{print $1}')
+  scrape_one $sam_url$(echo "$both" | awk -F$'\t' '{print $1}' | sed $get'q;d') > .sam_tmp &
+  echo -n 'filename: '
+  read -r f
+  mv .sam_tmp $f.m3u
 }
 
-while getopts ":s:o:k" o; do
-  case "${o}" in
-    s)
-      query=${OPTARG}
-      ;;
-    o)
-      stdout=${OPTARG}
-      ;;
-    k)
-      kd=y
-      ;;
-    *)
-      usage
-      ;;
-  esac
-done
-
-shift $((OPTIND-1))
-
-if [[ -n $1 ]]; then
-  scrape_one $1 > $stdout
-  exit 0
-fi
-
-c=${query:0:1}
-if [[ -n $kd ]]; then
-  scrape_list $kdrama
-elif [[ $c =~ [0-9] ]]; then
-  scrape_list $digit
-elif [[ $c =~ [a-l] ]]; then
-  scrape_list $a_l
-elif [[ $c =~ [m-r] ]]; then
-  scrape_list $m_r
-else
-  scrape_list $s_z
-fi > $stdout
+scrape_list $url
