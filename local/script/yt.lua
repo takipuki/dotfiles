@@ -96,7 +96,7 @@ for _,process in ipairs(i_query_processes) do
     process:close()
 
     io.write("Choose: ")
-    local choice = io.read("*n")
+    local choice = io.read("n") or os.exit(1)
     io.write("\n")
 
     table.insert(ids, search_results[choice+1])

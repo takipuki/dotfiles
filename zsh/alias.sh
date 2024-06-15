@@ -26,6 +26,6 @@ alias sorc="source ~/.zshrc"
 
 alias yt='lua ~/.local/script/yt.lua'
 alias elaach="bash ~/.local/script/elaach.sh"
-alias sam="bash ~/.local/script/sam.sh"
+alias sam="lua ~/.local/script/sam.lua"
 
 alias asciidoctor-pdf="/home/taki/.local/share/gem/ruby/3.0.0/bin/asciidoctor-pdf"
