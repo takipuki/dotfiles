@@ -93,7 +93,12 @@
   (define-key evil-normal-state-map (kbd "M-h") "gT")
   (define-key evil-normal-state-map (kbd "M-l") "gt")
   (define-key evil-insert-state-map (kbd "S-SPC") "_")
-  (add-hook 'sh-mode-hook (lambda () (setq evil-shift-width 2))))
+
+  :hook
+  (sh-mode . sw-2)
+  (elixir-mode . sw-2)
+  ;;(add-hook 'sh-mode-hook (lambda () (setq evil-shift-width 2)))
+  )
 
 (use-package company
   :config (add-hook 'after-init-hook 'global-company-mode))
@@ -143,8 +148,11 @@
 
 (electric-indent-mode nil)
 
-(setq-default sh-basic-offset 2
-              sh-indentation 2)
+(setq-default
+  sh-basic-offset 2
+  sh-indentation 2
+  lua-indent-level 2
+  )
 
 ;;;;; appearance
 

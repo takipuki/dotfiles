@@ -112,7 +112,7 @@ end
 
 function set_episode_titles(episodes)
   for _, v in pairs(episodes) do
-    v[2] = v[2]:match('S%d+E%d+') or v[2]
+    v[2] = v[2]:match('S%d+E%d+') or v[2]:match('E%d+') or v[2]:match('%d+') or v[2]
   end
 end
 
@@ -163,3 +163,26 @@ end
 
 
 main()
+
+
+function pipe(val, ...)
+  local fns = {...}
+  for _, fn in ipairs(fns) do
+    val = fn(val)
+  end
+  return val
+end
+
+function map(fn, tab)
+  local result = {}
+  for _, v in ipairs(tab) do
+    table.insert(result, fn(v))
+  end
+  return result
+end
+
+function apply(fn, tab)
+  for _, v in ipairs(tab) do
+    fn(v)
+  end
+end
