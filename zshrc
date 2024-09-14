@@ -14,13 +14,13 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt extendedglob
 setopt nobeep
-bindkey -e
 # End of lines configured by zsh-newuser-install
 
 PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
+bindkey -e
 export EDITOR=nvim
 setopt HIST_IGNORE_ALL_DUPS
 

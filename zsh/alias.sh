@@ -1,5 +1,7 @@
 #alias ss="slurp | grim -g - - | wl-copy"
-#alias nvr="nvr --remote-tab-silent"
+alias nvim="nvim --listen ~/.cache/nvim/server.pipe"
+
+alias chalice="lua -e 'for i=0,9 do print(i .. \" -> \" .. (5 + 3*i*i)) end'"
 
 alias sus="swaylock & sleep 2 && systemctl suspend"
 alias e="setsid emacsclient --alternate-editor='' > /dev/null 2>&1"
@@ -10,7 +12,7 @@ alias hs="http-server"
 
 alias sctl="systemctl"
 
-alias pacss="sudo pacman -Ss"
+alias pacss="pacman -Ss"
 alias pacs="sudo pacman -S --needed"
 alias pacr="sudo pacman -Rus"
 alias yays="yay -S"

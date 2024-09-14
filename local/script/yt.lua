@@ -115,7 +115,7 @@ if SHOULD_PLAY then
     -- starting dlp downloads
     for _,id in ipairs(ids) do
         table.insert(dlp_processes, assert(io.popen(
-            'yt-dlp -q --no-warnings -o - -f '.."'"..DLP_FORMAT.."'"..' -- '..id
+            "yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id
         )))
     end
 

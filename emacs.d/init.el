@@ -7,13 +7,28 @@
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+
 (use-package all-the-icons)
 (use-package avy)
 (use-package catppuccin-theme)
+(use-package almost-mono-themes
+  :config
+  ;; (load-theme 'almost-mono-black t)
+  ;; (load-theme 'almost-mono-gray t)
+  (load-theme 'almost-mono-cream t)
+  ;; (load-theme 'almost-mono-white t)
+  )
 (use-package company)
 (use-package company-lua)
 (use-package doom-themes)
-(use-package evil)
 (use-package hl-todo)
 (use-package ligature)
 (use-package rainbow-delimiters)
@@ -26,16 +41,20 @@
   :hook (java-mode . tree-sitter-hl-mode))
 (use-package tree-sitter-langs)
 
+(defun set-sw ()
+  (make-local-variable 'evil-shift-width)
+  (setq evil-shift-width 3))
+
+(use-package haskell-mode
+  :hook (haskell-mode . set-sw))
+
 (use-package ivy :config (ivy-mode))
 (use-package counsel)
 (use-package ivy-rich :config (ivy-rich-mode))
 
 (use-package markdown-mode
-  :config
-  (add-hook 'markdown-mode-hook
-    (lambda ()
-      (make-local-variable 'evil-shift-width)
-      (setq evil-shift-width 3))))
+  :hook
+  (markdown-mode . set-sw))
 
 (use-package which-key
   :config
@@ -65,7 +84,7 @@
 (use-package org
   :hook (org-mode . evil-org-mode)
   :hook (org-mode . org-indent-mode)
-)
+  )
 
 ;; (define-key org-mode-map (kbd "TAB") 'org-cycle)
 ;; (add-hook 'org-mode-hook (lambda () (define-key org-mode-map (kbd "TAB") #'org-cycle)))
@@ -80,6 +99,7 @@
     (lambda () (interactive)
       (evil-use-register ?+)
       (call-interactively 'evil-yank)))
+
   (define-key evil-normal-state-map (kbd "z p") "\"+p")
   (define-key evil-normal-state-map (kbd "z j") 'evil-avy-goto-char)
   (define-key evil-normal-state-map (kbd "z x") 'align-regexp)
@@ -87,18 +107,28 @@
     (lambda () (interactive)
       (setq current-prefix-arg '(t))
       (call-interactively 'align-regexp)))
+
+  (define-key evil-normal-state-map (kbd "z e") ":(org-table-export \"tmp.tsv\" \"orgtbl-to-tsv\")")
+
   ;; (define-key evil-normal-state-map (kbd "C-a") (kbd ":s/(/z"))
   ;; (define-key evil-visual-state-map (kbd ";") (kbd ":'<,'>s/d/z"))
+
   (define-key evil-insert-state-map (kbd "C-e") 'yas-expand)
+  (define-key evil-insert-state-map (kbd "C-j") 'yas-next-field-or-maybe-expand)
+  (define-key evil-insert-state-map (kbd "C-k") 'yas-prev-field)
+
   (define-key evil-normal-state-map (kbd "M-h") "gT")
   (define-key evil-normal-state-map (kbd "M-l") "gt")
-  (define-key evil-insert-state-map (kbd "S-SPC") "_")
+  ;; (define-key evil-insert-state-map (kbd "S-SPC") "_")
 
   :hook
   (sh-mode . sw-2)
   (elixir-mode . sw-2)
   ;;(add-hook 'sh-mode-hook (lambda () (setq evil-shift-width 2)))
   )
+
+(defun sw-2 () (setq evil-shift-width 2))
+(defun sw-4 () (setq evil-shift-width 4))
 
 (use-package company
   :config (add-hook 'after-init-hook 'global-company-mode))
@@ -144,15 +174,17 @@
 (show-paren-mode 1)
 
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+setq-default tab-width 4)
 
 (electric-indent-mode nil)
 
 (setq-default
   sh-basic-offset 2
   sh-indentation 2
-  lua-indent-level 2
+  lua-indent-level 4
   )
+
+(add-hook 'java-mode-hook (lambda () (setq c-basic-offset 4)))
 
 ;;;;; appearance
 
@@ -163,7 +195,7 @@
 ;; (setq catppuccin-flavor 'latte) ;; or 'frappe, 'macchiato, or 'mocha
 ;; (catppuccin-reload)
 ;; (load-theme 'catppuccin :no-confirm)
-(load-theme 'doom-solarized-light :no-confirm)
+;; (load-theme 'doom-solarized-light :no-confirm)
 
 (setq scroll-step 1)
 (menu-bar-mode -1)
@@ -205,7 +237,7 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/backups" t)))
  '(backup-directory-alist '(("." . "~/.emacs.d/backups/")))
- '(c-basic-offset 4)
+ '(c-basic-offset 8)
  '(calendar-week-start-day 6)
  '(coffee-tab-width 2)
  '(company-idle-delay 0)
@@ -227,7 +259,7 @@
  '(org-html-htmlize-output-type 'css)
  '(org-list-allow-alphabetical t)
  '(package-selected-packages
-    '(elixir-mode tree-sitter-langs tree-sitter java-snippets evil-org markdown-mode counsel elm-mode zig-mode racket-mode avy magit tagedit smooth-scrolling smooth-scroll htmlize go-mode undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile setup rainbow-delimiters paredit lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
+    '(almost-mono-themes haskell-mode auto-package-update elixir-mode tree-sitter-langs tree-sitter java-snippets evil-org markdown-mode counsel elm-mode zig-mode racket-mode avy magit tagedit smooth-scrolling smooth-scroll htmlize go-mode undo-fu-session underline-with-char hl-todo gnuplot gnuplot-mode yasnippet-snippets http company-lua epresent w3m org evil ligature catppuccin-theme clj-refactor cider-hydra company cider clojure-mode which-key treemacs-projectile setup rainbow-delimiters paredit lsp-treemacs lsp-ivy ivy-rich doom-themes doom-modeline counsel-projectile all-the-icons))
  '(select-enable-clipboard nil)
  '(select-enable-primary nil)
  '(tab-width 4)
