@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: for loop
+# key: FOR
+# --
+for (int $1 = 0; $1 < $2; $1++) $0

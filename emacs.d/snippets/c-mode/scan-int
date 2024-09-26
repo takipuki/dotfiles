@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: scanf integer
+# key: scn
+# --
+int ${1:n}; scanf(\"${1:$(replace-regexp-in-string "[[:word:],]+" "%d" yas-text)}\", ${1:$(mapconcat 'identity (mapcar (lambda (e) (concat "&" e)) (split-string yas-text ", ")) ", ")});
