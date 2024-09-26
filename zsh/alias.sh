@@ -26,8 +26,8 @@ alias pst=wl-paste
 
 alias sorc="source ~/.zshrc"
 
-alias yt='lua ~/.local/script/yt.lua'
-alias elaach="bash ~/.local/script/elaach.sh"
-alias sam="lua ~/.local/script/sam.lua"
+alias yt='lua ~/.local/scripts/yt.lua'
+alias elaach="bash ~/.local/scripts/elaach.sh"
+alias sam="lua ~/.local/scripts/sam.lua"
 
 alias asciidoctor-pdf="/home/taki/.local/share/gem/ruby/3.0.0/bin/asciidoctor-pdf"

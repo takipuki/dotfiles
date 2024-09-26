@@ -23,10 +23,10 @@ Options:
 SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
 DLP_FORMAT  = "bestaudio"    -- play video or just audio
-PLAYER_CMD  = "mpv -"        -- media player
+PLAYER_CMD  = "mpv "        -- media player
 
-p = io.popen("tput cols", 'r')
-COLS = tonumber(p:read())
+local p = assert(io.popen("tput cols", 'r'))
+local COLS = tonumber(p:read())
 p:close()
 COLS = COLS > 100 and 100 or COLS
 
@@ -110,33 +110,29 @@ for _,process in ipairs(non_i_query_processes) do
 end
 
 
-local dlp_processes = {}
-if SHOULD_PLAY then
-    -- starting dlp downloads
-    for _,id in ipairs(ids) do
-        table.insert(dlp_processes, assert(io.popen(
-            "yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id
-        )))
-    end
-
-    -- playing downloads one by one
-    for _,dlp_proc in ipairs(dlp_processes) do
-        local player_proc = assert(io.popen(PLAYER_CMD, "w"))
-
-        -- keep piping chunk into player
-        local chunk_size = 8 * 1024
-        local media_raw = dlp_proc:read(chunk_size)
-        while media_raw do
-            player_proc:write(media_raw)
-            media_raw = dlp_proc:read(chunk_size)
-        end
-
-        dlp_proc:close()
-        player_proc:close()
-    end
-
-else
+if not SHOULD_PLAY then
     for _,e in ipairs(ids) do
         print(e)
     end
+	os.exit(0)
+end
+
+-- starting dlp downloads
+local dlp_filenames = {}
+for _,id in ipairs(ids) do
+	local f_name = os.tmpname()
+	assert(io.popen("yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id.." > "..f_name))
+	table.insert(dlp_filenames, f_name)
+end
+
+-- playing downloaded files one by one
+for _,f_name in ipairs(dlp_filenames) do
+	local f_hdl = assert(io.open(f_name, "r"))
+	while f_hdl:seek("end") < 64 * 1024 do
+		os.execute("sleep 0.5")
+	end
+	f_hdl:close()
+
+	os.execute(PLAYER_CMD .. f_name)
+	os.remove(f_name)
 end
