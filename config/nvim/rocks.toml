@@ -30,7 +30,6 @@ friendly-snippets = { git = "rafamadriz/friendly-snippets" }
 mru = { git = "yegappan/mru" }
 autoclose = { git = 'm4xshen/autoclose.nvim' }
 luarocks = "3.11.1"
-neorg = "8.9.0"
 "rest.nvim" = "2.0.1"
 "comment.nvim" = "0.8.0"
 
@@ -83,6 +82,6 @@ rev = "v1.6.1^{}"
 git = "sainnhe/everforest"
 rev = "v0.3.0^{}"
 
-[plugins."lazydev.nvim"]
-git = "folke/lazydev.nvim"
-rev = "v1.8.0"
+[plugins.vim-easy-align]
+git = "junegunn/vim-easy-align"
+rev = "2.9.7^{}"

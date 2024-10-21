@@ -3,8 +3,21 @@
 function nvr () {
     if [[ -n $1 ]]
     then
-        nvim --server ~/.cache/nvim/server.pipe --remote-tab `pwd`/$1
+        /bin/nvim --server ~/.cache/nvim/server.pipe --remote-tab `pwd`/$1
     fi
+}
+
+# function nvim () {
+# 	/bin/nvim --listen ~/.cache/nvim/server.pipe $@
+# 	echo -ne '\033[6 q'
+# }
+
+function tm_cp () {
+	tmux new-window 'cd ~/Desktop/code/cp/ && nvim main.cpp'
+	tmux split-window -h -c '/home/taki/Desktop/code/cp/'
+	tmux select-pane -t 0
+	tmux rename-window cp
+	tmux resize-pane -x 60%
 }
 
 #

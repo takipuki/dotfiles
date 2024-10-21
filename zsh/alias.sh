@@ -1,5 +1,7 @@
-#alias ss="slurp | grim -g - - | wl-copy"
+
 alias nvim="nvim --listen ~/.cache/nvim/server.pipe"
+
+alias weztitle="wezterm cli set-tab-title"
 
 alias chalice="lua -e 'for i=0,9 do print(i .. \" -> \" .. (5 + 3*i*i)) end'"
 
@@ -18,7 +20,6 @@ alias pacr="sudo pacman -Rus"
 alias yays="yay -S"
 
 alias rum="gio trash"
-#alias rum="/usr/bin/rm"
 alias mv="mv -i"
 alias ls="ls -FH"
 alias cpy=wl-copy

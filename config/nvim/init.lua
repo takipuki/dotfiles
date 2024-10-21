@@ -51,10 +51,10 @@ vim.opt.foldenable = false
 
 vim.opt.guifont = 'JetBrainsMono Nerd Font:h14'
 vim.opt.termguicolors = true
--- vim.cmd('colorscheme komau')
+vim.cmd('colorscheme komau')
 vim.g.komau_italic = 0
-vim.g.everforest_background = 'hard'
-vim.cmd('colorscheme everforest')
+-- vim.g.everforest_background = 'hard'
+-- vim.cmd('colorscheme everforest')
 
 vim.opt.autochdir = true
 
@@ -146,7 +146,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-	pattern = { '*.json', '*.svelte', '*.jsx', '*.js' },
+	pattern = { '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs' },
 	callback = function()
 		vim.opt_local.tabstop = 2
 		vim.opt_local.shiftwidth = 2
@@ -215,52 +215,12 @@ require'nvim-treesitter.configs'.setup {
 				["if"] = "@function.inner",
 				["aa"] = "@parameter.outer",
 				["ia"] = "@parameter.inner",
-				-- ["ac"] = "@class.outer",
-				-- You can optionally set descriptions to the mappings (used in the desc parameter of
-				-- nvim_buf_set_keymap) which plugins like which-key display
-				-- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-				-- You can also use captures from other query groups like `locals.scm`
-				-- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
 			},
-			-- You can choose the select mode (default is charwise 'v')
-			--
-			-- Can also be a function which gets passed a table with the keys
-			-- * query_string: eg '@function.inner'
-			-- * method: eg 'v' or 'o'
-			-- and should return the mode ('v', 'V', or '<c-v>') or a table
-			-- mapping query_strings to modes.
-			-- selection_modes = {
-			-- 	['@parameter.outer'] = 'v', -- charwise
-			-- 	['@function.outer'] = 'V', -- linewise
-			-- 	['@class.outer'] = '<c-v>', -- blockwise
-			-- },
-			-- If you set this to `true` (default is `false`) then any textobject is
-			-- extended to include preceding or succeeding whitespace. Succeeding
-			-- whitespace has priority in order to act similarly to eg the built-in
-			-- `ap`.
-			--
-			-- Can also be a function which gets passed a table with the keys
-			-- * query_string: eg '@function.inner'
-			-- * selection_mode: eg 'v'
-			-- and should return true or false
-			-- include_surrounding_whitespace = true,
 		},
 	},
 }
-
-
--- neorg setup ---------------------------------------------------------------
-require("neorg").setup({
-	load = {
-		["core.defaults"] = {},
-		-- ["core.concealer"] = {
-		--	 config = {
-		--		 icons = false,
-		--	 },
-		-- }, -- We added this line!
-		["core.export"] = {},
-	}
-})
 
 
 -- Comment.nvim --------------------------------------------------------------
@@ -299,7 +259,7 @@ vim.cmd [[autocmd CursorHold,InsertLeave * lua vim.diagnostic.open_float(nil, {f
 
 
 -- lazydev.nvim --------------------------------------------------------------
-require('lazydev').setup()
+-- require('lazydev').setup()
 
 
 -- mason ---------------------------------------------------------------------
@@ -319,6 +279,42 @@ require('mason-lspconfig').setup({
 				},
 			})
 		end,
+
+		lua_ls = function()
+			require('lspconfig').lua_ls.setup({
+				on_init = function(client)
+					if client.workspace_folders then
+						local path = client.workspace_folders[1].name
+						if vim.uv.fs_stat(path..'/.luarc.json') or vim.uv.fs_stat(path..'/.luarc.jsonc') then
+							return
+						end
+					end
+
+					client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+						runtime = {
+							-- Tell the language server which version of Lua you're using
+							-- (most likely LuaJIT in the case of Neovim)
+							version = 'LuaJIT'
+						},
+						-- Make the server aware of Neovim runtime files
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.env.VIMRUNTIME
+								-- Depending on the usage, you might want to add additional paths here.
+								-- "${3rd}/luv/library"
+								-- "${3rd}/busted/library",
+							}
+							-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+							-- library = vim.api.nvim_get_runtime_file("", true)
+						}
+					})
+				end,
+				settings = {
+					Lua = {}
+				}
+			})
+		end,
 	},
 })
 
@@ -335,7 +331,10 @@ cmp.setup {
 		{ name = 'luasnip' , option = { show_autosnippets = true } },
 		-- { name = 'cmp_luasnip' },
 		{ name = 'nvim_lsp' },
-		{ name = 'buffer' },
+		{
+			name = 'buffer',
+			option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }
+		},
 		{ name = 'path' },
 		-- { name = 'conjure' },
 	},
