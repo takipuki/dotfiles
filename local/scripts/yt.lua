@@ -19,7 +19,7 @@ Options:
 --- TODO directly given ids are played first; should play in the order of arguments
 ---      make searching a function and use it in getopts
 
-
+MPD_HOST    = os.getenv("MPD_HOST") or "~/.local/share/mpd/socket"
 SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
 DLP_FORMAT  = "bestaudio"    -- play video or just audio
@@ -117,22 +117,16 @@ if not SHOULD_PLAY then
 	os.exit(0)
 end
 
+
 -- starting dlp downloads
-local dlp_filenames = {}
 for _,id in ipairs(ids) do
 	local f_name = os.tmpname()
-	assert(io.popen("yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id.." > "..f_name))
-	table.insert(dlp_filenames, f_name)
+	os.execute(
+		"yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id.." > "..f_name
+		.." && "..
+		"mv "..f_name.." "..f_name..".webm"
+		.." && "..
+		"mpc -q update --wait && MPD_HOST="..MPD_HOST.." mpc -q add "..f_name..".webm &"
+	)
 end
 
--- playing downloaded files one by one
-for _,f_name in ipairs(dlp_filenames) do
-	local f_hdl = assert(io.open(f_name, "r"))
-	while f_hdl:seek("end") < 64 * 1024 do
-		os.execute("sleep 0.5")
-	end
-	f_hdl:close()
-
-	os.execute(PLAYER_CMD .. f_name)
-	os.remove(f_name)
-end
