@@ -32,6 +32,7 @@ autoclose = { git = 'm4xshen/autoclose.nvim' }
 luarocks = "3.11.1"
 "rest.nvim" = "2.0.1"
 "comment.nvim" = "0.8.0"
+"oil.nvim" = "2.13.0"
 
 [plugins."mason-lspconfig.nvim"]
 git = "williamboman/mason-lspconfig.nvim"

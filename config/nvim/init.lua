@@ -31,7 +31,7 @@ vim.opt.relativenumber = true
 vim.opt.hlsearch = false
 vim.opt.wrap = false
 -- vim.opt.expandtab = true
-vim.cmd('set cinoptions+=(1s')
+vim.cmd('set cinoptions+=(s')
 -- vim.opt.list = false
 -- vim.opt.listchars = 'tab:\\ \\ '
 vim.cmd('set list lcs=tab:\\ \\ ')
@@ -46,6 +46,7 @@ vim.opt.undodir = '/home/taki/.local/share/nvim/undo//'
 vim.opt.shell = '/usr/bin/zsh'
 vim.cmd('set nocompatible')
 vim.cmd('filetype plugin on')
+vim.g.rust_recommended_style = false
 vim.cmd('syntax enable')
 vim.opt.foldenable = false
 
@@ -86,6 +87,8 @@ vim.keymap.set('n', 'gy',
 	{ noremap = true, silent = true }
 )
 
+nmap('<leader>c', [[yypciwcin >>:s/,/ >>/gkJ]])
+
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
 nmap('<leader>fr', '<cmd>Telescope oldfiles<cr>')
@@ -96,6 +99,7 @@ vmap('<leader>s', [[:s/\%V\v(\S+) (\S+)/\2 \1/<cr>]])
 
 nmap('<C-s>', '<cmd>w<cr>')
 nmap('z;', 'A;')
+nmap('z,', 'A,')
 nmap('<M-h>', 'gT')
 nmap('<M-l>', 'gt')
 nmap('<leader>q', '<cmd>qall<cr>')
@@ -129,19 +133,20 @@ vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	pattern = { '*.zig' },
+	command = 'setlocal sw=4 ts=4 noexpandtab',
+})
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.hack', '*.asm' },
 	command = 'set ft=txt',
 })
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-	pattern = { '*.tex', '*.lua', '*.html' },
+	pattern = { '*.latex', '*.tex', '*.lua', '*.html' },
 	callback = function()
-		vim.opt_local.tabstop = 3
-		vim.opt_local.shiftwidth = 3
-		-- vim.opt_local.autoindent = true
-		-- vim.opt_local.smartindent = false
-		-- vim.opt_local.cindent = false
-		-- vim.opt_local.indentexpr = nil
+		vim.opt_local.tabstop = 2
+		vim.opt_local.shiftwidth = 2
 	end,
 })
 
@@ -180,11 +185,15 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 require("nvim-tree").setup()
 
 
+-- oil -----------------------------------------------------------------------
+require("oil").setup()
+
+
 -- treesitter setup ----------------------------------------------------------
 require('nvim-treesitter.configs').setup({
 	ensure_installed = { 'javascript', 'typescript', 'latex', 'lua', 'c', 'cpp', 'java', 'python', 'bash' },
 	ignore_install = { 'hack' },
-	indent = { enable = true },
+	indent = { enable = false },
 	auto_install = true,
 	highlight = { enable = true },
 })
@@ -319,8 +328,8 @@ require('mason-lspconfig').setup({
 })
 
 
--- nvim-cmp setup ------------------------------------------------------------
-local cmp = require 'cmp'
+-- nvim-cmp ------------------------------------------------------------------
+local cmp = require('cmp')
 cmp.setup {
 	snippet = {
 		expand = function(args)

@@ -12,13 +12,13 @@ function nvr () {
 # 	echo -ne '\033[6 q'
 # }
 
-function tm_cp () {
-	tmux new-window 'cd ~/Desktop/code/cp/ && nvim main.cpp'
-	tmux split-window -h -c '/home/taki/Desktop/code/cp/'
-	tmux select-pane -t 0
-	tmux rename-window cp
-	tmux resize-pane -x 60%
-}
+# function tm_cp () {
+# 	tmux new-window 'cd ~/Desktop/code/cp/ && nvim main.cpp'
+# 	tmux split-window -h -c '/home/taki/Desktop/code/cp/'
+# 	tmux select-pane -t 0
+# 	tmux rename-window cp
+# 	tmux resize-pane -x 60%
+# }
 
 #
 # function uv () {

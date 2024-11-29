@@ -60,7 +60,7 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "tooltip": false,
         "format-icons": {
-            "headphone": "", 
+            "headphone": "",
             "default": ["", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾"],
             // "default": ["", "", "󰕾", "󰕾", "󰕾", "", "", ""]
         },

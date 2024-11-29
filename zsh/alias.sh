@@ -1,4 +1,5 @@
 
+alias dmp="2>&1 >/dev/null"
 alias nvim="nvim --listen ~/.cache/nvim/server.pipe"
 
 alias weztitle="wezterm cli set-tab-title"

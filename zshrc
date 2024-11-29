@@ -23,16 +23,11 @@ compdef -d java
 
 PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-# precmd_functions+=(_fix_cursor)
-
-
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 bindkey -e
 export EDITOR=nvim
+export NODE_PATH=/usr/lib/node_modules/
 setopt HIST_IGNORE_ALL_DUPS
 
 precmd() {
