@@ -25,6 +25,7 @@ SHOULD_PLAY = true          -- should play or just print the IDs
 DLP_FORMAT  = "bestaudio"    -- play video or just audio
 PLAYER_CMD  = "mpv "        -- media player
 
+
 local p = assert(io.popen("tput cols", 'r'))
 local COLS = tonumber(p:read())
 p:close()
@@ -37,96 +38,103 @@ local ids = {}                    -- ids in this table will be played
 
 -- parsing args
 for _, argv in ipairs(arg) do
-    if string.sub(argv, 1, 1) == '-' then
-        local opt, val = argv:match('-(%a)(.*)')
-        if     opt == 'v' then DLP_FORMAT = "bv[height<=1080]+ba"
-        elseif opt == 'f' then DLP_FORMAT = val
-        elseif opt == 'n' then SHOULD_PLAY = false
-        elseif opt == 's' then table.insert(interactive_searches, val)
-        elseif opt == 'i' then table.insert(ids, val)
-        elseif opt == 'h' then print(HELP); os.exit()
-        else print("Unknown option "..opt) os.exit()
-        end
-    else
-        table.insert(non_i_searches, argv)
-    end
+	if string.sub(argv, 1, 1) == '-' then
+		local opt, val = argv:match('-(%a)(.*)')
+		if     opt == 'v' then DLP_FORMAT = "bv[height<=1080]+ba"
+		elseif opt == 'f' then DLP_FORMAT = val
+		elseif opt == 'n' then SHOULD_PLAY = false
+		elseif opt == 's' then table.insert(interactive_searches, val)
+		elseif opt == 'i' then table.insert(ids, val)
+		elseif opt == 'h' then print(HELP); os.exit()
+		else print("Unknown option "..opt) os.exit()
+		end
+	else
+		table.insert(non_i_searches, argv)
+	end
 end
 
 
 -- starting the non_i_search processes
 local non_i_query_processes = {}
 for _,query in ipairs(non_i_searches) do
-    local cmd =
-        'curl '..SEARCH_URL..(query:gsub("%s+", "+"))..' -s |'..
-        'sed -n "s/^.*ytInitialData = \\({.*}\\);<\\/.*$/\\1/p" |'..
-        'jq ".contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.[0].itemSectionRenderer.contents" |'..
-        'jq ".[].videoRenderer | select(. != null)" |'..
-        'jq -r ".videoId"'
+	local cmd =
+	'curl '..SEARCH_URL..(query:gsub("%s+", "+"))..' -s |'..
+	'sed -n "s/^.*ytInitialData = \\({.*}\\);<\\/.*$/\\1/p" |'..
+	'jq ".contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.[0].itemSectionRenderer.contents" |'..
+	'jq ".[].videoRenderer | select(. != null)" |'..
+	'jq -r ".videoId"'
 
-    table.insert(non_i_query_processes, io.popen(cmd))
+	non_i_query_processes[query] = io.popen(cmd)
 end
 
 -- starting the i_search processes
 local i_query_processes = {}
 for _,query in ipairs(interactive_searches) do
-    local cmd =
-        'curl '..SEARCH_URL..(query:gsub("%s+", "+"))..' -s |'..
-        'sed -n "s/^.*ytInitialData = \\({.*}\\);<\\/.*$/\\1/p" |'..
-        'jq ".contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.[0].itemSectionRenderer.contents" |'..
-        'jq ".[].videoRenderer | select(. != null)" |'..
-        'jq -r ".videoId, .title.runs.[0].text, .lengthText.simpleText"'
+	local cmd =
+		'curl '..SEARCH_URL..(query:gsub("%s+", "+"))..' -s |'..
+		'sed -n "s/^.*ytInitialData = \\({.*}\\);<\\/.*$/\\1/p" |'..
+		'jq ".contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.[0].itemSectionRenderer.contents" |'..
+		'jq ".[].videoRenderer | select(. != null)" |'..
+		'jq -r ".videoId, .title.runs.[0].text, .lengthText.simpleText"'
 
-    table.insert(i_query_processes, io.popen(cmd))
+	i_query_processes[query] = io.popen(cmd)
 
-    -- e.g. output of above command
-    -- 9C7RJx49ZgM
-    -- Jonathan Blow criticizes Valve
-    -- 4:45
+	-- e.g. output of above command
+	-- 9C7RJx49ZgM
+	-- Jonathan Blow criticizes Valve
+	-- 4:45
 end
 
 
 -- reading i_search results and taking user choices
-for _,process in ipairs(i_query_processes) do
-    local search_results = {}
-    for i=0,9 do
-        search_results[i+1] = process:read()
-        print(string.format("%d %-"..(COLS-20)..'.'..(COLS-20).."s%10s",
-            i, process:read(), process:read()))
-    end
-    process:close()
+for query, process in pairs(i_query_processes) do
+	local search_results = {}
+	for i=0,9 do
+		search_results[i+1] = process:read()
+		print(string.format("%d %-"..(COLS-20)..'.'..(COLS-20).."s%10s",
+		i, process:read(), process:read()))
+	end
+	process:close()
 
-    io.write("Choose: ")
-    local choice = io.read("n") or os.exit(1)
-    io.write("\n")
+	io.write("Choose: ")
+	local choice = io.read("n") or os.exit(1)
+	io.write("\n")
 
-    table.insert(ids, search_results[choice+1])
+	ids[query] = search_results[choice+1]
 end
 
 -- reading non_i_search results and reading first id
-for _,process in ipairs(non_i_query_processes) do
-    local id = process:read()
-    table.insert(ids, id)
-    process:close()
+for query, process in pairs(non_i_query_processes) do
+	local id = process:read()
+	ids[query] = id
+	process:close()
 end
 
 
 if not SHOULD_PLAY then
-    for _,e in ipairs(ids) do
-        print(e)
-    end
+	for query, e in pairs(ids) do
+		print(query, e)
+	end
 	os.exit(0)
 end
 
 
+function mpc(args)
+	return "MPD_HOST="..MPD_HOST.." mpc -q "..args
+end
+
 -- starting dlp downloads
-for _,id in ipairs(ids) do
-	local f_name = os.tmpname()
+for query, id in pairs(ids) do
+	local f_name = "'/tmp/"..query..".webm'"
 	os.execute(
 		"yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id.." > "..f_name
 		.." && "..
-		"mv "..f_name.." "..f_name..".webm"
+		mpc("update --wait")
 		.." && "..
-		"mpc -q update --wait && MPD_HOST="..MPD_HOST.." mpc -q add "..f_name..".webm &"
+		mpc("add "..(f_name:gsub("/tmp", "yt")))
+		.." && "..
+		mpc("play")
+		.." &"
 	)
 end
 

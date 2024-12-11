@@ -3,7 +3,24 @@
     "margin": "10 10 0 10",
     "modules-left": ["custom/arch", "hyprland/workspaces", "custom/add-workspace"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/minimize-button", "custom/close-button", "tray", "pulseaudio", "custom/power-menu"],
+    "modules-right": ["mpd", "custom/minimize-button", "custom/close-button", "tray", "pulseaudio", "custom/power-menu"],
+	"mpd": {
+		"server": "/home/taki/.local/share/mpd/socket",
+		"max-length": 50,
+		"format": "{stateIcon} {filename} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+		"format-disconnected": " Disconnected",
+		"format-stopped": "",
+		"state-icons": {
+			"paused": "",
+			"playing": ""
+		},
+		"tooltip": false,
+		"on-click": "mpc toggle",
+		"on-click-right": "mpc next",
+		"on-click-middle": "mpc stop",
+		"on-scroll-up": "mpc volume +5",
+		"on-scroll-down": "mpc volume -5"
+	},
     "custom/arch": {
         "format": " ",
         "tooltip": false,

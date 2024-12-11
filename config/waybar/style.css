@@ -38,64 +38,69 @@
 
 
 * {
-  border: none;
-  font-family: 'Fira Code', 'Symbols Nerd Font Mono';
-  font-size: 16px;
-  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+	border: none;
+	font-family: 'Fira Code', 'Symbols Nerd Font Mono';
+	font-size: 16px;
+	font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
 window#waybar {
-  color: @dark-fg;
-  background: rgba(30, 30, 30, 0.1);
-  border-radius: 20px;
+	color: @dark-fg;
+	background: rgba(30, 30, 30, 0.1);
+	border-radius: 20px;
 }
 
 .modules-left, .modules-right {
-  padding: 0 15px;
+	padding: 0 15px;
 }
 
 #workspaces button {
-  padding: 0 5px;
-  color: @light-fg;
+	padding: 0 5px;
+	color: @light-fg;
 }
 
 #workspaces button.active {
-  color: @Flamingo;
+	color: @Flamingo;
 }
 
 #custom-add-workspace {
-  padding-bottom: 6px;
-  color: @Flamingo;
+	padding-bottom: 6px;
+	color: @Flamingo;
 }
 
 #workspaces, .modules-center, #pulseaudio, #tray {
-  color: @light-fg;
-  background: @light-bg;
-  margin: 2px 15px;
-  padding: 0 10px;
-  border-radius: 20px;
+	color: @light-fg;
+	background: @light-bg;
+	margin: 2px 15px;
+	padding: 0 10px;
+	border-radius: 20px;
 }
 
 #pulseaudio, #tray {
-  margin-right: 0;
-  margin-left: 5px;
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+#mpd {
+	color: rgba(30, 30, 30, 0.5);
+	margin-right: 30px;
 }
 
 #custom-minimize-button {
-  margin-right: 15px;
-  color: @Green;
+	margin-right: 15px;
+	color: @Green;
 }
 
 #custom-close-button {
-  margin-right: 5px;
-  color: @Flamingo;
+	margin-right: 5px;
+	color: @Flamingo;
 }
 
 #custom-power-menu {
-  margin: 2px 0 2px 15px;
+	margin: 2px 0 2px 15px;
 }
 
 #custom-power-menu:hover {
-  color: @Flamingo;
-  margin: 2px 0 2px 15px;
+	color: @Flamingo;
+	margin: 2px 0 2px 15px;
 }

@@ -28,11 +28,14 @@ PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 bindkey -e
 export EDITOR=nvim
 export NODE_PATH=/usr/lib/node_modules/
+export MPD_HOST=~/.local/share/mpd/socket
 setopt HIST_IGNORE_ALL_DUPS
 
-precmd() {
-    if [[ `pwd` != $HOME && -f '.zshrc' ]]; then
+sorc() {
+    if [[ -f '.zshrc' ]]; then
         source .zshrc
+	else
+        source ~/.zshrc
     fi
 }
 

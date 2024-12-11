@@ -26,14 +26,11 @@ vim.opt.statusline = '%f %h%w%m%r ' .. '%=%(%y %l,%c%V %= %P%)'
 
 
 --  vim ------------------------------------------------------------------------
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.number = false
+vim.opt.relativenumber = false
 vim.opt.hlsearch = false
 vim.opt.wrap = false
--- vim.opt.expandtab = true
 vim.cmd('set cinoptions+=(s')
--- vim.opt.list = false
--- vim.opt.listchars = 'tab:\\ \\ '
 vim.cmd('set list lcs=tab:\\ \\ ')
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -118,7 +115,7 @@ vim.cmd('tnoremap <esc> <C-\\><C-n>')
 
 
 -- abbr ----------------------------------------------------------------------
-vim.cmd('ab sorc source $MYVIMRC')
+vim.cmd('cabbrev sorc source $MYVIMRC')
 
 
 -- event listeners -----------------------------------------------------------
@@ -133,6 +130,20 @@ vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	pattern = { '*.cpp' },
+	callback = function()
+		vim.cmd('iabbrev <buffer> i64 int64_t')
+		vim.cmd('iabbrev <buffer> vi vector<int>')
+		vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
+		vim.cmd('iabbrev <buffer> vi64 vector<int64_t>')
+		vim.cmd('iabbrev <buffer> vvi64 vector<vector<int64_t>>')
+		vim.cmd('iabbrev <buffer> vbool vector<bool>')
+		vim.cmd('iabbrev <buffer> vvbool vector<vector<bool>>')
+		vim.cmd('iabbrev <buffer> vii vector<array<int, 2>>')
+	end
+})
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.zig' },
 	command = 'setlocal sw=4 ts=4 noexpandtab',
 })
@@ -142,7 +153,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	command = 'set ft=txt',
 })
 
-vim.api.nvim_create_autocmd({ 'FileType' }, {
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.latex', '*.tex', '*.lua', '*.html' },
 	callback = function()
 		vim.opt_local.tabstop = 2

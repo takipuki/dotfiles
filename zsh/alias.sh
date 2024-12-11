@@ -26,8 +26,6 @@ alias ls="ls -FH"
 alias cpy=wl-copy
 alias pst=wl-paste
 
-alias sorc="source ~/.zshrc"
-
 alias yt='lua ~/.local/scripts/yt.lua'
 alias elaach="bash ~/.local/scripts/elaach.sh"
 alias sam="lua ~/.local/scripts/sam.lua"
