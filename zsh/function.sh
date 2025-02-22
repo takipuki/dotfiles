@@ -7,6 +7,12 @@ function nvr () {
     fi
 }
 
+function rex () {
+	printf '\033[0;31m'
+	sed -E 's/^('$1')$/\x1b[0;32m\0\x1b[0;31m/'
+	printf '\033[0m'
+}
+
 # function nvim () {
 # 	/bin/nvim --listen ~/.cache/nvim/server.pipe $@
 # 	echo -ne '\033[6 q'

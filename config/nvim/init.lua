@@ -84,7 +84,24 @@ vim.keymap.set('n', 'gy',
 	{ noremap = true, silent = true }
 )
 
-nmap('<leader>c', [[yypciwcin >>:s/,/ >>/gkJ]])
+vim.keymap.set('n', '<leader>c',
+	function()
+		-- Get the current buffer
+		local bufnr = vim.api.nvim_get_current_buf()
+
+		-- Get the current line number (1-based)
+		local line_num = vim.api.nvim_win_get_cursor(0)[1]
+
+		-- Get the current line as a string
+		local current_line = vim.api.nvim_buf_get_lines(bufnr, line_num - 1, line_num, false)[1]
+
+		new_line = current_line..current_line:gsub('%s+', '', 1):gsub('%S+', ' cin >>', 1):gsub(',', ' >>')
+
+		-- Replace the current line with the new string
+		vim.api.nvim_buf_set_lines(bufnr, line_num - 1, line_num, false, { new_line })
+	end,
+	{ noremap = true, silent = true }
+)
 
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
@@ -132,19 +149,16 @@ vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.cpp' },
 	callback = function()
-		vim.cmd('iabbrev <buffer> i64 int64_t')
+		vim.cmd('iabbrev <buffer> ll int64_t')
 		vim.cmd('iabbrev <buffer> vi vector<int>')
 		vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
-		vim.cmd('iabbrev <buffer> vi64 vector<int64_t>')
-		vim.cmd('iabbrev <buffer> vvi64 vector<vector<int64_t>>')
-		vim.cmd('iabbrev <buffer> vbool vector<bool>')
-		vim.cmd('iabbrev <buffer> vvbool vector<vector<bool>>')
-		vim.cmd('iabbrev <buffer> vii vector<array<int, 2>>')
+		vim.cmd('iabbrev <buffer> vll vector<int64_t>')
+		vim.cmd('iabbrev <buffer> vvll vector<vector<int64_t>>')
 	end
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.zig' },
+	pattern = { '*.zig', '*.py' },
 	command = 'setlocal sw=4 ts=4 noexpandtab',
 })
 
@@ -154,14 +168,14 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.latex', '*.tex', '*.lua', '*.html' },
+	pattern = { '*.typ', '*.latex', '*.tex', '*.lua', '*.html' },
 	callback = function()
 		vim.opt_local.tabstop = 2
 		vim.opt_local.shiftwidth = 2
 	end,
 })
 
-vim.api.nvim_create_autocmd({ 'FileType' }, {
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs' },
 	callback = function()
 		vim.opt_local.tabstop = 2
@@ -255,6 +269,23 @@ require('autoclose').setup()
 require('rest-nvim').setup({})
 
 
+-- telescope.nvim -----------------------------------------------------------------
+require('telescope').setup {
+	defaults = {
+		preview = false,
+	},
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ['<c-d>'] = 'delete_buffer',
+        }
+      }
+    }
+  }
+}
+
+
 -- luasnip setup -------------------------------------------------------------
 local luasnip = require'luasnip'
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -292,12 +323,12 @@ require('mason-lspconfig').setup({
 		end,
 
 		clangd = function()
-			require('lspconfig').clangd.setup({
-				cmd = {
-					"clangd",
-					"--header-insertion=never",
-				},
-			})
+			-- require('lspconfig').clangd.setup({
+			-- 	cmd = {
+			-- 		"clangd",
+			-- 		"--header-insertion=never",
+			-- 	},
+			-- })
 		end,
 
 		lua_ls = function()

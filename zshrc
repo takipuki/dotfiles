@@ -17,7 +17,7 @@ setopt nobeep
 # End of lines configured by zsh-newuser-install
 
 bindkey -M isearch '^R' history-incremental-search-backward
-bindkey -M isearch '^S' history-incremental-search-forward
+bindkey -M isearch '^Q' history-incremental-search-forward
 
 compdef -d java
 
@@ -32,11 +32,11 @@ export MPD_HOST=~/.local/share/mpd/socket
 setopt HIST_IGNORE_ALL_DUPS
 
 sorc() {
-    if [[ -f '.zshrc' ]]; then
-        source .zshrc
+	if [[ -f '.zshrc' ]]; then
+		source .zshrc
 	else
-        source ~/.zshrc
-    fi
+		source ~/.zshrc
+	fi
 }
 
 source $HOME/.zsh/alias.sh

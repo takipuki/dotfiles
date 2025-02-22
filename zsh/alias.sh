@@ -13,7 +13,7 @@ alias ec="setsid emacsclient --alternate-editor='' --create-frame > /dev/null 2>
 alias open="gio open"
 alias hs="http-server"
 
-alias sctl="systemctl"
+alias stl="systemctl"
 
 alias pacss="pacman -Ss"
 alias pacs="sudo pacman -S --needed"
@@ -26,6 +26,7 @@ alias ls="ls -FH"
 alias cpy=wl-copy
 alias pst=wl-paste
 
+alias lyr='bash ~/.local/scripts/lyrics.sh'
 alias yt='lua ~/.local/scripts/yt.lua'
 alias elaach="bash ~/.local/scripts/elaach.sh"
 alias sam="lua ~/.local/scripts/sam.lua"

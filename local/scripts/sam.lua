@@ -24,6 +24,7 @@ animations
 anime
 kdrama
 movie
+hindi
 tv
   ]]):close() or os.exit(1)
 
@@ -60,20 +61,31 @@ tv
 
     if y == '1994' then
       url = 'http://172.16.50.7/DHAKA-FLIX-7/English%20Movies/%281960-1994%29/'
-      -- url = 'http://172.16.50.14/DHAKA-FLIX-14/English%20Movies%20%281080p%29/%281995%29%201080p%20%26%20Before/'
     else
-      -- url = 'http://172.16.50.14/DHAKA-FLIX-14/English%20Movies%20%281080p%29/%28'..y..'%29%201080p/'
       url = 'http://172.16.50.7/DHAKA-FLIX-7/English%20Movies/%28'..y..'%29/'
     end
 
-    -- print(url)
+    fn = movie
+
+  elseif choice == 'hindi' then
+    local fzf = io.popen('fzf > /tmp/sam', 'w')
+    for i=1995,tonumber(os.date("%Y")) do fzf:write(i..'\n') end
+    _ = fzf:close() or os.exit(1)
+    local y =  io.open('/tmp/sam'):read('l')
+
+    if y == '1995' then
+      url = 'http://172.16.50.14/DHAKA-FLIX-14/Hindi%20Movies/%281995%29%20%26%20Before/'
+    else
+      url = 'http://172.16.50.14/DHAKA-FLIX-14/Hindi%20Movies/%28'..y..'%29/'
+    end
+
     fn = movie
   end
 
   local content = fn(url)
   io.write("filename: ")
   local filename = io.read() or os.exit(1)
-  write_to_m3u(filename..'.m3u', content)
+  write_to_m3u((filename:gsub(' +', '_'))..'.m3u', content)
 end
 
 

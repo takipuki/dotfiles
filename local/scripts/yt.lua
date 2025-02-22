@@ -22,8 +22,17 @@ Options:
 MPD_HOST    = os.getenv("MPD_HOST") or "~/.local/share/mpd/socket"
 SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
-DLP_FORMAT  = "bestaudio"    -- play video or just audio
+DLP_FORMAT  = "ba"          -- mp4 (audio only), webm is forbidden
 PLAYER_CMD  = "mpv "        -- media player
+
+FORMAT_EXTS = {
+	webm = '.webm',
+	ba = '.webm',
+	['251'] = '.webm',
+	m4a = '.m4a',
+	['140'] = '.m4a',
+	['234'] = '.mp4',
+}
 
 
 local p = assert(io.popen("tput cols", 'r'))
@@ -125,7 +134,7 @@ end
 
 -- starting dlp downloads
 for query, id in pairs(ids) do
-	local f_name = "'/tmp/"..query..".webm'"
+	local f_name = "'/tmp/"..(query:gsub(' ', '_'))..(FORMAT_EXTS[DLP_FORMAT] or '.mp4').."'"
 	os.execute(
 		"yt-dlp -q --no-warnings -o - -f '"..DLP_FORMAT.."' -- "..id.." > "..f_name
 		.." && "..
