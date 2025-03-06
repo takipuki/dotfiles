@@ -86,19 +86,9 @@ vim.keymap.set('n', 'gy',
 
 vim.keymap.set('n', '<leader>c',
 	function()
-		-- Get the current buffer
-		local bufnr = vim.api.nvim_get_current_buf()
-
-		-- Get the current line number (1-based)
-		local line_num = vim.api.nvim_win_get_cursor(0)[1]
-
-		-- Get the current line as a string
-		local current_line = vim.api.nvim_buf_get_lines(bufnr, line_num - 1, line_num, false)[1]
-
-		new_line = current_line..current_line:gsub('%s+', '', 1):gsub('%S+', ' cin >>', 1):gsub(',', ' >>')
-
-		-- Replace the current line with the new string
-		vim.api.nvim_buf_set_lines(bufnr, line_num - 1, line_num, false, { new_line })
+		local current_line = vim.fn.getline('.')
+		local new_line = current_line..current_line:gsub('%s+', '', 1):gsub('%S+', ' cin >>', 1):gsub(',', ' >>')
+		vim.fn.setline(vim.fn.line('.'), new_line)
 	end,
 	{ noremap = true, silent = true }
 )
