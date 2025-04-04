@@ -27,17 +27,7 @@ PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 
 bindkey -e
 export EDITOR=nvim
-export NODE_PATH=/usr/lib/node_modules/
-export MPD_HOST=~/.local/share/mpd/socket
 setopt HIST_IGNORE_ALL_DUPS
-
-sorc() {
-	if [[ -f '.zshrc' ]]; then
-		source .zshrc
-	else
-		source ~/.zshrc
-	fi
-}
 
 source $HOME/.zsh/alias.sh
 source $HOME/.zsh/function.sh
@@ -50,11 +40,4 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
 
-#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-#export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-
-# Created by `pipx` on 2023-12-09 12:18:40
-#export PATH="$PATH:/home/taki/.local/bin"
-
-# Created by `pipx` on 2024-05-26 21:09:23
-export PATH="$PATH:/home/taki/.dotfiles/local/bin"
+export PATH="$PATH:/home/taki/.local/scripts"

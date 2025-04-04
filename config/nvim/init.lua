@@ -26,11 +26,11 @@ vim.opt.statusline = '%f %h%w%m%r ' .. '%=%(%y %l,%c%V %= %P%)'
 
 
 --  vim ------------------------------------------------------------------------
-vim.opt.number = false
-vim.opt.relativenumber = false
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.hlsearch = false
 vim.opt.wrap = false
-vim.cmd('set cinoptions+=(s')
+vim.cmd('set cinoptions+=(s,l1')
 vim.cmd('set list lcs=tab:\\ \\ ')
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -47,10 +47,11 @@ vim.g.rust_recommended_style = false
 vim.cmd('syntax enable')
 vim.opt.foldenable = false
 
-vim.opt.guifont = 'JetBrainsMono Nerd Font:h14'
+vim.opt.guifont = 'JetBrains Mono:h14'
 vim.opt.termguicolors = true
-vim.cmd('colorscheme komau')
+vim.opt.background = 'light'
 vim.g.komau_italic = 0
+vim.cmd('colorscheme komau')
 -- vim.g.everforest_background = 'hard'
 -- vim.cmd('colorscheme everforest')
 
@@ -87,7 +88,7 @@ vim.keymap.set('n', 'gy',
 vim.keymap.set('n', '<leader>c',
 	function()
 		local current_line = vim.fn.getline('.')
-		local new_line = current_line..current_line:gsub('%s+', '', 1):gsub('%S+', ' cin >>', 1):gsub(',', ' >>')
+		local new_line = current_line..current_line:gsub('^%s+', '', 1):gsub('^%S+', ' cin >>', 1):gsub(',', ' >>')
 		vim.fn.setline(vim.fn.line('.'), new_line)
 	end,
 	{ noremap = true, silent = true }
@@ -96,7 +97,7 @@ vim.keymap.set('n', '<leader>c',
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
 nmap('<leader>fr', '<cmd>Telescope oldfiles<cr>')
-nmap('<leader>nt', '<cmd>NvimTreeToggle<cr>')
+nmap('<leader>nt', '<cmd>Oil<cr>')
 nmap('<leader>mr', '<cmd>MRU<cr>')
 
 vmap('<leader>s', [[:s/\%V\v(\S+) (\S+)/\2 \1/<cr>]])
@@ -139,7 +140,12 @@ vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.cpp' },
 	callback = function()
+		vim.cmd('iabbrev <buffer> ci cin >>')
+		vim.cmd('iabbrev <buffer> co cout <<')
 		vim.cmd('iabbrev <buffer> ll int64_t')
+		vim.cmd('iabbrev <buffer> p< pair<')
+		vim.cmd('iabbrev <buffer> m< map<')
+		vim.cmd('iabbrev <buffer> s< set<')
 		vim.cmd('iabbrev <buffer> vi vector<int>')
 		vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
 		vim.cmd('iabbrev <buffer> vll vector<int64_t>')
@@ -174,6 +180,15 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+	pattern = { '*.lisp' },
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.expandtab = true
+	end,
+})
+
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 	pattern = { '*.dj' },
 	callback = function()
 		vim.opt_local.filetype = 'djot'
@@ -196,12 +211,14 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 })
 
 
--- nvim tree -----------------------------------------------------------------
-require("nvim-tree").setup()
+-- server --------------------------------------------------------------------
+if vim.g.neovide then
+	vim.fn.serverstart('/tmp/neovide.pipe')
+end
 
 
 -- oil -----------------------------------------------------------------------
-require("oil").setup()
+require('oil').setup()
 
 
 -- treesitter setup ----------------------------------------------------------
@@ -276,11 +293,6 @@ require('telescope').setup {
 }
 
 
--- luasnip setup -------------------------------------------------------------
-local luasnip = require'luasnip'
-require("luasnip.loaders.from_vscode").lazy_load()
-
-
 -- lsp zero ------------------------------------------------------------------
 local lsp_zero = require('lsp-zero')
 
@@ -297,10 +309,6 @@ vim.diagnostic.config({
 -- Show line diagnostics automatically in hover window
 vim.o.updatetime = 250
 vim.cmd [[autocmd CursorHold,InsertLeave * lua vim.diagnostic.open_float(nil, {focus=false})]]
-
-
--- lazydev.nvim --------------------------------------------------------------
--- require('lazydev').setup()
 
 
 -- mason ---------------------------------------------------------------------
@@ -360,7 +368,16 @@ require('mason-lspconfig').setup({
 })
 
 
+-- conjure -------------------------------------------------------------------
+vim.g['conjure#log#hud#enabled'] = false
+
+
+-- luasnip -------------------------------------------------------------------
+require("luasnip.loaders.from_vscode").lazy_load()
+
+
 -- nvim-cmp ------------------------------------------------------------------
+local luasnip = require('luasnip')
 local cmp = require('cmp')
 cmp.setup {
 	snippet = {
@@ -370,14 +387,9 @@ cmp.setup {
 	},
 	sources = {
 		{ name = 'luasnip' , option = { show_autosnippets = true } },
-		-- { name = 'cmp_luasnip' },
 		{ name = 'nvim_lsp' },
-		{
-			name = 'buffer',
-			option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }
-		},
+		{ name = 'buffer', },
 		{ name = 'path' },
-		-- { name = 'conjure' },
 	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-f>'] = cmp.mapping.scroll_docs(4), -- Down
@@ -387,20 +399,9 @@ cmp.setup {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		},
-		['<Tab>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expandable() then
+		['<C-s>'] = cmp.mapping(function(fallback)
+			if luasnip.expandable() then
 				luasnip.expand()
-			else
-				fallback()
-			end
-		end, { 'i', 's' }),
-		['<S-Tab>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
 			else
 				fallback()
 			end

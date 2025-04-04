@@ -12,7 +12,7 @@ text-color       = #EFF1F5
 selection-color  = #B4BEFE
 #default-result-color=#B4BEFE
 
-font             = /usr/share/fonts/TTF/JetBrainsMonoNerdFont-ExtraLight.ttf
+font             = /usr/share/fonts/TTF/JetBrainsMono-ExtraLight.ttf
 hint-font        = false
 ascii-input      = true
 

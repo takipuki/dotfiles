@@ -25,7 +25,6 @@ cmp-buffer = { git = "hrsh7th/cmp-buffer" }
 cmp-path = { git = "hrsh7th/cmp-path" }
 cmp-cmdline = { git = "hrsh7th/cmp-cmdline" }
 cmp_luasnip = { git = "saadparwaiz1/cmp_luasnip" }
-friendly-snippets = { git = "rafamadriz/friendly-snippets" }
 
 mru = { git = "yegappan/mru" }
 autoclose = { git = 'm4xshen/autoclose.nvim' }
@@ -34,6 +33,11 @@ luarocks = "3.11.1"
 "comment.nvim" = "0.8.0"
 "oil.nvim" = "2.14.0"
 nvim-web-devicons= "0.100"
+conjure = "4.53.0"
+
+[plugins.friendly-snippets]
+git = "rafamadriz/friendly-snippets"
+rev = "efff286dd74c22f731cdec26a70b46e5b203c619"
 
 [plugins."mason-lspconfig.nvim"]
 git = "williamboman/mason-lspconfig.nvim"
@@ -75,10 +79,6 @@ rev = "v4.8.1^{}"
 [plugins.nvim-treesitter-textobjects]
 git = "nvim-treesitter/nvim-treesitter-textobjects"
 
-[plugins."nvim-tree.lua"]
-git = "nvim-tree/nvim-tree.lua"
-rev = "v1.9.0^{}"
-
 [plugins.everforest]
 git = "sainnhe/everforest"
 rev = "v0.3.0^{}"
@@ -86,3 +86,7 @@ rev = "v0.3.0^{}"
 [plugins.vim-easy-align]
 git = "junegunn/vim-easy-align"
 rev = "2.9.7^{}"
+
+[plugins."lualine.nvim"]
+git = "nvim-lualine/lualine.nvim"
+rev = "f4f791f67e70d378a754d02da068231d2352e5bc"
