@@ -1,24 +1,41 @@
 
--- rocks -----------------------------------------------------------------------
-local rocks_config = {
-	rocks_path = vim.env.HOME .. "/.local/share/nvim/rocks",
-}
+-- vim-plug --------------------------------------------------------------------
+local Plug = vim.fn['plug#']
+vim.call('plug#begin')
+Plug('nvim-treesitter/nvim-treesitter')
+Plug('nvim-treesitter/nvim-treesitter-textobjects')
 
-vim.g.rocks_nvim = rocks_config
+Plug('catppuccin/nvim')
+Plug('Tsuzat/NeoSolarized.nvim')
+Plug('ntk148v/komau.vim')
+Plug('sainnhe/everforest')
+Plug('nvim-tree/nvim-web-devicons')
 
-local luarocks_path = {
-	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
-	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
-}
-package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
+Plug('VonHeikemen/lsp-zero.nvim')
+Plug('neovim/nvim-lspconfig')
+Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
 
-local luarocks_cpath = {
-	vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
-	vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
-}
-package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
+Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-cmdline')
+Plug('saadparwaiz1/cmp_luasnip')
 
-vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "*", "*"))
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim')
+Plug('nvim-telescope/telescope-file-browser.nvim')
+Plug('stevearc/oil.nvim')
+Plug('yegappan/mru')
+
+Plug('Olical/conjure')
+Plug('L3MON4D3/LuaSnip')
+Plug('rafamadriz/friendly-snippets')
+Plug('dhruvasagar/vim-table-mode')
+Plug('junegunn/vim-easy-align')
+Plug('m4xshen/autoclose.nvim')
+vim.call('plug#end')
 
 
 -- statusline ------------------------------------------------------------------
@@ -52,13 +69,11 @@ vim.opt.termguicolors = true
 vim.opt.background = 'light'
 vim.g.komau_italic = 0
 vim.cmd('colorscheme komau')
--- vim.g.everforest_background = 'hard'
--- vim.cmd('colorscheme everforest')
 
 vim.opt.autochdir = true
 
 
--- maps ----------------------------------------------------------------------
+-- mappings ------------------------------------------------------------------
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
@@ -264,16 +279,8 @@ require'nvim-treesitter.configs'.setup {
 }
 
 
--- Comment.nvim --------------------------------------------------------------
-require('Comment').setup()
-
-
 -- autoclose -----------------------------------------------------------------
 require('autoclose').setup()
-
-
--- rest.nvim -----------------------------------------------------------------
-require('rest-nvim').setup({})
 
 
 -- telescope.nvim -----------------------------------------------------------------
