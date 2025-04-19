@@ -1,0 +1,107 @@
+#! /usr/bin/env bb
+
+(require '[babashka.process :refer [shell process exec]]
+         '[clojure.java.io :as [io]])
+
+(defn scrape
+  ([url] (scrape url #""))
+  ([url regex]
+   (as-> (process "curl -s" url) _
+     (process _ {:out :string} "htmlq" ".fb-n a" "-b" url)
+     (deref _) (:out _)
+     (str/split _ #"\n")
+     (subvec _ 1) ; skipping parent dir line
+     (map #(subvec (re-find #"\"(.+)\">(.+)<" %) 1) _)
+     (filter #(re-find regex (% 1)) _))))
+
+(defn fzf
+  ([sq] (fzf sq nil))
+  ([sq fzf-opts]
+   (let [p (apply process {:out :string} "fzf" fzf-opts)]
+
+     (binding [*out* (io/writer (:in p))]
+       (doseq [v sq]
+         (println v))
+       (.close *out*))
+     (or (zero? (:exit @p)) (System/exit (:exit @p)))
+
+     (-> @p :out str/trim))))
+
+(defn get-choice-from-url [url]
+  (let [entries (scrape url)]
+    (-> (map #(str/join #"|" %) entries)
+        (fzf ["--delimiter=|" "--with-nth=2" "--accept-nth=1"]))))
+
+(defn extract-ep-title [entry]
+  (or (get (re-find #"([sS]\d+)?[eE]\d+" (entry 1)) 0)
+      (get entry 1)))
+
+(defn with-ep-titles [entries]
+  (map #(vector (% 0) (extract-ep-title %))
+       entries))
+
+(defn print-as-m3u [entries]
+  (doseq [entry entries]
+    (printf "#EXTINF:-1,%s\n%s\n" (entry 1) (entry 0))))
+
+(defn series->m3u [url]
+  (as-> url _
+    (scrape _ #"Season")
+    (doseq [season _]
+      (-> (get season 0)
+          (scrape #"mkv")
+          with-ep-titles
+          print-as-m3u))))
+
+(def main series->m3u)
+
+(defn animation->m3u [url]
+  (-> url (scrape #"mkv") print-as-m3u))
+
+(defn movie->m3u [url]
+  (-> url get-choice-from-url (scrape #"mkv") print-as-m3u))
+
+(defn get-choice-from-map [mp]
+  (as-> (keys mp) _
+    (map name _)
+    (fzf _)
+    (keyword _)
+    (cond
+      (= :animation _) (do (def main animation->m3u) _)
+      (= :movie _) (do (def main movie->m3u) _)
+      :else _)
+    (_ mp)
+    (or (and (string? _) _)
+        (get-choice-from-map _))))
+
+(def url-table
+  {:anime     {:0-9 "http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%98%85%20%200%20%20%E2%80%94%20%209/"
+               :a-f "http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20F/"
+               :g-m "http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A5%20%20G%20%20%E2%80%94%20%20M/"
+               :n-s "http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A6%20%20N%20%20%E2%80%94%20%20S/"
+               :t-z "http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/Anime-TV%20Series%20%E2%99%A6%20%20T%20%20%E2%80%94%20%20Z/"}
+   :tv        {:0-9 "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%98%85%20%200%20%20%E2%80%94%20%209/"
+               :a-l "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20L/"
+               :m-r "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20M%20%20%E2%80%94%20%20R/"
+               :s-z "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20S%20%20%E2%80%94%20%20Z/"}
+   :kdrama    "http://172.16.50.9/DHAKA-FLIX-9/KOREAN%20TV%20%26%20WEB%20Series/"
+   :movie     "http://172.16.50.7/DHAKA-FLIX-7/English%20Movies%20%281080p%29/"
+   :animation "http://172.16.50.14/DHAKA-FLIX-14/Animation%20Movies%20%281080p%29/"})
+
+(defn query-filename []
+  (print "filename: ")
+  (flush)
+  (-> (read-line)
+      (or (System/exit 1))
+      (str/replace #"\s+" "-")
+      (str ".m3u")))
+
+(let [url (-> url-table
+              get-choice-from-map
+              get-choice-from-url)
+      m3u-content (with-out-str (main url))
+      filename (query-filename)]
+
+  (binding [*out* (io/writer filename)]
+    (print m3u-content)))
+
