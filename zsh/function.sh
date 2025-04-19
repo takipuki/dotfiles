@@ -4,7 +4,7 @@ e () {
 		nvim \
 			--server /tmp/neovide.pipe \
 			--remote \
-			$([[ $1 =~ ^/ ]] && echo $1 || echo $(pwd)/$1)
+			$([[ $1 =~ ^/ ]] && echo $1 || echo $(pwd)/$1) > /dev/null
     fi
 }
 

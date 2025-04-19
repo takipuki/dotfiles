@@ -15,11 +15,11 @@
 			"playing": ""
 		},
 		"tooltip": false,
-		"on-click": "mpc toggle",
-		"on-click-right": "mpc next",
-		"on-click-middle": "mpc stop",
-		"on-scroll-up": "mpc volume +5",
-		"on-scroll-down": "mpc volume -5"
+		"on-click"        : "mpc --host=/home/taki/.local/share/mpd/socket toggle",
+		"on-click-right"  : "mpc --host=/home/taki/.local/share/mpd/socket next",
+		"on-click-middle" : "mpc --host=/home/taki/.local/share/mpd/socket stop",
+		"on-scroll-up"    : "mpc --host=/home/taki/.local/share/mpd/socket volume +5",
+		"on-scroll-down"  : "mpc --host=/home/taki/.local/share/mpd/socket volume -5"
 	},
     "custom/arch": {
         "format": " ",

@@ -8,6 +8,7 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('catppuccin/nvim')
 Plug('Tsuzat/NeoSolarized.nvim')
 Plug('ntk148v/komau.vim')
+Plug('kdheepak/monochrome.nvim')
 Plug('sainnhe/everforest')
 Plug('nvim-tree/nvim-web-devicons')
 
@@ -24,12 +25,14 @@ Plug('hrsh7th/cmp-cmdline')
 Plug('saadparwaiz1/cmp_luasnip')
 
 Plug('nvim-lua/plenary.nvim')
-Plug('nvim-telescope/telescope.nvim')
+Plug('nvim-telescope/telescope.nvim', { ['branch'] = '0.1.x' })
 Plug('nvim-telescope/telescope-file-browser.nvim')
+Plug('smartpde/telescope-recent-files')
 Plug('stevearc/oil.nvim')
 Plug('yegappan/mru')
 
 Plug('Olical/conjure')
+
 Plug('L3MON4D3/LuaSnip')
 Plug('rafamadriz/friendly-snippets')
 Plug('dhruvasagar/vim-table-mode')
@@ -61,7 +64,7 @@ vim.opt.shell = '/usr/bin/zsh'
 vim.cmd('set nocompatible')
 vim.cmd('filetype plugin on')
 vim.g.rust_recommended_style = false
-vim.cmd('syntax enable')
+vim.cmd('syntax off')
 vim.opt.foldenable = false
 
 vim.opt.guifont = 'JetBrains Mono:h14'
@@ -111,7 +114,7 @@ vim.keymap.set('n', '<leader>c',
 
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
-nmap('<leader>fr', '<cmd>Telescope oldfiles<cr>')
+nmap('<leader>fr', '<cmd>Telescope recent_files<cr>')
 nmap('<leader>nt', '<cmd>Oil<cr>')
 nmap('<leader>mr', '<cmd>MRU<cr>')
 
@@ -122,7 +125,7 @@ nmap('z;', 'A;')
 nmap('z,', 'A,')
 nmap('<M-h>', 'gT')
 nmap('<M-l>', 'gt')
-nmap('<leader>q', '<cmd>qall<cr>')
+nmap('<leader>q', '<cmd>%bd<cr>')
 
 nmap('zy', '"+y')
 nmap('zp', '"+p')
@@ -195,7 +198,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-	pattern = { '*.lisp' },
+	pattern = { '*.lisp', '*.scm', '*.clj' },
 	callback = function()
 		vim.opt_local.tabstop = 2
 		vim.opt_local.shiftwidth = 2
@@ -238,12 +241,19 @@ require('oil').setup()
 
 -- treesitter setup ----------------------------------------------------------
 require('nvim-treesitter.configs').setup({
-	ensure_installed = { 'javascript', 'typescript', 'latex', 'lua', 'c', 'cpp', 'java', 'python', 'bash' },
 	ignore_install = { 'hack' },
-	indent = { enable = false },
+	indent = { enable = true },
 	auto_install = true,
 	highlight = { enable = true },
 })
+vim.api.nvim_set_hl(0, "@variable.builtin", { link = "@variable" })
+vim.api.nvim_set_hl(0, "@variable.parameter", { link = "@variable" })
+vim.api.nvim_set_hl(0, "@variable.parameter.builtin", { link = "@variable" })
+vim.api.nvim_set_hl(0, "@variable.member", { link = "@variable" })
+vim.api.nvim_set_hl(0, "@module.builtin", { link = "@module" })
+vim.api.nvim_set_hl(0, "@function.builtin", { link = "@function" })
+vim.api.nvim_set_hl(0, "@type.builtin", { link = "@type" })
+vim.api.nvim_set_hl(0, "@string.special.symbol.clojure", { link = "@variable.clojure" })
 
 
 -- treesitter text objects ---------------------------------------------------
@@ -280,10 +290,19 @@ require'nvim-treesitter.configs'.setup {
 
 
 -- autoclose -----------------------------------------------------------------
-require('autoclose').setup()
+require('autoclose').setup({
+	options = {
+		disable_command_mode = true,
+	},
+	keys = {
+		["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = { 'lisp', 'scheme', 'clojure' } },
+		['`'] = { escape = true, close = true, pair = '``', disabled_filetypes = { 'lisp', 'scheme', 'clojure' } },
+	},
+})
 
 
 -- telescope.nvim -----------------------------------------------------------------
+require('telescope').load_extension('recent_files')
 require('telescope').setup {
 	defaults = {
 		preview = false,
@@ -395,7 +414,14 @@ cmp.setup {
 	sources = {
 		{ name = 'luasnip' , option = { show_autosnippets = true } },
 		{ name = 'nvim_lsp' },
-		{ name = 'buffer', },
+		{
+			name = 'buffer',
+			option = {
+				get_bufnrs = function()
+					return vim.api.nvim_list_bufs()
+				end,
+			},
+		},
 		{ name = 'path' },
 	},
 	mapping = cmp.mapping.preset.insert({

@@ -41,3 +41,4 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
 
 export PATH="$PATH:/home/taki/.local/scripts"
+export MPD_HOST="/home/taki/.local/share/mpd/socket"

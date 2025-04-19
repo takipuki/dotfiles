@@ -19,7 +19,7 @@ Options:
 --- TODO directly given ids are played first; should play in the order of arguments
 ---      make searching a function and use it in getopts
 
-MPD_HOST    = os.getenv("MPD_HOST") or "~/.local/share/mpd/socket"
+MPD_HOST    = os.getenv("MPD_HOST") or "/home/taki/.local/share/mpd/socket"
 SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
 DLP_FORMAT  = "ba"          -- mp4 (audio only), webm is forbidden
