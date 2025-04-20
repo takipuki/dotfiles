@@ -1,4 +1,5 @@
 #! /usr/bin/env bb
+; vim: set ft=clojure ai si :
 
 (require '[babashka.process :refer [shell process exec]]
          '[clojure.java.io :as [io]])
@@ -102,6 +103,7 @@
       m3u-content (with-out-str (main url))
       filename (query-filename)]
 
-  (binding [*out* (io/writer filename)]
-    (print m3u-content)))
+  (with-open [w (io/writer filename)]
+    (binding [*out* w]
+      (print m3u-content))))
 
