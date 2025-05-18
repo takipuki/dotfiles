@@ -16,14 +16,14 @@
      (filter #(re-find regex (% 1)) _))))
 
 (defn fzf
-  ([sq] (fzf sq nil))
-  ([sq fzf-opts]
+  ([col] (fzf col nil))
+  ([col fzf-opts]
    (let [p (apply process {:out :string} "fzf" fzf-opts)]
 
-     (binding [*out* (io/writer (:in p))]
-       (doseq [v sq]
-         (println v))
-       (.close *out*))
+     (with-open [w (io/writer (:in p))]
+       (binding [*out* w]
+         (doseq [v col]
+           (println v))))
      (or (zero? (:exit @p)) (System/exit (:exit @p)))
 
      (-> @p :out str/trim))))
@@ -50,7 +50,7 @@
     (scrape _ #"Season")
     (doseq [season _]
       (-> (get season 0)
-          (scrape #"mkv")
+          (scrape #"(mkv|mp4)")
           with-ep-titles
           print-as-m3u))))
 
@@ -62,6 +62,9 @@
 (defn movie->m3u [url]
   (-> url get-choice-from-url (scrape #"mkv") print-as-m3u))
 
+(defn in? [elmnt col]
+  (some #(= % elmnt) col))
+
 (defn get-choice-from-map [mp]
   (as-> (keys mp) _
     (map name _)
@@ -69,7 +72,8 @@
     (keyword _)
     (cond
       (= :animation _) (do (def main animation->m3u) _)
-      (= :movie _) (do (def main movie->m3u) _)
+      (in? _ [:movie :hindi])
+        (do (def main movie->m3u) _)
       :else _)
     (_ mp)
     (or (and (string? _) _)
@@ -87,6 +91,7 @@
                :s-z "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20S%20%20%E2%80%94%20%20Z/"}
    :kdrama    "http://172.16.50.9/DHAKA-FLIX-9/KOREAN%20TV%20%26%20WEB%20Series/"
    :movie     "http://172.16.50.7/DHAKA-FLIX-7/English%20Movies%20%281080p%29/"
+   :hindi     "http://172.16.50.14/DHAKA-FLIX-14/Hindi%20Movies/"
    :animation "http://172.16.50.14/DHAKA-FLIX-14/Animation%20Movies%20%281080p%29/"})
 
 (defn query-filename []
@@ -94,7 +99,7 @@
   (flush)
   (-> (read-line)
       (or (System/exit 1))
-      (str/replace #"\s+" "-")
+      (str/replace #"\s+" "_")
       (str ".m3u")))
 
 (let [url (-> url-table

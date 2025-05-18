@@ -50,7 +50,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
 vim.opt.wrap = false
-vim.cmd('set cinoptions+=(s,l1')
+vim.cmd('set cinoptions+=(s,l1,:0')
 vim.cmd('set list lcs=tab:\\ \\ ')
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -103,7 +103,7 @@ vim.keymap.set('n', 'gy',
 	{ noremap = true, silent = true }
 )
 
-vim.keymap.set('n', '<leader>c',
+vim.keymap.set('n', 'zc',
 	function()
 		local current_line = vim.fn.getline('.')
 		local new_line = current_line..current_line:gsub('^%s+', '', 1):gsub('^%S+', ' cin >>', 1):gsub(',', ' >>')
@@ -111,6 +111,7 @@ vim.keymap.set('n', '<leader>c',
 	end,
 	{ noremap = true, silent = true }
 )
+nmap('zt', "<cmd>norm 'tgcc<cr>")
 
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
@@ -118,7 +119,7 @@ nmap('<leader>fr', '<cmd>Telescope recent_files<cr>')
 nmap('<leader>nt', '<cmd>Oil<cr>')
 nmap('<leader>mr', '<cmd>MRU<cr>')
 
-vmap('<leader>s', [[:s/\%V\v(\S+) (\S+)/\2 \1/<cr>]])
+vmap('zs', [[:s/\%V\v(\S+) (\S+)/\2 \1/<cr>]])
 
 nmap('<C-s>', '<cmd>w<cr>')
 nmap('z;', 'A;')
@@ -155,78 +156,47 @@ vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.cpp' },
-	callback = function()
-		vim.cmd('iabbrev <buffer> ci cin >>')
-		vim.cmd('iabbrev <buffer> co cout <<')
-		vim.cmd('iabbrev <buffer> ll int64_t')
-		vim.cmd('iabbrev <buffer> p< pair<')
-		vim.cmd('iabbrev <buffer> m< map<')
-		vim.cmd('iabbrev <buffer> s< set<')
-		vim.cmd('iabbrev <buffer> vi vector<int>')
-		vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
-		vim.cmd('iabbrev <buffer> vll vector<int64_t>')
-		vim.cmd('iabbrev <buffer> vvll vector<vector<int64_t>>')
-	end
-})
+function autocmd(pat, cmd)
+	vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+		pattern = pat,
+		command = cmd,
+	})
+end
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.zig', '*.py' },
-	command = 'setlocal sw=4 ts=4 noexpandtab',
-})
+function autofn(pat, fn)
+	vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+		pattern = pat,
+		callback = fn,
+	})
+end
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.hack', '*.asm' },
-	command = 'set ft=txt',
-})
+autofn({ '*.cpp', }, function()
+	vim.cmd('iabbrev <buffer> ci cin >>')
+	vim.cmd('iabbrev <buffer> co cout <<')
+	vim.cmd('iabbrev <buffer> ll int64_t')
+	vim.cmd('iabbrev <buffer> str string')
+	vim.cmd('iabbrev <buffer> v< vector<')
+	vim.cmd('iabbrev <buffer> p< pair<')
+	vim.cmd('iabbrev <buffer> m< map<')
+	vim.cmd('iabbrev <buffer> s< set<')
+	vim.cmd('iabbrev <buffer> a< array<')
+	vim.cmd('iabbrev <buffer> vi vector<int>')
+	vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
+	vim.cmd('iabbrev <buffer> vll vector<int64_t>')
+	vim.cmd('iabbrev <buffer> vvll vector<vector<int64_t>>')
+end)
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.typ', '*.latex', '*.tex', '*.lua', '*.html' },
-	callback = function()
-		vim.opt_local.tabstop = 2
-		vim.opt_local.shiftwidth = 2
-	end,
-})
+autocmd({ '*.zig', '*.py' },
+	'setlocal sw=4 ts=4'
+)
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs' },
-	callback = function()
-		vim.opt_local.tabstop = 2
-		vim.opt_local.shiftwidth = 2
-	end,
-})
+autocmd({ '*.typ', '*.latex', '*.tex', '*.lua', '*.html', '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs', '*.lisp', '*.scm', '*.clj', '*.djot', },
+	'setlocal sw=2 ts=2'
+)
 
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-	pattern = { '*.lisp', '*.scm', '*.clj' },
-	callback = function()
-		vim.opt_local.tabstop = 2
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.expandtab = true
-	end,
-})
-
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-	pattern = { '*.dj' },
-	callback = function()
-		vim.opt_local.filetype = 'djot'
-		vim.opt_local.tabstop = 2
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.expandtab = true
-	end,
-})
-
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-	pattern = { '*.http' },
-	callback = function()
-		vim.opt_local.filetype = 'http'
-
-		vim.api.nvim_buf_set_keymap( 'n', '<leader>r',
-			'<cmd>Rest run<cr>',
-			{ noremap = true, silent = true }
-		)
-	end,
-})
+autocmd({ '*.lisp', '*.scm', '*.clj', '*.hs', '*.djot', },
+	'setlocal expandtab'
+)
 
 
 -- server --------------------------------------------------------------------
@@ -242,7 +212,10 @@ require('oil').setup()
 -- treesitter setup ----------------------------------------------------------
 require('nvim-treesitter.configs').setup({
 	ignore_install = { 'hack' },
-	indent = { enable = true },
+	indent = {
+		enable = true,
+		disable = { 'c', 'cpp', }
+	},
 	auto_install = true,
 	highlight = { enable = true },
 })
@@ -252,6 +225,7 @@ vim.api.nvim_set_hl(0, "@variable.parameter.builtin", { link = "@variable" })
 vim.api.nvim_set_hl(0, "@variable.member", { link = "@variable" })
 vim.api.nvim_set_hl(0, "@module.builtin", { link = "@module" })
 vim.api.nvim_set_hl(0, "@function.builtin", { link = "@function" })
+vim.api.nvim_set_hl(0, "@constructor", { link = "@function" })
 vim.api.nvim_set_hl(0, "@type.builtin", { link = "@type" })
 vim.api.nvim_set_hl(0, "@string.special.symbol.clojure", { link = "@variable.clojure" })
 
