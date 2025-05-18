@@ -1,0 +1,63 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure ai si :
+
+(require '[babashka.process :refer [shell process exec]]
+         '[clojure.java.io :as [io]])
+
+(defn scrape [query]
+  (-> (process "curl -s" (str "https://www.youtube.com/results?search_query="
+                              (str/replace query #"\s+" "+")))
+      (process "htmlq" "script[nonce]")
+      (process "grep" "var ytInitialData")
+      (process "sed -E" "s|<script nonce=\"\\S*\">var ytInitialData = (\\{.*\\});</script>|\\1|")
+      (process "jq" ".contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.[0].itemSectionRenderer.contents.[].videoRenderer | select(. != null)")
+      (process {:out :string} "jq -rs" "map([.videoId, .title.runs.[0].text, .lengthText.simpleText])")
+      deref :out
+      read-string))
+
+(defn fzf
+  ([col] (fzf col nil))
+  ([col fzf-opts]
+   (let [p (apply process {:out :string} "fzf" fzf-opts)]
+
+     (with-open [w (io/writer (:in p))]
+       (binding [*out* w]
+         (doseq [v col]
+           (println v))))
+     (or (zero? (:exit @p)) (System/exit (:exit @p)))
+
+     (-> @p :out str/trim))))
+
+(defn prep-for-fzf [entries]
+  (map #(format "%s\t%-50s\t%5s"
+                (% 0)
+                (subs (% 1) 0 (min 50 (count (% 1))))
+                (% 2))
+       entries))
+
+(defn get-choice [entries]
+  (-> entries
+      (prep-for-fzf)
+      (fzf ["--delimiter=\t" "--with-nth=2,3" "--accept-nth=1"])))
+
+(def MPD_HOST (System/getenv "MPD_HOST"))
+(if (not MPD_HOST)
+  (do (println "MPD_HOST not set.")
+      (System/exit 1)))
+
+(defn main
+  ([query] (main query #(-> % first first)))
+  ([query choose-fn]
+   (as-> (scrape query) _
+     (choose-fn _)
+     (shell "sh -c"
+            (format "(yt-dlp -q --no-warnings -f ba -o '/tmp/%1$s.%%(ext)s' -- %2$s &&
+                      MPD_HOST=%3$s mpc -q update --wait &&
+                      MPD_HOST=%3$s mpc -q add yt/$(ls /tmp | grep '%1$s.') &&
+                      MPD_HOST=%3$s mpc -q play) &"
+                    (str/replace query #"\s+" "_") _ MPD_HOST)))))
+
+(doseq [opt *command-line-args*]
+  (if (re-find #"^-s" opt)
+    (main (subs opt 2) get-choice)
+    (main opt)))
