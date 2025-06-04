@@ -2,7 +2,7 @@
     "layer": "top",
     "margin": "10 10 0 10",
     "modules-left": ["custom/arch", "hyprland/workspaces", "custom/add-workspace"],
-    "modules-center": ["clock"],
+    "modules-center": ["custom/clock-img", "clock"],
     "modules-right": ["mpd", "custom/minimize-button", "custom/close-button", "tray", "pulseaudio", "custom/power-menu"],
 	"mpd": {
 		"server": "/home/taki/.local/share/mpd/socket",
@@ -39,9 +39,13 @@
         "tooltip": false,
     },
     "clock": {
-        "format": "<span color='#b4befe'> </span>{:%I:%M %p %a %b %d}",
-        "format-alt": "<span color='#b4befe'> </span>{:%I:%M %p}",
+        "format": "{:%I:%M %p %a %b %d}",
+        "format-alt": "{:%I:%M %p}",
         "tooltip-format": "<tt>{calendar}</tt>",
+    },
+    "custom/clock-img": {
+        "format": " ",
+        "tooltip": false,
     },
     "custom/close-button": {
         "format": "<span></span>",
@@ -70,8 +74,8 @@
         "spacing": 6
     },
     "pulseaudio": {
-        "format": "<span color='#b4befe'><big>{icon}</big></span>  {volume}% {format_source}",
-        "format-source": "Mic ON",
+        "format": "<span><big>{icon}</big></span>  {volume}% {format_source}",
+        "format-source": "Mic  ON",
         "format-source-muted": "Mic <span color='#F38BA8'>OFF</span>",
         "format-muted": "<span color='#F38BA8'></span>  {volume}% {format_source}",
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
@@ -79,7 +83,6 @@
         "format-icons": {
             "headphone": "",
             "default": ["", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾"],
-            // "default": ["", "", "󰕾", "󰕾", "󰕾", "", "", ""]
         },
         "scroll-step": 5,
         "on-click-right": "pactl set-sink-port @DEFAULT_SINK@ $([ \"$(pactl list sinks | grep 'Active Port' | awk -F '-' '{print $3}')\" = \"headphones\" ] && echo analog-output-lineout || echo analog-output-headphones)",

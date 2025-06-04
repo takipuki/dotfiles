@@ -89,8 +89,8 @@
                :a-l "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A5%20%20A%20%20%E2%80%94%20%20L/"
                :m-r "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20M%20%20%E2%80%94%20%20R/"
                :s-z "http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/TV%20Series%20%E2%99%A6%20%20S%20%20%E2%80%94%20%20Z/"}
-   :kdrama    "http://172.16.50.9/DHAKA-FLIX-9/KOREAN%20TV%20%26%20WEB%20Series/"
-   :movie     "http://172.16.50.7/DHAKA-FLIX-7/English%20Movies%20%281080p%29/"
+   :kdrama    "http://172.16.50.14/DHAKA-FLIX-9/KOREAN%20TV%20%26%20WEB%20Series/"
+   :movie     "http://172.16.50.14/DHAKA-FLIX-7/English%20Movies%20%281080p%29/"
    :hindi     "http://172.16.50.14/DHAKA-FLIX-14/Hindi%20Movies/"
    :animation "http://172.16.50.14/DHAKA-FLIX-14/Animation%20Movies%20%281080p%29/"})
 

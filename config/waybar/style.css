@@ -68,7 +68,7 @@ window#waybar {
 	color: @Flamingo;
 }
 
-#workspaces, .modules-center, #pulseaudio, #tray {
+#workspaces, .modules-center, #tray {
 	color: @light-fg;
 	background: @light-bg;
 	margin: 2px 15px;
@@ -76,9 +76,30 @@ window#waybar {
 	border-radius: 20px;
 }
 
-#pulseaudio, #tray {
+#custom-clock-img {
+	padding: 0 10px;
+	border-radius: 20px;
+	background-image: url("/home/taki/.config/waybar/clock.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#tray {
 	margin-right: 0;
 	margin-left: 5px;
+}
+
+#pulseaudio {
+	color: @light-fg;
+	background: @Flamingo;
+	margin: 2px 15px;
+	padding: 0 10px;
+	border-radius: 20px;
+}
+
+#pulseaudio.source-muted {
+	color: @light-fg;
+	background: @light-bg;
 }
 
 #mpd {
@@ -88,12 +109,12 @@ window#waybar {
 
 #custom-minimize-button {
 	margin-right: 15px;
-	color: @Green;
+	color: @dark-fg;
 }
 
 #custom-close-button {
 	margin-right: 5px;
-	color: @Flamingo;
+	color: @dark-fg;
 }
 
 #custom-power-menu {
