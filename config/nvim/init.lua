@@ -80,38 +80,31 @@ vim.opt.autochdir = true
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
-local function map(mode, shortcut, command)
-	vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
+local function map(mode, trigger, callback)
+	vim.keymap.set(mode, trigger, callback, { noremap = true, silent = true })
 end
 
-local function nmap(shortcut, command)
-	map('n', shortcut, command)
+local function nmap(trigger, callback)
+	map('n', trigger, callback)
 end
 
-local function imap(shortcut, command)
-	map('i', shortcut, command)
+local function imap(trigger, callback)
+	map('i', trigger, callback)
 end
 
-local function vmap(shortcut, command)
-	map('v', shortcut, command)
+local function vmap(trigger, callback)
+	map('v', trigger, callback)
 end
 
-vim.keymap.set('n', 'gy',
-	function()
-		vim.fn.setreg('+', vim.api.nvim_buf_get_lines(0, 0, -1, false))
-	end,
-	{ noremap = true, silent = true }
-)
+nmap('gy', function()
+	vim.fn.setreg('+', vim.api.nvim_buf_get_lines(0, 0, -1, false))
+end)
 
-vim.keymap.set('n', 'zc',
-	function()
-		local current_line = vim.fn.getline('.')
-		local new_line = current_line..current_line:gsub('^%s+', '', 1):gsub('^%S+', ' cin >>', 1):gsub(',', ' >>')
-		vim.fn.setline(vim.fn.line('.'), new_line)
-	end,
-	{ noremap = true, silent = true }
-)
-nmap('zt', "<cmd>norm 'tgcc<cr>")
+nmap('zc', function()
+	local current_line = vim.fn.getline('.')
+	local new_line = current_line..current_line:gsub('^%s+', '', 1):gsub('^%S+', ' cin >>', 1):gsub(',', ' >>')
+	vim.fn.setline(vim.fn.line('.'), new_line)
+end)
 
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
@@ -126,6 +119,8 @@ nmap('z;', 'A;')
 nmap('z,', 'A,')
 nmap('<M-h>', 'gT')
 nmap('<M-l>', 'gt')
+nmap('<M-H>', '<cmd>tabmove -1<cr>')
+nmap('<M-L>', '<cmd>tabmove +1<cr>')
 nmap('<leader>q', '<cmd>%bd<cr>')
 
 nmap('zy', '"+y')
@@ -194,19 +189,22 @@ autocmd({ '*.typ', '*.latex', '*.tex', '*.lua', '*.html', '*.json', '*.svelte', 
 	'setlocal sw=2 ts=2'
 )
 
-autocmd({ '*.lisp', '*.scm', '*.clj', '*.hs', '*.djot', },
+autocmd({ '*.txt', '*.latex', '*.tex', '*.html', '*.lisp', '*.scm', '*.clj', '*.hs', '*.djot', },
 	'setlocal expandtab'
 )
 
 
--- server --------------------------------------------------------------------
+-- neovide -------------------------------------------------------------------
 if vim.g.neovide then
-	vim.fn.serverstart('/tmp/neovide.pipe')
+	_ = vim.fn.serverstart('/tmp/neovide.pipe') or nil
+	nmap('<C-=>', function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end)
+	nmap('<C-->', function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end)
+	nmap('<C-0>', function() vim.g.neovide_scale_factor = 1 end)
 end
 
 
 -- oil -----------------------------------------------------------------------
-require('oil').setup()
+-- require('oil').setup()
 
 
 -- treesitter setup ----------------------------------------------------------
@@ -315,6 +313,7 @@ vim.cmd [[autocmd CursorHold,InsertLeave * lua vim.diagnostic.open_float(nil, {f
 require('mason').setup({})
 require('mason-lspconfig').setup({
 	ensure_installed = {},
+	automatic_enable = false,
 	handlers = {
 		function(server_name)
 			require('lspconfig')[server_name].setup({})
@@ -370,6 +369,7 @@ require('mason-lspconfig').setup({
 
 -- conjure -------------------------------------------------------------------
 vim.g['conjure#log#hud#enabled'] = false
+vim.g['conjure#client_on_load'] = false
 
 
 -- luasnip -------------------------------------------------------------------
@@ -391,9 +391,7 @@ cmp.setup {
 		{
 			name = 'buffer',
 			option = {
-				get_bufnrs = function()
-					return vim.api.nvim_list_bufs()
-				end,
+				get_bufnrs = vim.api.nvim_list_bufs
 			},
 		},
 		{ name = 'path' },

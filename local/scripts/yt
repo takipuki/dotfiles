@@ -1,5 +1,5 @@
 #! /usr/bin/env bb
-; vim: set ft=clojure ai si :
+; vim: set ft=clojure :
 
 (require '[babashka.process :refer [shell process exec]]
          '[clojure.java.io :as [io]])
@@ -51,13 +51,21 @@
    (as-> (scrape query) _
      (choose-fn _)
      (shell "sh -c"
-            (format "(yt-dlp -q --no-warnings -f ba -o '/tmp/%1$s.%%(ext)s' -- %2$s &&
+            (format "(yt-dlp --embed-metadata -q --no-warnings -f ba -o '/tmp/%1$s.%%(ext)s' -- '%2$s' &&
                       MPD_HOST=%3$s mpc -q update --wait &&
                       MPD_HOST=%3$s mpc -q add yt/$(ls /tmp | grep '%1$s.') &&
                       MPD_HOST=%3$s mpc -q play) &"
-                    (str/replace query #"\s+" "_") _ MPD_HOST)))))
+                    (str/replace query #"\s+" "-") _ MPD_HOST)))))
 
-(doseq [opt *command-line-args*]
-  (if (re-find #"^-s" opt)
-    (main (subs opt 2) get-choice)
-    (main opt)))
+(if (= (count *command-line-args*) 0)
+  (as-> (slurp *in*) _
+    (str/trim _)
+    (str/split _ #" *\n+ *")
+    (doseq [line _]
+      (main (str/replace line #"\W" " "))))
+
+  (doseq [opt *command-line-args*]
+    (if (re-find #"^-s" opt)
+      (main (subs opt 2) get-choice)
+      (main opt)))
+  )

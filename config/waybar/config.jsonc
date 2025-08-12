@@ -1,13 +1,15 @@
 {
     "layer": "top",
+	"position": "top",
     "margin": "10 10 0 10",
     "modules-left": ["custom/arch", "hyprland/workspaces", "custom/add-workspace"],
     "modules-center": ["custom/clock-img", "clock"],
     "modules-right": ["mpd", "custom/minimize-button", "custom/close-button", "tray", "pulseaudio", "custom/power-menu"],
 	"mpd": {
 		"server": "/home/taki/.local/share/mpd/socket",
-		"max-length": 50,
-		"format": "{stateIcon} {filename} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+		"max-length": 80,
+		"title-len": 40,
+		"format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
 		"format-disconnected": " Disconnected",
 		"format-stopped": "",
 		"state-icons": {
@@ -18,8 +20,8 @@
 		"on-click"        : "mpc --host=/home/taki/.local/share/mpd/socket toggle",
 		"on-click-right"  : "mpc --host=/home/taki/.local/share/mpd/socket next",
 		"on-click-middle" : "mpc --host=/home/taki/.local/share/mpd/socket stop",
-		"on-scroll-up"    : "mpc --host=/home/taki/.local/share/mpd/socket volume +5",
-		"on-scroll-down"  : "mpc --host=/home/taki/.local/share/mpd/socket volume -5"
+		"on-scroll-up"    : "mpc --host=/home/taki/.local/share/mpd/socket seek 0",
+		"on-scroll-down"  : "mpc --host=/home/taki/.local/share/mpd/socket seek 0"
 	},
     "custom/arch": {
         "format": " ",
@@ -38,6 +40,11 @@
         /*"tooltip-format": "<big>Empty workspace</big>",*/
         "tooltip": false,
     },
+	"custom/groups" : {
+		"exec": "~/.config/waybar/scripts/groups.clj",
+		"return-type": "json",
+		"format": "{text}",
+	},
     "clock": {
         "format": "{:%I:%M %p %a %b %d}",
         "format-alt": "{:%I:%M %p}",

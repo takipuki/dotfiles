@@ -11,11 +11,12 @@ alias open="gio open"
 alias hs="http-server"
 
 alias stl="systemctl"
+alias htl="hyprctl"
 
 alias pacss="pacman -Ss"
 alias pacs="sudo pacman -S --needed"
 alias pacr="sudo pacman -Rus"
-alias yays="yay -S"
+alias pacrr="sudo pacman -Qtdq | sudo pacman -Rns -"
 
 alias rum="gio trash"
 alias mv="mv -i"
