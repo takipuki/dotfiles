@@ -84,7 +84,7 @@
         "format": "<span><big>{icon}</big></span>  {volume}% {format_source}",
         "format-source": "Mic  ON",
         "format-source-muted": "Mic <span color='#F38BA8'>OFF</span>",
-        "format-muted": "<span color='#F38BA8'></span>  {volume}% {format_source}",
+        "format-muted": "<span color='#F38BA8'></span>  {volume}% {format_source}",
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "tooltip": false,
         "format-icons": {

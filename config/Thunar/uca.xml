@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1715605142253717-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>archive-extract</icon>
+	<name>7x</name>
+	<submenu></submenu>
+	<unique-id>1718196683674139-1</unique-id>
+	<command>7z x %n -o&quot;$(echo %n | sed -E &apos;s/\.[^\.]+$//&apos;)&quot; &amp;&amp; notify-send Extracted -t 1000 || notify-send Failed</command>
+	<description></description>
+	<range></range>
+	<patterns>*.rar;*.zip;*.7z</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>archive-insert</icon>
+	<name>zip</name>
+	<submenu></submenu>
+	<unique-id>1718197330591378-2</unique-id>
+	<command>7z a tmp.zip %N</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>run-build</icon>
+	<name>bash</name>
+	<submenu></submenu>
+	<unique-id>1719255461844782-1</unique-id>
+	<command>bash %n</command>
+	<description>bash &lt;script&gt;</description>
+	<range>*</range>
+	<patterns>*.sh</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>mpv</icon>
+	<name>mpv</name>
+	<submenu></submenu>
+	<unique-id>1722459297128904-1</unique-id>
+	<command>mpv .</command>
+	<description>play dir in mpv as playlist</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>m3u</name>
+	<submenu></submenu>
+	<unique-id>1723123188123017-1</unique-id>
+	<command>echo %N | sed -E &apos;s|(\.[^\. ]+) |\1\n|g&apos; &gt; 0.m3u</command>
+	<description>create playlist</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>neovim</icon>
+	<name>neovide</name>
+	<submenu></submenu>
+	<unique-id>1742487118770787-1</unique-id>
+	<command>nvim --server /tmp/neovide.pipe --remote %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<other-files/>
+	<text-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>copy path</name>
+	<submenu></submenu>
+	<unique-id>1762891257685752-1</unique-id>
+	<command>wl-copy %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>

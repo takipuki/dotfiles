@@ -28,7 +28,7 @@ Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim', { ['branch'] = '0.1.x' })
 Plug('nvim-telescope/telescope-file-browser.nvim')
 Plug('smartpde/telescope-recent-files')
-Plug('stevearc/oil.nvim')
+Plug('nvim-tree/nvim-tree.lua')
 Plug('yegappan/mru')
 
 Plug('Olical/conjure')
@@ -46,6 +46,7 @@ vim.opt.statusline = '%f %h%w%m%r ' .. '%=%(%y %l,%c%V %= %P%)'
 
 
 --  vim ------------------------------------------------------------------------
+vim.opt.virtualedit = 'all'
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
@@ -60,26 +61,28 @@ vim.opt.backup = true;
 vim.opt.backupdir = '/home/taki/.local/share/nvim/backup//'
 vim.opt.undofile = true
 vim.opt.undodir = '/home/taki/.local/share/nvim/undo//'
-vim.opt.shell = '/usr/bin/zsh'
-vim.cmd('set nocompatible')
-vim.cmd('filetype plugin on')
-vim.g.rust_recommended_style = false
-vim.cmd('syntax off')
+vim.opt.shell = '/usr/bin/bash'
+vim.opt.shelltemp = false
 vim.opt.foldenable = false
+vim.cmd('filetype plugin on')
+vim.cmd('filetype indent off')
+vim.cmd('syntax off')
+vim.g.rust_recommended_style = false
 
-vim.opt.guifont = 'JetBrains Mono:h14'
+-- vim.opt.guifont = 'Fixedsys Excelsior,JetBrains Mono,Symbols Nerd Font Mono:h18'
+vim.opt.linespace = 1
 vim.opt.termguicolors = true
 vim.opt.background = 'light'
-vim.g.komau_italic = 0
-vim.cmd('colorscheme komau')
+vim.cmd('highlight! link ColorColumn CursorColumn')
 
 vim.opt.autochdir = true
 
+-- Uncomment the following to have Vim jump to the last position when reopening
+-- a file
+vim.cmd([[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
+
 
 -- mappings ------------------------------------------------------------------
-vim.g.mapleader = ','
-vim.g.maplocalleader = ','
-
 local function map(mode, trigger, callback)
 	vim.keymap.set(mode, trigger, callback, { noremap = true, silent = true })
 end
@@ -96,44 +99,61 @@ local function vmap(trigger, callback)
 	map('v', trigger, callback)
 end
 
-nmap('gy', function()
-	vim.fn.setreg('+', vim.api.nvim_buf_get_lines(0, 0, -1, false))
-end)
+local function nvmap(trigger, callback)
+	map({ 'n', 'v' }, trigger, callback)
+end
 
-nmap('zc', function()
-	local current_line = vim.fn.getline('.')
-	local new_line = current_line..current_line:gsub('^%s+', '', 1):gsub('^%S+', ' cin >>', 1):gsub(',', ' >>')
-	vim.fn.setline(vim.fn.line('.'), new_line)
-end)
+vim.g.mapleader = ','
+vim.g.maplocalleader = ','
+vim.cmd([[ nmap <space> , ]])
+vim.cmd([[ vmap <space> , ]])
+
+vmap('<leader>f', [[<cmd>'<,'>s/\<\([ij]\)\>/\=nr2char(char2nr(submatch(1)[0])+1)/g<cr>]])
 
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
 nmap('<leader>fr', '<cmd>Telescope recent_files<cr>')
-nmap('<leader>nt', '<cmd>Oil<cr>')
+nmap('<leader>nt', '<cmd>NvimTreeOpen %:h<cr>')
 nmap('<leader>mr', '<cmd>MRU<cr>')
 
-vmap('zs', [[:s/\%V\v(\S+) (\S+)/\2 \1/<cr>]])
-
 nmap('<C-s>', '<cmd>w<cr>')
-nmap('z;', 'A;')
-nmap('z,', 'A,')
+nmap('<leader>;', 'A;')
+nmap('<leader>,', 'A,')
 nmap('<M-h>', 'gT')
 nmap('<M-l>', 'gt')
 nmap('<M-H>', '<cmd>tabmove -1<cr>')
 nmap('<M-L>', '<cmd>tabmove +1<cr>')
 nmap('<leader>q', '<cmd>%bd<cr>')
 
-nmap('zy', '"+y')
-nmap('zp', '"+p')
-nmap('zY', '"+Y')
-nmap('zP', '"+P')
-vmap('zy', '"+y')
-vmap('zp', '"+p')
-vmap('zY', '"+Y')
-vmap('zP', '"+P')
+nvmap('<leader>y', '"+y')
+nvmap('<leader>p', '"+p')
+nvmap('<leader>Y', '"+Y')
+nvmap('<leader>P', '"+P')
 
 imap('<C-c>', '<esc>')
 vim.cmd('tnoremap <esc> <C-\\><C-n>')
+
+nmap('gy', function()
+	vim.fn.setreg('+', vim.api.nvim_buf_get_lines(0, 0, -1, false))
+end)
+
+nmap('<leader>cc', function()
+	local current_line = vim.fn.getline('.')
+	local new_line = current_line..current_line:gsub('^%s+', '', 1):gsub('^%S+', ' cin >>', 1):gsub(',', ' >>')
+	vim.fn.setline(vim.fn.line('.'), new_line)
+end)
+
+nmap('<leader>ciw', function()
+	local find = vim.fn.expand('<cword>')
+	local replace = vim.fn.input('Replace: ')
+	vim.cmd("%s/\\<" .. find .. "\\>/" .. replace .. "/g")
+end)
+vmap('<leader>ciw', function()
+	local find = vim.fn.expand('<cword>')
+	local replace = vim.fn.input('Replace: ')
+	vim.cmd("'<,'>s/\\<" .. find .. "\\>/" .. replace .. "/g")
+	vim.fn.feedkeys("")
+end)
 
 
 -- abbr ----------------------------------------------------------------------
@@ -179,23 +199,27 @@ autofn({ '*.cpp', }, function()
 	vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
 	vim.cmd('iabbrev <buffer> vll vector<int64_t>')
 	vim.cmd('iabbrev <buffer> vvll vector<vector<int64_t>>')
+	vim.cmd('iabbrev <buffer> vp vector<pair<int, int>>')
 end)
 
-autocmd({ '*.zig', '*.py' },
-	'setlocal sw=4 ts=4'
-)
-
-autocmd({ '*.typ', '*.latex', '*.tex', '*.lua', '*.html', '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs', '*.lisp', '*.scm', '*.clj', '*.djot', },
+autocmd({ '*.typ', '*.latex', '*.tex', '*.lua', '*.php', '*.html', '*.css', '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs', '*.lisp', '*.scm', '*.clj', '*.djot', },
 	'setlocal sw=2 ts=2'
 )
 
-autocmd({ '*.txt', '*.latex', '*.tex', '*.html', '*.lisp', '*.scm', '*.clj', '*.hs', '*.djot', },
+autocmd({ '*.svelte', '*.js', '*.txt', '*.latex', '*.tex', '*.html', '*.css', '*.lisp', '*.scm', '*.clj', '*.hs', '*.djot', },
 	'setlocal expandtab'
+)
+
+autocmd({ '*.latex', '*.tex', },
+	'setlocal spell colorcolumn=80 indentexpr&'
 )
 
 
 -- neovide -------------------------------------------------------------------
-if vim.g.neovide then
+vim.g.neovide_cursor_trail_size = 0.5
+if vim.g.neovide and not vim.g.neovide_initialized then
+	vim.g.neovide_initialized = true
+	_ = os.remove('/tmp/neovide.pipe') or nil
 	_ = vim.fn.serverstart('/tmp/neovide.pipe') or nil
 	nmap('<C-=>', function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end)
 	nmap('<C-->', function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end)
@@ -203,74 +227,135 @@ if vim.g.neovide then
 end
 
 
--- oil -----------------------------------------------------------------------
--- require('oil').setup()
+-- nvim-tree -----------------------------------------------------------------
+require('nvim-tree').setup({
+	update_focused_file = { enable = true },
+	renderer = {
+		highlight_opened_files = 'all',
+	},
+	git = { enable = false },
+})
+
+
+-- komau ---------------------------------------------------------------------
+require('komau').setup({
+	style = 'auto',
+	transparent = false,
+	dim_inactive = false,
+	terminal_colors = true,
+	styles = {
+		comments = { italic = false },
+		keywords = { bold = false },
+		functions = {},
+		strings = {},
+		variables = {},
+	},
+	integrations = {
+		treesitter = true,
+		lsp = false,
+		diagnostics = false,
+		cmp = false,
+		telescope = false,
+		gitsigns = false,
+		nvimtree = false,
+		trouble = false,
+		hop = false,
+		which_key = false,
+		indent_blankline = false,
+		notify = false,
+		mini = false,
+		dashboard = false,
+		statusline = {
+			lightline = false,
+			lualine = false,
+		},
+	},
+})
+
+vim.cmd.colorscheme('everforest')
 
 
 -- treesitter setup ----------------------------------------------------------
-require('nvim-treesitter.configs').setup({
-	ignore_install = { 'hack' },
-	indent = {
-		enable = true,
-		disable = { 'c', 'cpp', }
-	},
-	auto_install = true,
-	highlight = { enable = true },
+require('nvim-treesitter').install({
+	'c', 'cpp', 'rust', 'odin',
+	'html', 'javascript', 'php', 'svelte',
+	'python', 'bash', 'clojure',
+	'latex',
 })
+autofn(
+	{
+		'*.cc', '*.hh', '*.hpp', '*.c', '*.cpp', '*.rs', '*.odin',
+		'*.html', '*.js', '*.svelte',
+		'*.py', '*.sh', '*.clj',
+		'*.tex',
+	},
+	function()
+		vim.treesitter.start()
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end
+)
+vim.api.nvim_set_hl(0, "@constant.builtin", { link = "@constant" })
 vim.api.nvim_set_hl(0, "@variable.builtin", { link = "@variable" })
 vim.api.nvim_set_hl(0, "@variable.parameter", { link = "@variable" })
 vim.api.nvim_set_hl(0, "@variable.parameter.builtin", { link = "@variable" })
 vim.api.nvim_set_hl(0, "@variable.member", { link = "@variable" })
 vim.api.nvim_set_hl(0, "@module.builtin", { link = "@module" })
 vim.api.nvim_set_hl(0, "@function.builtin", { link = "@function" })
+vim.api.nvim_set_hl(0, "@function.macro", { link = "@function" })
 vim.api.nvim_set_hl(0, "@constructor", { link = "@function" })
 vim.api.nvim_set_hl(0, "@type.builtin", { link = "@type" })
+vim.api.nvim_set_hl(0, "@string.special", { link = "@string" })
+vim.api.nvim_set_hl(0, "@string.escape", { link = "@string" })
+vim.api.nvim_set_hl(0, "@punctuation.special", { link = "@punctuation" })
 vim.api.nvim_set_hl(0, "@string.special.symbol.clojure", { link = "@variable.clojure" })
+vim.api.nvim_set_hl(0, "@tag", { link = "@tag.builtin" })
 
 
 -- treesitter text objects ---------------------------------------------------
-require'nvim-treesitter.configs'.setup {
-	textobjects = {
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>a"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>A"] = "@parameter.inner",
-			},
+require('nvim-treesitter-textobjects').setup {
+	select = {
+		lookahead = false,
+		-- linewise: V, charwise: v, blockwise: <c-v>
+		selection_modes = {
+			['@function.outer'] = 'V',
+			['@function.inner'] = 'V',
+			['@class.outer'] = 'V',
+			['@class.inner'] = 'V',
 		},
-
-		select = {
-			enable = true,
-
-			-- Automatically jump forward to textobj, similar to targets.vim
-			lookahead = true,
-
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-			},
-		},
+		include_surrounding_whitespace = false,
 	},
 }
 
+vim.keymap.set({ 'x', 'o' }, 'af', function()
+	require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
+end)
+vim.keymap.set({ 'x', 'o' }, 'if', function()
+	require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')
+end)
+vim.keymap.set({ 'x', 'o' }, 'aa', function()
+	require('nvim-treesitter-textobjects.select').select_textobject('@parameter.outer', 'textobjects')
+end)
+vim.keymap.set({ 'x', 'o' }, 'ia', function()
+	require('nvim-treesitter-textobjects.select').select_textobject('@parameter.inner', 'textobjects')
+end)
+vim.keymap.set('n', '<leader>a', function()
+	require('nvim-treesitter-textobjects.swap').swap_next '@parameter.inner'
+end)
+vim.keymap.set('n', '<leader>A', function()
+	require('nvim-treesitter-textobjects.swap').swap_previous '@parameter.outer'
+end)
+
 
 -- autoclose -----------------------------------------------------------------
-require('autoclose').setup({
-	options = {
-		disable_command_mode = true,
-	},
-	keys = {
-		["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = { 'lisp', 'scheme', 'clojure' } },
-		['`'] = { escape = true, close = true, pair = '``', disabled_filetypes = { 'lisp', 'scheme', 'clojure' } },
-	},
-})
+-- require('autoclose').setup({
+-- 	options = {
+-- 		disable_command_mode = true,
+-- 	},
+-- 	keys = {
+-- 		["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = { 'lisp', 'scheme', 'clojure' } },
+-- 		['`'] = { escape = true, close = true, pair = '``', disabled_filetypes = { 'lisp', 'scheme', 'clojure' } },
+-- 	},
+-- })
 
 
 -- telescope.nvim -----------------------------------------------------------------
@@ -373,7 +458,9 @@ vim.g['conjure#client_on_load'] = false
 
 
 -- luasnip -------------------------------------------------------------------
-require("luasnip.loaders.from_vscode").lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load({
+	include = { 'tex', 'latex', 'html', 'php' }
+})
 
 
 -- nvim-cmp ------------------------------------------------------------------

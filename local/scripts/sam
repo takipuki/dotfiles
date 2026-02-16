@@ -72,7 +72,7 @@
     (keyword _)
     (cond
       (= :animation _) (do (def main animation->m3u) _)
-      (in? _ [:movie :hindi])
+      (in? _ [:movie :hindi :kolkata])
         (do (def main movie->m3u) _)
       :else _)
     (_ mp)
@@ -92,6 +92,7 @@
    :kdrama    "http://172.16.50.14/DHAKA-FLIX-14/KOREAN%20TV%20%26%20WEB%20Series/"
    :movie     "http://172.16.50.14/DHAKA-FLIX-14/English%20Movies%20%281080p%29/"
    :hindi     "http://172.16.50.14/DHAKA-FLIX-14/Hindi%20Movies/"
+   :kolkata   "http://172.16.50.7/DHAKA-FLIX-7/Kolkata%20Bangla%20Movies/"
    :animation "http://172.16.50.14/DHAKA-FLIX-14/Animation%20Movies%20%281080p%29/"})
 
 (defn query-filename []

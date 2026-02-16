@@ -1,13 +1,15 @@
 
+rxp () {
+	rnote-cli export doc --on-conflict overwrite -p -f pdf "$@"
+}
+
 e () {
 	tab=
 	if [[ $1 = "-t" ]]; then tab=-tab; shift 1; fi
-	for arg in $@; do
-		(nvim \
-			--server /tmp/neovide.pipe \
-			--remote$tab \
-			$([[ $arg =~ ^/ ]] && echo $arg || echo $(pwd)/$arg) 2>&1 > /dev/null &)
-	done
+	(nvim \
+		--server /tmp/neovide.pipe \
+		--remote$tab \
+		"$(echo "$@" | sed -r 's/(\S+)/realpath \1/e')" 2>&1 > /dev/null &)
 }
 
 sorc () {
@@ -16,7 +18,8 @@ sorc () {
 
 tmcp () {
 	cd ~/Desktop/code/cp
-	e -t main.cpp in.txt in.sh
+	e -t main.cpp in.txt
+	[ -z $TMUX ] && tmux a
 	tmux splitw -d -v -l 35% 'zsh -c "make watch_deb; $SHELL"'
 	sorc
 }

@@ -20,8 +20,13 @@ alias pacrr="sudo pacman -Qtdq | sudo pacman -Rns -"
 
 alias rum="gio trash"
 alias mv="mv -i"
+alias cp="cp -i"
 alias ls="ls -FH"
+alias feh="feh -.Z"
 alias cpy=wl-copy
 alias pst=wl-paste
+alias nvip="nvim --noplugin -i NONE --cmd 'set noswapfile nobackup'"
+alias sc-im="sc-im --autocalc"
+alias php="/opt/lampp/bin/php"
 
 alias asciidoctor-pdf="/home/taki/.local/share/gem/ruby/3.0.0/bin/asciidoctor-pdf"

@@ -1,0 +1,14 @@
+[font]
+size = 18
+
+[[font.normal]]
+family = "Fixedsys Excelsior"
+style = "Normal"
+
+[[font.bold]]
+family = "Fixedsys Excelsior"
+style = "Normal"
+
+[[font.italic]]
+family = "Fixedsys Excelsior"
+style = "Normal"

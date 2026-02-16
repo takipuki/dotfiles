@@ -67,5 +67,4 @@
   (doseq [opt *command-line-args*]
     (if (re-find #"^-s" opt)
       (main (subs opt 2) get-choice)
-      (main opt)))
-  )
+      (main opt))))
