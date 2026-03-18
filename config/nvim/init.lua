@@ -51,8 +51,9 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
 vim.opt.wrap = false
-vim.cmd('set cinoptions+=(s,l1,:0')
-vim.cmd('set list lcs=tab:\\ \\ ')
+vim.opt.cinoptions:append({ '(s', 'l1', ':0', 'g0' })
+vim.opt.list = true
+vim.opt.listchars = { tab = '| ', trail = '~' }
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -70,7 +71,7 @@ vim.cmd('syntax off')
 vim.g.rust_recommended_style = false
 
 -- vim.opt.guifont = 'Fixedsys Excelsior,JetBrains Mono,Symbols Nerd Font Mono:h18'
-vim.opt.linespace = 1
+vim.opt.linespace = 0
 vim.opt.termguicolors = true
 vim.opt.background = 'light'
 vim.cmd('highlight! link ColorColumn CursorColumn')
@@ -82,7 +83,26 @@ vim.opt.autochdir = true
 vim.cmd([[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
 
--- mappings ------------------------------------------------------------------
+-- helper functions ----------------------------------------------------------
+function merge(a, b)
+	for _,val in ipairs(b) do a[#a+1] = val end
+	return a
+end
+
+function except(a, b)
+	local set_b = {}
+	for _,val in pairs(b) do set_b[val] = true end
+
+	local t = {}
+	for _,val in pairs(a) do
+		if not set_b[val] then
+			t[#t+1] = val
+		end
+	end
+
+	return t
+end
+
 local function map(mode, trigger, callback)
 	vim.keymap.set(mode, trigger, callback, { noremap = true, silent = true })
 end
@@ -103,6 +123,22 @@ local function nvmap(trigger, callback)
 	map({ 'n', 'v' }, trigger, callback)
 end
 
+function autocmd(pat, cmd)
+	vim.api.nvim_create_autocmd('FileType', {
+		pattern = pat,
+		command = cmd,
+	})
+end
+
+function autofn(pat, fn)
+	vim.api.nvim_create_autocmd('FileType', {
+		pattern = pat,
+		callback = fn,
+	})
+end
+
+
+-- mappings ------------------------------------------------------------------
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 vim.cmd([[ nmap <space> , ]])
@@ -146,13 +182,12 @@ end)
 nmap('<leader>ciw', function()
 	local find = vim.fn.expand('<cword>')
 	local replace = vim.fn.input('Replace: ')
-	vim.cmd("%s/\\<" .. find .. "\\>/" .. replace .. "/g")
+	vim.cmd(string.format([[%%s/\<%s\>/%s/g]], find, replace))
 end)
 vmap('<leader>ciw', function()
 	local find = vim.fn.expand('<cword>')
 	local replace = vim.fn.input('Replace: ')
-	vim.cmd("'<,'>s/\\<" .. find .. "\\>/" .. replace .. "/g")
-	vim.fn.feedkeys("")
+	vim.fn.feedkeys(string.format([[:'<,'>s/\<%s\>/%s/g]], find, replace))
 end)
 
 
@@ -161,56 +196,27 @@ vim.cmd('cabbrev sorc source $MYVIMRC')
 
 
 -- event listeners -----------------------------------------------------------
-vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
-	pattern = { '*' },
-	callback = function()
-		vim.cmd('highlight trailingwhitespace ctermbg=grey guibg=grey')
-		vim.cmd('match trailingwhitespace /\\s\\+$/')
-		vim.cmd('au InsertEnter * match trailingwhitespace //')
-		vim.cmd('au InsertLeave,BufRead * match trailingwhitespace /\\s\\+$/')
-	end,
-})
+-- vim.api.nvim_create_autocmd({ 'ColorScheme', 'BufRead', 'BufNewFile' }, {
+-- 	pattern = { '*' },
+-- 	callback = function()
+-- 		vim.cmd('highlight trailingwhitespace ctermbg=grey guibg=grey')
+-- 		vim.cmd('match trailingwhitespace /\\s\\+$/')
+-- 		vim.cmd('au InsertEnter * match trailingwhitespace //')
+-- 		vim.cmd('au InsertLeave,BufRead * match trailingwhitespace /\\s\\+$/')
+-- 	end,
+-- })
 
-function autocmd(pat, cmd)
-	vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-		pattern = pat,
-		command = cmd,
-	})
-end
+autocmd({ 'c', 'cpp', }, 'setlocal cindent')
 
-function autofn(pat, fn)
-	vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-		pattern = pat,
-		callback = fn,
-	})
-end
-
-autofn({ '*.cpp', }, function()
-	vim.cmd('iabbrev <buffer> ci cin >>')
-	vim.cmd('iabbrev <buffer> co cout <<')
-	vim.cmd('iabbrev <buffer> ll int64_t')
-	vim.cmd('iabbrev <buffer> str string')
-	vim.cmd('iabbrev <buffer> v< vector<')
-	vim.cmd('iabbrev <buffer> p< pair<')
-	vim.cmd('iabbrev <buffer> m< map<')
-	vim.cmd('iabbrev <buffer> s< set<')
-	vim.cmd('iabbrev <buffer> a< array<')
-	vim.cmd('iabbrev <buffer> vi vector<int>')
-	vim.cmd('iabbrev <buffer> vvi vector<vector<int>>')
-	vim.cmd('iabbrev <buffer> vll vector<int64_t>')
-	vim.cmd('iabbrev <buffer> vvll vector<vector<int64_t>>')
-	vim.cmd('iabbrev <buffer> vp vector<pair<int, int>>')
-end)
-
-autocmd({ '*.typ', '*.latex', '*.tex', '*.lua', '*.php', '*.html', '*.css', '*.json', '*.svelte', '*.jsx', '*.js', '*.mjs', '*.lisp', '*.scm', '*.clj', '*.djot', },
+autocmd({ 'typst', 'tex', 'lua', 'php', 'html', 'css', 'json', 'svelte',  'javascript', 'lisp', 'scheme', 'clojure', 'djot', },
 	'setlocal sw=2 ts=2'
 )
 
-autocmd({ '*.svelte', '*.js', '*.txt', '*.latex', '*.tex', '*.html', '*.css', '*.lisp', '*.scm', '*.clj', '*.hs', '*.djot', },
+autocmd({ 'fsharp', 'svelte', 'js', 'text', 'tex', 'html', 'css', 'lisp', 'scheme', 'clojure', 'haskell', 'djot', },
 	'setlocal expandtab'
 )
 
-autocmd({ '*.latex', '*.tex', },
+autocmd({ 'tex', },
 	'setlocal spell colorcolumn=80 indentexpr&'
 )
 
@@ -276,21 +282,23 @@ vim.cmd.colorscheme('everforest')
 
 
 -- treesitter setup ----------------------------------------------------------
-require('nvim-treesitter').install({
+local filetypes = {
 	'c', 'cpp', 'rust', 'odin',
-	'html', 'javascript', 'php', 'svelte',
-	'python', 'bash', 'clojure',
-	'latex',
-})
-autofn(
-	{
-		'*.cc', '*.hh', '*.hpp', '*.c', '*.cpp', '*.rs', '*.odin',
-		'*.html', '*.js', '*.svelte',
-		'*.py', '*.sh', '*.clj',
-		'*.tex',
-	},
+	'html', 'css', 'javascript', 'php', 'svelte',
+	'zsh', 'bash',
+	'python', 'clojure', 'fsharp',
+	'latex', 'markdown',
+	'make',
+	'vim', 'hyprlang',
+}
+require('nvim-treesitter').install(filetypes)
+autofn(merge(filetypes, { 'sh', }),
 	function()
 		vim.treesitter.start()
+	end
+)
+autofn(except(filetypes, { 'c', 'cpp', 'clojure', 'fsharp', }),
+	function()
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end
 )

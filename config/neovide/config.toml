@@ -1,14 +1,15 @@
 [font]
-size = 18
+size = 16
+normal = ["JetBrains Mono"]
 
-[[font.normal]]
-family = "Fixedsys Excelsior"
-style = "Normal"
-
-[[font.bold]]
-family = "Fixedsys Excelsior"
-style = "Normal"
+# [[font.normal]]
+# family = "Fixedsys Excelsior"
+# style = "Normal"
+#
+# [[font.bold]]
+# family = "Fixedsys Excelsior"
+# style = "Normal"
 
 [[font.italic]]
-family = "Fixedsys Excelsior"
+family = "JetBrains Mono"
 style = "Normal"

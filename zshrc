@@ -25,6 +25,7 @@ PROMPT="%F{#7287fd}%~%f"$'\n'"%F{#dd7878}> %f"
 bindkey -e
 export EDITOR=nvim
 setopt HIST_IGNORE_ALL_DUPS
+setopt interactivecomments
 
 source $HOME/.zsh/alias.sh
 source $HOME/.zsh/function.sh

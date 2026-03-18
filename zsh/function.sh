@@ -9,7 +9,7 @@ e () {
 	(nvim \
 		--server /tmp/neovide.pipe \
 		--remote$tab \
-		"$(echo "$@" | sed -r 's/(\S+)/realpath \1/e')" 2>&1 > /dev/null &)
+		"$(echo "$@" | sed -E 's/(\S+)/realpath \1/e')" 2>&1 > /dev/null &)
 }
 
 sorc () {
@@ -18,7 +18,8 @@ sorc () {
 
 tmcp () {
 	cd ~/Desktop/code/cp
-	e -t main.cpp in.txt
+	nvim --server /tmp/neovide.pipe \
+		--remote-send "<esc>:e $(realpath main.cpp) | so .vim<cr>"
 	[ -z $TMUX ] && tmux a
 	tmux splitw -d -v -l 35% 'zsh -c "make watch_deb; $SHELL"'
 	sorc
