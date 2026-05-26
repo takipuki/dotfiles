@@ -36,7 +36,7 @@
     },
     "custom/add-workspace": {
         "format": "<span><big>〉</big></span>",
-        "on-click": "hyprctl dispatch workspace empty",
+        "on-click": "hyprctl dispatch 'hl.dsp.focus({workspace=\"empty\"})'",
         /*"tooltip-format": "<big>Empty workspace</big>",*/
         "tooltip": false,
     },
@@ -56,12 +56,12 @@
     },
     "custom/close-button": {
         "format": "<span></span>",
-        "on-click": "hyprctl dispatch killactive a",
+        "on-click": "hyprctl dispatch 'hl.dsp.window.close()'",
         "tooltip": false,
     },
     "custom/minimize-button": {
         "format": "<span>__</span>",
-        "on-click": "hyprctl dispatch movetoworkspacesilent special",
+        "on-click": "hyprctl dispatch 'hl.dsp.window.move({workspace=\"special:special\",follow=false})'",
         "tooltip": false,
     },
     "custom/power-menu": {

@@ -2,28 +2,27 @@
 
 HELP = [[
 
-stream youtube video/audio to mpv
+add track to mpd from youtube
 
 Usage:
-  yt [options] [query]
+  yt [options] query
 
 Options:
   -h                show this help
-  -v                play video
   -n                print videos ids without playing
   -f<FORMAT>        yt-dlp format
   -s<QUERY>         interactively search and select videos (can be multiple)
   -i<VIDEO ID>      manually add id to play
 ]]
 
---- TODO directly given ids are played first; should play in the order of arguments
----      make searching a function and use it in getopts
+--- TODO:
+--- directly given ids are played first; should play in the order of arguments
+--- make searching a function and use it in getopts
 
 MPD_HOST    = os.getenv("MPD_HOST") or "/home/taki/.local/share/mpd/socket"
 SEARCH_URL  = "https://www.youtube.com/results?search_query="
 SHOULD_PLAY = true          -- should play or just print the IDs
 DLP_FORMAT  = "ba"          -- mp4 (audio only), webm is forbidden
-PLAYER_CMD  = "mpv "        -- media player
 
 FORMAT_EXTS = {
 	webm = '.webm',
@@ -49,8 +48,7 @@ local ids = {}                    -- ids in this table will be played
 for _, argv in ipairs(arg) do
 	if string.sub(argv, 1, 1) == '-' then
 		local opt, val = argv:match('-(%a)(.*)')
-		if     opt == 'v' then DLP_FORMAT = "bv[height<=1080]+ba"
-		elseif opt == 'f' then DLP_FORMAT = val
+		if     opt == 'f' then DLP_FORMAT = val
 		elseif opt == 'n' then SHOULD_PLAY = false
 		elseif opt == 's' then table.insert(interactive_searches, val)
 		elseif opt == 'i' then table.insert(ids, val)

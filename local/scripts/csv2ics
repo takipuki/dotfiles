@@ -1,0 +1,104 @@
+#! /bin/python3
+
+import sys, re, csv
+from datetime import date, timedelta
+from datetime import datetime as dt
+from uuid import uuid1
+
+def main():
+    parse_cli_args()
+
+    print('''\
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:takipuki
+TZID:Asia/Dhaka
+''')
+
+    header = list(map(str.strip, input().split('|')))
+    for row in csv.reader(sys.stdin, delimiter='|'):
+        row    = map(str.strip, row)
+        row    = map(lambda col: rm_delims(col, ':'), row)
+
+        event  = dict(zip(header, row))
+        dstart = add_dt(event['tstart'], opts['dstart'])
+        exdate = add_dt(event['tstart'], *opts['exdate'])
+        days   = event['days'].split(',')
+        rdate  = [
+            dstamp
+            for day in days
+            for dstamp in opts['makeup'].get(day) or []
+        ]
+        rdate  = add_dt(event['tstart'], *rdate)
+
+        print(f'''\
+BEGIN:VEVENT
+SUMMARY:{event['title']}
+DTSTART:{dstart}
+DURATION:{'PT1H20M' if event['duration'] == 'theory' else 'PT2H30M'}
+LOCATION:{event['location']}
+RRULE:FREQ=WEEKLY;BYDAY={event['days'].upper()};UNTIL=20260618
+RDATE:{rdate}
+EXDATE:{exdate}
+DTSTAMP:{today}
+UID:{uuid1()}
+END:VEVENT
+''')
+
+    print('END:VCALENDAR')
+
+
+def parse_cli_args():
+    for opt in sys.argv[1:]:
+        if r := opt_regex.match(opt):
+            k, v = r.groups()
+            match k:
+                case 'exdate':
+                    dstamps = v.split(',')
+                    ics_dstamps = []
+                    for stamp in dstamps:
+                        # date range
+                        if r := opt_regex_date_range.match(stamp):
+                            dstart, dend = map(date.fromisoformat, r.groups())
+                            while dstart <= dend:
+                                ics_dstamps.append(str(dstart))
+                                dstart += timedelta(days=1)
+
+                        # single date
+                        else:
+                            ics_dstamps.append(stamp)
+
+                    opts[k] = list(map(rm_delims, ics_dstamps))
+
+                case 'makeup':
+                    makeups = v.split(',')
+                    for makeup in makeups:
+                        dstamp, day = opt_regex_makeup.match(makeup).groups()
+                        if not 'makeup' in opts:
+                            opts['makeup'] = {}
+                        if not day in opts['makeup']:
+                            opts['makeup'][day] = []
+                        opts['makeup'][day].append(rm_delims(dstamp))
+
+                case _:
+                    opts[k] = rm_delims(v)
+
+        else:
+            print(f'Invalid option "{opt}" ignored')
+
+
+def add_dt(tstamp, *dstamps):
+    return ','.join(map(lambda dstamp: f'{dstamp}T{tstamp:0<6}', dstamps))
+
+
+def rm_delims(string, delims='-:'):
+    return ''.join(filter(lambda c: c not in delims, string))
+
+
+today                = rm_delims(dt.today().isoformat(timespec='seconds'))
+opt_regex            = re.compile(r'^--(\w+)=(.*)$')
+opt_regex_date_range = re.compile(r'^(\d{4}-\d{2}-\d{2}):(\d{4}-\d{2}-\d{2})$')
+opt_regex_makeup     = re.compile(r'^(\d{4}-\d{2}-\d{2}):(\w{2})$')
+opts = {}
+
+main()

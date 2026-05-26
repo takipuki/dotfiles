@@ -1,6 +1,12 @@
 
-rxp () {
-	rnote-cli export doc --on-conflict overwrite -p -f pdf "$@"
+clipstart () {
+	f=/dev/shm/clip
+	cat > $f
+	htl keyword bindn "CTRL, V, execr, (head -n 1 $f | wl-copy) && sed -i 1d $f"
+}
+
+clipend() {
+	htl keyword unbind 'CTRL, V'
 }
 
 e () {
@@ -23,6 +29,10 @@ tmcp () {
 	[ -z $TMUX ] && tmux a
 	tmux splitw -d -v -l 35% 'zsh -c "make watch_deb; $SHELL"'
 	sorc
+}
+
+rxp () {
+	rnote-cli export doc --on-conflict overwrite -p -f pdf "$@"
 }
 
 chalice () {

@@ -29,7 +29,7 @@
      (-> @p :out str/trim))))
 
 (defn prep-for-fzf [entries]
-  (map #(format "%s\t%-50s\t%5s"
+  (map #(format "%s\t%-50s\t%8s"
                 (% 0)
                 (subs (% 1) 0 (min 50 (count (% 1))))
                 (% 2))

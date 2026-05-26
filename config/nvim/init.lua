@@ -149,7 +149,7 @@ vmap('<leader>f', [[<cmd>'<,'>s/\<\([ij]\)\>/\=nr2char(char2nr(submatch(1)[0])+1
 nmap('<leader>ff', '<cmd>Telescope file_browser<cr>')
 nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
 nmap('<leader>fr', '<cmd>Telescope recent_files<cr>')
-nmap('<leader>nt', '<cmd>NvimTreeOpen %:h<cr>')
+nmap('<leader>nt', '<cmd>NvimTreeOpen .<cr>')
 nmap('<leader>mr', '<cmd>MRU<cr>')
 
 nmap('<C-s>', '<cmd>w<cr>')
@@ -169,9 +169,7 @@ nvmap('<leader>P', '"+P')
 imap('<C-c>', '<esc>')
 vim.cmd('tnoremap <esc> <C-\\><C-n>')
 
-nmap('gy', function()
-	vim.fn.setreg('+', vim.api.nvim_buf_get_lines(0, 0, -1, false))
-end)
+nmap('gy', '<cmd>%y+<cr>')
 
 nmap('<leader>cc', function()
 	local current_line = vim.fn.getline('.')
@@ -208,17 +206,19 @@ vim.cmd('cabbrev sorc source $MYVIMRC')
 
 autocmd({ 'c', 'cpp', }, 'setlocal cindent')
 
-autocmd({ 'typst', 'tex', 'lua', 'php', 'html', 'css', 'json', 'svelte',  'javascript', 'lisp', 'scheme', 'clojure', 'djot', },
+autocmd({ 'markdown', 'typst', 'tex', 'lua', 'php', 'html', 'css', 'json', 'svelte',  'javascript', 'typescript', 'lisp', 'scheme', 'clojure', 'djot', },
 	'setlocal sw=2 ts=2'
 )
 
-autocmd({ 'fsharp', 'svelte', 'js', 'text', 'tex', 'html', 'css', 'lisp', 'scheme', 'clojure', 'haskell', 'djot', },
+autocmd({ 'fsharp', 'svelte', 'javascript', 'json', 'text', 'tex', 'html', 'css', 'lisp', 'scheme', 'clojure', 'haskell', 'djot', },
 	'setlocal expandtab'
 )
 
 autocmd({ 'tex', },
 	'setlocal spell colorcolumn=80 indentexpr&'
 )
+
+autocmd({ 'sh', }, 'setl ft=bash')
 
 
 -- neovide -------------------------------------------------------------------
@@ -282,22 +282,23 @@ vim.cmd.colorscheme('everforest')
 
 
 -- treesitter setup ----------------------------------------------------------
-local filetypes = {
+local TS_filetypes = {
 	'c', 'cpp', 'rust', 'odin',
-	'html', 'css', 'javascript', 'php', 'svelte',
-	'zsh', 'bash',
-	'python', 'clojure', 'fsharp',
+	'html', 'css', 'javascript', 'json', 'typescript', 'php', 'svelte',
+	'zsh', 'bash', 'awk', 'perl',
+	'python', 'clojure', 'fsharp', 'lua',
 	'latex', 'markdown',
 	'make',
 	'vim', 'hyprlang',
+	'csv',
 }
-require('nvim-treesitter').install(filetypes)
-autofn(merge(filetypes, { 'sh', }),
+require('nvim-treesitter').install(TS_filetypes)
+autofn(TS_filetypes,
 	function()
 		vim.treesitter.start()
 	end
 )
-autofn(except(filetypes, { 'c', 'cpp', 'clojure', 'fsharp', }),
+autofn(except(TS_filetypes, { 'c', 'cpp', 'clojure', 'fsharp', }),
 	function()
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end
@@ -467,7 +468,7 @@ vim.g['conjure#client_on_load'] = false
 
 -- luasnip -------------------------------------------------------------------
 require('luasnip.loaders.from_vscode').lazy_load({
-	include = { 'tex', 'latex', 'html', 'php' }
+	include = { 'tex', 'latex', 'html' }
 })
 
 
