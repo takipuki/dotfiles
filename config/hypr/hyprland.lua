@@ -318,7 +318,7 @@ function window_minimize_toggle()
 		}))
 	else
 		hl.dispatch(hl.dsp.window.move({
-			workspace = 'special:special',
+			workspace = 'special',
 			follow = false
 		}))
 	end
